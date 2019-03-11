@@ -97,9 +97,7 @@ src
  │
  ├── types // TypeScript type definitions
  │
- ├── utils // Common utils used across the app
- │
- └── types.js // Flowtype type definitions
+ └── utils // Common utils used across the 
 ```
 
 A few interesting notes:
