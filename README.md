@@ -260,7 +260,7 @@ Most of the stuff you see in the app is just a derivation of other people's work
 I tried to keep track of them during the development process.
 
 - The "play" button animation is based on a Switft custom modal transition called [BubbleTransition](https://github.com/andreamazz/BubbleTransition)
-- For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logs and I used [this one](./.github/breathly-hatchful-logo.png) as the building ground for the current one (build with PhotoShop)
+- For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logos and I used [this one](./.github/breathly-hatchful-logo.png) as the building ground for the current one (build with PhotoShop)
 - The technique picker View Pager animations are inspired by the InVision Android app onboarding screen
 - I used [this mockup](https://gumroad.com/l/edFPQ) from [Lstore design goodies](https://gumroad.com/lstore) to create the iPhone X image that you can see at the top of the README.
 - The breathing techniques are the same ones used in a bunch of other iOS apps adn their description were obtained with a Google search. A few of the apps used as inspirations are:
