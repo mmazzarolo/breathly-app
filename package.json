@@ -13,8 +13,9 @@
     "studio": "open -a /Applications/Android\\ Studio.app ./android/"
   },
   "dependencies": {
-    "react": "16.8.2",
-    "react-native": "^0.59.0-rc.2",
+    "@react-native-community/async-storage": "^1.2.0",
+    "react": "16.8.4",
+    "react-native": "^0.59.0",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
     "react-native-splash-screen": "^3.2.0"
   },
