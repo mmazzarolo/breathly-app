@@ -193,7 +193,7 @@ In Breathly all the images (logo, icons, background) are bundled as native resou
 
 There's not much to say about the app state management.  
 I'm using `Context` + `useContext` + `useReducer` to keep track of the global state (see [`context/AppContext`](./src/context/AppContext.tsx)). Since I wanted to add side effects (storing to `AsyncStorage`) when dispatching some actions I ended up creating my own "action creators" as well.  
-Am I happy to have built my own state management inestad of going with Redux/MobX? Yes.  
+Am I happy to have built my own state management instead of going with Redux/MobX? Yes.  
 Was it worth it? Honestly, I don't think so.  
 I basically created a bunch of boilerplate code when I could have "just" used Redux (notice the irony) and its middlewares or MobX.
 
