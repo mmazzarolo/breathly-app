@@ -97,7 +97,7 @@ src
  │
  ├── types // TypeScript type definitions
  │
- └── utils // Common utils used across the 
+ └── utils // Common utils used across the app
 ```
 
 A few interesting notes:
