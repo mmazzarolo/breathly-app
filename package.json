@@ -9,7 +9,7 @@
     "android": "react-native run-android",
     "build:android": "cd android && ./gradlew assembleRelease",
     "tsc": "tsc -b",
-    "xcode": "open ios/breathly.xcodeproj",
+    "xcode": "open ios/breathly.xcworkspace",
     "studio": "open -a /Applications/Android\\ Studio.app ./android/"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
+    "react-native-keep-awake": "corbt/react-native-keep-awake#146c2db",
     "react-native-splash-screen": "^3.2.0"
   },
   "devDependencies": {
