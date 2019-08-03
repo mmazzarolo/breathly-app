@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
+import KeepAwake from "react-native-keep-awake";
 import { useAppContext } from "../../context/AppContext";
 import { animate } from "../../utils/animate";
 import { buildExerciseSteps } from "../../utils/buildExerciseSteps";
@@ -57,6 +58,7 @@ export const Exercise: FC<Props> = () => {
         </Animated.View>
       )}
       {status === "completed" && <ExerciseComplete />}
+      <KeepAwake />
     </View>
   );
 };

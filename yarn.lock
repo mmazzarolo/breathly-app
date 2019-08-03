@@ -4719,6 +4719,10 @@ react-native-haptic@oblador/react-native-haptic#package-cleanup:
   version "1.0.1"
   resolved "https://codeload.github.com/oblador/react-native-haptic/tar.gz/fd55fab79a2a63c4ec6c3c99848c43b372612d30"
 
+react-native-keep-awake@corbt/react-native-keep-awake#146c2db:
+  version "4.0.0"
+  resolved "https://codeload.github.com/corbt/react-native-keep-awake/tar.gz/146c2dbcbe78a4b29650a135988bf29fd8ac00e6"
+
 react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
