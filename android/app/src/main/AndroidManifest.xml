@@ -2,7 +2,6 @@
   package="com.mmazzarolo.breathly">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
       android:name=".MainApplication"
@@ -12,23 +11,22 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme">
 
-    <activity
-        android:name=".SplashActivity"
-        android:theme="@style/SplashTheme"
-        android:label="@string/app_name"
-        android:screenOrientation="portrait">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+      <activity
+          android:name=".SplashActivity"
+          android:theme="@style/SplashTheme"
+          android:label="@string/app_name"
+          android:screenOrientation="portrait">
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+      </activity>
 
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize"
-        android:exported="true"
         android:screenOrientation="portrait">
       </activity>
 

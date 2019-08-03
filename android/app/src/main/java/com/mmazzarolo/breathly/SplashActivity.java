@@ -2,7 +2,7 @@ package com.mmazzarolo.breathly;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by matteomazzarolo on 01/03/2019.
