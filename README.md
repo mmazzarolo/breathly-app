@@ -38,9 +38,11 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 In this repository you'll be able to find the source code of the Breathly mobile app.
 
 Breathly is a small React-Native app that I developed on my free time in 2018 for playing around with the React-Native `Animated` API.  
-With the incoming React-Native's hook support (in `0.59`) I decided to get back on it, rewrite it with hooks, and also release it in the Play Store and in App Store.
+With the incoming React-Native's hooks support (in `0.59`) I decided to get back on it, rewrite it with hooks, and also release it in the Play Store and in App Store.
 
 I hope the source code will be useful to someone.
+
+_Edit 2019-08-04: Updated React-Native to `0.60.4` and the official hooks support._
 
 ### Features / Stack
 
@@ -167,6 +169,8 @@ In this way the bundle size on Android is way smaller than a standard React-Nati
 
 Protip: Enable ProGuard and the separate CPU architecture split build from the beginning of your development: they might be incompatible with some code/libraries so by enabling them from start you'll be able to catch these issues soon.
 
+_Edit 2019-08-04: Also added `react-native-keep-awake` to keep the screen on during the exercise._
+
 ### App performance
 
 Even if Breathly is quite small I took care of the performance from its inception in a few different ways.
@@ -263,7 +267,7 @@ I tried to keep track of them during the development process.
 - For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logos and I used [this one](./.github/breathly-hatchful-logo.png) as the building ground for the current one (build with PhotoShop)
 - The technique picker View Pager animations are inspired by the InVision Android app onboarding screen
 - I used [this mockup](https://gumroad.com/l/edFPQ) from [Lstore design goodies](https://gumroad.com/lstore) to create the iPhone X image that you can see at the top of the README.
-- The breathing techniques are the same ones used in a bunch of other iOS apps adn their description were obtained with a Google search. A few of the apps used as inspirations are:
+- The breathing techniques are the same ones used in a bunch of other iOS apps and their description were obtained with a Google search. A few of the apps used as inspirations are:
   - [Breathe+ Simple Breath Trainer](https://itunes.apple.com/us/app/breathe-simple-breath-trainer/id1106998959?mt=8)
   - [iBreathe – Relax and Breathe](https://itunes.apple.com/us/app/ibreathe-relax-and-breathe/id1296605806)
   - [Deep calm Daily breathing app](https://itunes.apple.com/us/app/daily-calm-deep-breathing-app/id1361009455?mt=8)
