@@ -252,7 +252,7 @@ The app is available on both Apple's [App Store](https://itunes.apple.com/app/br
 I also created a [simple landing page](https://breathly.app). You can find the landing page source code [here](https://github.com/mmazzarolo/breathly-website).
 
 The Breathly text font on iOS is San Francisco, while the text font on Android is Roboto.
-I prefer the San Francisco one but it cannot be used on app distributed on the Play Store.
+I prefer the San Francisco one but it cannot be used on apps distributed on the Play Store.
 
 To accomodate the release on the stores Breathly is license under the [Mozilla Public License](https://www.mozilla.org/en-US/MPL/).
 
