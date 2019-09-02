@@ -42,7 +42,7 @@ With the incoming React-Native's hooks support I decided to get back on it, rewr
 
 I hope the source code will be useful to someone.
 
-**Pleace check the [DEVLOG](.DEVLOG) for more informations and details about the app architecture and a few development highlights.**
+**Pleace check the [DEVLOG](.DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
 
 ### Features / Stack
 
