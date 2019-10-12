@@ -5,7 +5,7 @@
 - Updated React-Native to `0.60.4` and the official hooks support.
 - Added `react-native-keep-awake` to keep the screen on during the exercise.
 - Tried to enable Hermes but [I discovered that it is not compatible with `abb` packages yet](https://github.com/facebook/react-native/issues/25927) - enabling makes the app freeze on the splash screen
-- On iOS [there's an issue with the `0.60.4` RN default native tests that causes an error]((https://github.com/facebook/react-native/issues/25911#issuecomment-517941867) when building in release mode ). A PR to fix it has been merged into master but we don't know yet when it will be officially published. In the meanwhile you can manually patch the test file.
+- On iOS [there's an issue with the `0.60.4` RN default native tests that causes an error](https://github.com/facebook/react-native/issues/25911#issuecomment-517941867) when building in release mode. A PR to fix it has been merged into master but we don't know yet when it will be officially published. In the meanwhile you can manually patch the test file.
 
 ## 2019-03-11 First Release 🎉
 
