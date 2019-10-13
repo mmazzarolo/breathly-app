@@ -17,9 +17,11 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
   const {
     theme,
     darkModeFlag,
+    guidedBreathingFlag,
     timerDuration,
     setTimerDuration,
-    toggleDarkMode
+    toggleDarkMode,
+    toggleGuidedBreathing
   } = useAppContext();
 
   return (
@@ -36,6 +38,14 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
             color={theme.mainColor}
             value={darkModeFlag}
             onValueChange={toggleDarkMode}
+          />
+        </SettingsSection>
+        <SettingsSection label={"Audio"}>
+          <SettingsItemSwitch
+            label="Guided breathing"
+            color={theme.mainColor}
+            value={guidedBreathingFlag}
+            onValueChange={toggleGuidedBreathing}
           />
         </SettingsSection>
         <SettingsSection label={"Timer"}>

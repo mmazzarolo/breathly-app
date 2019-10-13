@@ -10,6 +10,7 @@ import {
 import { loopAnimations } from "../../utils/loopAnimations";
 import { ExerciseCircleDots } from "./ExerciseCircleDots";
 import { fontThin } from "../../config/fonts";
+import { playSound } from "../../services/sound";
 
 interface Step {
   id: string;
@@ -21,12 +22,13 @@ interface Step {
 
 type Props = {
   steps: Step[];
+  soundEnabled: boolean;
 };
 
 const circleSize = deviceWidth * 0.8;
 const fadeInAnimDuration = 400;
 
-export const ExerciseCircle: FC<Props> = ({ steps }) => {
+export const ExerciseCircle: FC<Props> = ({ steps, soundEnabled }) => {
   const [showUpAnimVal] = useState(new Animated.Value(0));
   const [scaleAnimVal] = useState(new Animated.Value(0));
   const [textAnimVal] = useState(new Animated.Value(1));
@@ -74,9 +76,16 @@ export const ExerciseCircle: FC<Props> = ({ steps }) => {
     setCurrentStepIndex(stepIndex);
     const step = activeSteps[stepIndex];
     if (step.id === "exhale") {
+      if (soundEnabled) playSound("breatheOut");
       showCirlceMinAnimation.start();
-    } else if (step.id === "afterExhale" || step.id === "inhale") {
+    } else if (step.id === "inhale") {
+      if (soundEnabled) playSound("breatheIn");
       hideCirlceMinAnimation.start();
+    } else if (step.id === "afterExhale") {
+      if (soundEnabled) playSound("hold");
+      hideCirlceMinAnimation.start();
+    } else if (step.id === "afterInhale") {
+      if (soundEnabled) playSound("hold");
     }
   };
 

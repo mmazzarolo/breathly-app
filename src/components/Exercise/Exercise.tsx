@@ -9,6 +9,8 @@ import { ExerciseCircle } from "./ExerciseCircle";
 import { ExerciseComplete } from "./ExerciseComplete";
 import { ExerciseInterlude } from "./ExerciseInterlude";
 import { ExerciseTimer } from "./ExerciseTimer";
+import { useOnMount } from "../../hooks/useOnMount";
+import { initializeAudio, releaseAudio, playSound } from "../../services/sound";
 
 type Status = "interlude" | "running" | "completed";
 
@@ -17,7 +19,7 @@ type Props = {};
 const unmountAnimDuration = 300;
 
 export const Exercise: FC<Props> = () => {
-  const { technique, timerDuration } = useAppContext();
+  const { technique, timerDuration, guidedBreathingFlag } = useAppContext();
   const [status, setStatus] = useState<Status>("interlude");
   const [unmountContentAnimVal] = useState(new Animated.Value(1));
   const steps = buildExerciseSteps(technique.durations);
@@ -27,6 +29,13 @@ export const Exercise: FC<Props> = () => {
     duration: unmountAnimDuration
   });
 
+  useOnMount(() => {
+    if (guidedBreathingFlag) initializeAudio();
+    return () => {
+      if (guidedBreathingFlag) releaseAudio();
+    };
+  });
+
   const handleInterludeComplete = () => {
     setStatus("running");
   };
@@ -34,6 +43,7 @@ export const Exercise: FC<Props> = () => {
   const handleTimeLimitReached = () => {
     unmountContentAnimation.start(({ finished }) => {
       if (finished) {
+        if (guidedBreathingFlag) playSound("bell");
         setStatus("completed");
       }
     });
@@ -54,7 +64,7 @@ export const Exercise: FC<Props> = () => {
             limit={timerDuration}
             onLimitReached={handleTimeLimitReached}
           />
-          <ExerciseCircle steps={steps} />
+          <ExerciseCircle steps={steps} soundEnabled={guidedBreathingFlag} />
         </Animated.View>
       )}
       {status === "completed" && <ExerciseComplete />}

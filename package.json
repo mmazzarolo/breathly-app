@@ -18,6 +18,7 @@
     "react-native": "0.61.2",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
     "react-native-keep-awake": "corbt/react-native-keep-awake#146c2db",
+    "react-native-sound": "^0.11.0",
     "react-native-splash-screen": "^3.2.0"
   },
   "devDependencies": {
