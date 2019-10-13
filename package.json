@@ -5,8 +5,8 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "ios": "react-native run-ios",
     "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "build:android": "cd android && ./gradlew assembleRelease",
     "tsc": "tsc -b",
     "xcode": "open ios/breathly.xcworkspace",
@@ -14,24 +14,25 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
-    "react": "16.8.6",
-    "react-native": "0.60.4",
+    "react": "16.9.0",
+    "react-native": "0.61.2",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
     "react-native-keep-awake": "corbt/react-native-keep-awake#146c2db",
     "react-native-splash-screen": "^3.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/runtime": "^7.5.0",
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
     "@types/jest": "^24.0.16",
     "@types/react": "^16.8.24",
     "@types/react-native": "^0.60.3",
     "@types/react-test-renderer": "^16.8.3",
-    "babel-jest": "^24.1.0",
-    "jest": "^24.1.0",
-    "metro-react-native-babel-preset": "^0.54.1",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
     "prettier": "^1.18.2",
-    "react-test-renderer": "16.8.6",
+    "react-test-renderer": "16.9.0",
     "typescript": "^3.5.3"
   },
   "jest": {
