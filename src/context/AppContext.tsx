@@ -5,97 +5,101 @@ import React, {
   useContext,
   useReducer
 } from "react";
-import { produce } from "immer";
-import { Appearance } from "react-native-appearance";
 import { darkThemeColors, lightThemeColors } from "../config/themes";
+import { getTechnique } from "../utils/getTechinque";
 import {
-  restoreString,
-  restoreNumber,
-  restoreBoolean,
-  persistString,
-  persistNumber,
-  persistBoolean
+  persistDarkModeFlag,
+  persistGuidedBreathingFlag,
+  persistTechniqueId,
+  persistTimerDuration,
+  restoreAll
 } from "../services/storage";
-import { techniques } from "../config/techniques";
-
-type SystemColorScheme = "no-preference" | "dark" | "light";
 
 type Action =
-  | { type: "INITIALIZE"; payload: State }
-  | { type: "SET_SYSTEM_COLOR_SCHEME"; payload: SystemColorScheme }
+  | {
+      type: "INITIALIZE";
+      payload: Pick<
+        State,
+        "techniqueId" | "timerDuration" | "darkModeFlag" | "guidedBreathingFlag"
+      >;
+    }
   | { type: "SET_TECHNIQUE_ID"; payload: string }
   | { type: "SET_TIMER_DURATION"; payload: number }
   | { type: "TOGGLE_GUIDED_BREATHING" }
-  | { type: "TOGGLE_FOLLOW_SYSTEM_DARK_MODE" }
-  | { type: "TOGGLE_CUSTOM_DARK_MODE" };
+  | { type: "TOGGLE_DARK_MODE" };
 
 interface State {
   ready: boolean;
-  systemColorScheme: SystemColorScheme;
   techniqueId: string;
   timerDuration: number;
-  customDarkModeFlag: boolean;
-  followSystemDarkModeFlag: boolean;
+  darkModeFlag: boolean;
   guidedBreathingFlag: boolean;
+  theme: {
+    mainColor: string;
+    textColor: string;
+    textColorLighter: string;
+    backgroundColor: string;
+  };
 }
 
 const initialState: State = {
   ready: false,
-  systemColorScheme: "no-preference",
   techniqueId: "square",
   timerDuration: 0,
-  followSystemDarkModeFlag: false,
-  customDarkModeFlag: false,
-  guidedBreathingFlag: false
+  darkModeFlag: false,
+  guidedBreathingFlag: false,
+  theme: { ...lightThemeColors, mainColor: getTechnique("square").color }
 };
 
-const reducer = produce((draft: State = initialState, action: Action) => {
+const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case "INITIALIZE": {
-      return { ...initialState, ...action.payload, ready: true };
-    }
-    case "SET_SYSTEM_COLOR_SCHEME": {
-      draft.systemColorScheme = action.payload;
-      return;
+      const {
+        techniqueId,
+        timerDuration,
+        darkModeFlag,
+        guidedBreathingFlag
+      } = action.payload;
+      return {
+        ...state,
+        techniqueId: techniqueId,
+        timerDuration: timerDuration,
+        darkModeFlag: darkModeFlag,
+        guidedBreathingFlag: guidedBreathingFlag,
+        theme: {
+          ...(darkModeFlag ? darkThemeColors : lightThemeColors),
+          mainColor: getTechnique(techniqueId).color
+        },
+        ready: true
+      };
     }
     case "SET_TECHNIQUE_ID": {
-      draft.techniqueId = action.payload;
-      return;
+      return {
+        ...state,
+        techniqueId: action.payload,
+        theme: { ...state.theme, mainColor: getTechnique(action.payload).color }
+      };
     }
     case "SET_TIMER_DURATION": {
-      draft.timerDuration = action.payload;
-      return;
+      return { ...state, timerDuration: action.payload };
     }
-    case "TOGGLE_CUSTOM_DARK_MODE":
-      draft.customDarkModeFlag = !draft.customDarkModeFlag;
-      return;
-    case "TOGGLE_FOLLOW_SYSTEM_DARK_MODE":
-      draft.followSystemDarkModeFlag = !draft.followSystemDarkModeFlag;
-      draft.customDarkModeFlag = false;
-      return;
+    case "TOGGLE_DARK_MODE":
+      return state.darkModeFlag
+        ? {
+            ...state,
+            theme: { ...state.theme, ...lightThemeColors },
+            darkModeFlag: false
+          }
+        : {
+            ...state,
+            theme: { ...state.theme, ...darkThemeColors },
+            darkModeFlag: true
+          };
     case "TOGGLE_GUIDED_BREATHING":
-      draft.guidedBreathingFlag = !draft.guidedBreathingFlag;
-      return;
+      return { ...state, guidedBreathingFlag: !state.guidedBreathingFlag };
+    default:
+      return state;
   }
-});
-
-const getTechnique = (state: State) => {
-  return techniques.find(x => x.id === state.techniqueId)!;
-};
-
-const getTheme = (state: State) => {
-  const technique = getTechnique(state);
-  let darkMode = false;
-  if (state.followSystemDarkModeFlag) {
-    darkMode = state.systemColorScheme === "dark";
-  } else {
-    darkMode = state.customDarkModeFlag;
-  }
-  return {
-    darkMode: darkMode,
-    ...(darkMode ? darkThemeColors : lightThemeColors),
-    mainColor: technique.color
-  };
 };
 
 interface AppContext {
@@ -121,63 +125,32 @@ export const AppContextProvider: FC = ({ children }) => {
 export const useAppContext = () => {
   const { state, dispatch } = useContext(AppContext);
   const initialize = async () => {
-    const [
-      techniqueId,
-      timerDuration,
-      customDarkModeFlag,
-      followSystemDarkModeFlag,
-      guidedBreathingFlag
-    ] = await Promise.all([
-      restoreString("techniqueId", "square"),
-      restoreNumber("timerDuration", 0),
-      restoreBoolean("customDarkModeFlag"),
-      restoreBoolean("followSystemDarkModeFlag"),
-      restoreBoolean("guidedBreathingFlag")
-    ]);
-    const payload = {
-      ...initialState,
-      systemColorScheme: Appearance.getColorScheme(),
-      techniqueId,
-      timerDuration,
-      customDarkModeFlag,
-      followSystemDarkModeFlag,
-      guidedBreathingFlag
-    };
+    const payload = await restoreAll();
     dispatch({ type: "INITIALIZE", payload: payload });
   };
-  const setSystemColorScheme = (systemColorScheme: SystemColorScheme) => {
-    dispatch({ type: "SET_SYSTEM_COLOR_SCHEME", payload: systemColorScheme });
-  };
   const setTechniqueId = (techniqueId: string) => {
-    persistString("techniqueId", techniqueId);
+    persistTechniqueId(techniqueId);
     dispatch({ type: "SET_TECHNIQUE_ID", payload: techniqueId });
   };
   const setTimerDuration = (timerDuration: number) => {
-    persistNumber("timerDuration", timerDuration);
+    persistTimerDuration(timerDuration);
     dispatch({ type: "SET_TIMER_DURATION", payload: timerDuration });
   };
-  const toggleCustomDarkMode = () => {
-    persistBoolean("customDarkModeFlag", !state.customDarkModeFlag);
-    dispatch({ type: "TOGGLE_CUSTOM_DARK_MODE" });
-  };
-  const toggleFollowSystemDarkMode = () => {
-    persistBoolean("followSystemDarkModeFlag", !state.followSystemDarkModeFlag);
-    dispatch({ type: "TOGGLE_FOLLOW_SYSTEM_DARK_MODE" });
+  const toggleDarkMode = () => {
+    persistDarkModeFlag(!state.darkModeFlag);
+    dispatch({ type: "TOGGLE_DARK_MODE" });
   };
   const toggleGuidedBreathing = () => {
-    persistBoolean("guidedBreathingFlag", !state.guidedBreathingFlag);
+    persistGuidedBreathingFlag(!state.guidedBreathingFlag);
     dispatch({ type: "TOGGLE_GUIDED_BREATHING" });
   };
   return {
     ...state,
-    theme: getTheme(state),
-    technique: getTechnique(state),
+    technique: getTechnique(state.techniqueId),
     initialize,
-    setSystemColorScheme,
     setTechniqueId,
     setTimerDuration,
-    toggleCustomDarkMode,
-    toggleFollowSystemDarkMode,
+    toggleDarkMode,
     toggleGuidedBreathing
   };
 };

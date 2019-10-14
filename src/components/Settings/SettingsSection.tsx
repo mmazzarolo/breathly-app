@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 13,
     fontWeight: "bold",
-    marginBottom: 12
+    fontStyle: "italic",
+    marginBottom: 4
   }
 });

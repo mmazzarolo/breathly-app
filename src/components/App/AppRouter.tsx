@@ -42,7 +42,7 @@ type MainScreen = "menu" | "exercise";
 //   (ButtonAnimator) and mount the "settings" screen, that animates its own
 //   entrance automatically.
 export const AppRouter: FC = () => {
-  const { theme } = useAppContext();
+  const { theme, darkModeFlag } = useAppContext();
   const [currentScreen, setCurrentScreen] = useState<Screen>("main");
   const [currentMenuPage, setCurrentMenuPage] = useState<MenuPage>(null);
   const [currentMainScreen, setCurrentMainScreen] = useState<MainScreen>(
@@ -52,11 +52,11 @@ export const AppRouter: FC = () => {
   useEffect(() => {
     if (currentMainScreen === "menu") {
       if (Platform.OS === "android") {
-        changeNavigationBarColor(theme.backgroundColor, !theme.darkMode);
+        changeNavigationBarColor(theme.backgroundColor, !darkModeFlag);
         StatusBar.setBackgroundColor(theme.backgroundColor);
       }
       StatusBar.setBarStyle(
-        theme.darkMode ? "light-content" : "dark-content",
+        darkModeFlag ? "light-content" : "dark-content",
         true
       );
     } else if (currentMainScreen === "exercise") {
@@ -66,7 +66,7 @@ export const AppRouter: FC = () => {
       }
       StatusBar.setBarStyle("light-content", true);
     }
-  }, [theme.backgroundColor, theme.darkMode, currentMainScreen]);
+  }, [theme.backgroundColor, darkModeFlag, currentMainScreen]);
 
   const handleButtonAnimatorExpand = () => {
     setCurrentMainScreen("exercise");
