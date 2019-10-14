@@ -34,8 +34,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 6
   },
   title: {
-    fontSize: 24,
-    fontStyle: "italic",
-    marginRight: 36
+    fontSize: 22,
+    marginRight: 32,
+    marginTop: -4,
+    textAlign: "right",
+    fontWeight: "500"
   }
 });

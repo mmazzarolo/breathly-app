@@ -47,7 +47,7 @@ export const ButtonAnimator: FC<Props> = ({
   front,
   back
 }) => {
-  const { theme, darkModeFlag } = useAppContext();
+  const { theme } = useAppContext();
   const [visibilityAnimVal] = useState(new Animated.Value(0));
   const [expandAnimVal] = useState(new Animated.Value(0));
   const [status, setStatus] = useState<Status>("showing");

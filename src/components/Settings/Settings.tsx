@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Animated, StyleSheet } from "react-native";
+import { Animated, StyleSheet, LayoutAnimation } from "react-native";
 import { timerLimits } from "../../config/timerLimits";
 import { useAppContext } from "../../context/AppContext";
 import { PageContainer } from "../PageContainer/PageContainer";
@@ -16,13 +16,19 @@ interface Props {
 export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
   const {
     theme,
-    darkModeFlag,
+    systemColorScheme,
+    customDarkModeFlag,
     guidedBreathingFlag,
     timerDuration,
     setTimerDuration,
-    toggleDarkMode,
+    followSystemDarkModeFlag,
+    toggleCustomDarkMode,
+    toggleFollowSystemDarkMode,
     toggleGuidedBreathing
   } = useAppContext();
+
+  console.log("systemColorScheme", systemColorScheme);
+  console.log("followSystemDarkModeFlag", followSystemDarkModeFlag);
 
   return (
     <PageContainer
@@ -32,13 +38,29 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
       onHide={onHide}
     >
       <Animated.View style={styles.content}>
-        <SettingsSection label={"Theme"}>
-          <SettingsItemSwitch
-            label="Dark mode"
-            color={theme.mainColor}
-            value={darkModeFlag}
-            onValueChange={toggleDarkMode}
-          />
+        <SettingsSection label={"Dark mode"}>
+          {systemColorScheme !== "no-preference" && (
+            <SettingsItemSwitch
+              label="Follow iOS settings"
+              color={theme.mainColor}
+              value={followSystemDarkModeFlag}
+              onValueChange={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut
+                );
+                toggleFollowSystemDarkMode();
+              }}
+            />
+          )}
+          {(systemColorScheme === "no-preference" ||
+            !followSystemDarkModeFlag) && (
+            <SettingsItemSwitch
+              label="Use dark mode"
+              color={theme.mainColor}
+              value={customDarkModeFlag}
+              onValueChange={toggleCustomDarkMode}
+            />
+          )}
         </SettingsSection>
         <SettingsSection label={"Audio"}>
           <SettingsItemSwitch
