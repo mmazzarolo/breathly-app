@@ -147,8 +147,8 @@ android {
         applicationId "com.mmazzarolo.breathly"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.3"
+        versionCode 5
+        versionName "1.4"
     }
     splits {
         abi {
