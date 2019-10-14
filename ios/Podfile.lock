@@ -182,6 +182,8 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
   - React-jsinspector (0.61.2)
+  - react-native-appearance (0.1.0):
+    - React
   - react-native-haptic (1.0.1):
     - React
   - react-native-keep-awake (4.0.0):
@@ -249,6 +251,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-appearance (from `../node_modules/react-native-appearance`)
   - react-native-haptic (from `../node_modules/react-native-haptic`)
   - react-native-keep-awake (from `../node_modules/react-native-keep-awake`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -300,6 +303,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-appearance:
+    :path: "../node_modules/react-native-appearance"
   react-native-haptic:
     :path: "../node_modules/react-native-haptic"
   react-native-keep-awake:
@@ -349,6 +354,7 @@ SPEC CHECKSUMS:
   React-jsi: 32285a21b1b24c36060493ed3057a34677d58d09
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
+  react-native-appearance: 309901290a0aab9ec4bc60ff2c3f94e6aae0267a
   react-native-haptic: d90a0a661333a22cb2b434c7094a65f27aed773d
   react-native-keep-awake: afad8a51dfef9fe9655a6344771be32c8596d774
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
@@ -366,6 +372,6 @@ SPEC CHECKSUMS:
   RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 77a5ca4c50200f6aa6ad1f17ac3066b32645da08
+PODFILE CHECKSUM: 3a3b703a7349eaec7b900e99a021d0bd91f35041
 
 COCOAPODS: 1.8.3

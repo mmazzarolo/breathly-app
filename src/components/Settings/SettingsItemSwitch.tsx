@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
   label: {
-    fontSize: 20,
+    fontSize: 18,
     ...fontLight
   }
 });

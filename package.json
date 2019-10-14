@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
+    "immer": "^4.0.1",
     "react": "16.9.0",
     "react-native": "0.61.2",
+    "react-native-appearance": "^0.1.0",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
     "react-native-keep-awake": "corbt/react-native-keep-awake#146c2db",
     "react-native-sound": "^0.11.0",
