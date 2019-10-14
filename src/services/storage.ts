@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const restoreTechniqueId = async () => {
   const storedTechniqueId = await AsyncStorage.getItem("techniqueId");
@@ -31,15 +31,42 @@ export const persistDarkModeFlag = async (darkModeFlag: boolean) => {
   return await AsyncStorage.setItem("darkModeFlag", darkModeFlag.toString());
 };
 
+export const restorGuidedBreathingFlag = async () => {
+  const storedGuidedBreathingFlag = await AsyncStorage.getItem(
+    "guidedBreathingFlag"
+  );
+  if (storedGuidedBreathingFlag === "true") {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const persistGuidedBreathingFlag = async (
+  guidedBreathingFlag: boolean
+) => {
+  return await AsyncStorage.setItem(
+    "guidedBreathingFlag",
+    guidedBreathingFlag.toString()
+  );
+};
+
 export const restoreAll = async () => {
-  const [techniqueId, timerDuration, darkModeFlag] = await Promise.all([
+  const [
+    techniqueId,
+    timerDuration,
+    darkModeFlag,
+    guidedBreathingFlag
+  ] = await Promise.all([
     restoreTechniqueId(),
     restoreTimerDuration(),
-    restoreDarkModeFlag()
+    restoreDarkModeFlag(),
+    restorGuidedBreathingFlag()
   ]);
   return {
     techniqueId,
     timerDuration,
-    darkModeFlag
+    darkModeFlag,
+    guidedBreathingFlag
   };
 };

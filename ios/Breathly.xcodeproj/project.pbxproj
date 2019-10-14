@@ -20,6 +20,10 @@
 		4F866C7CE7FF1B694332BF5B /* libPods-Breathly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */; };
 		51B126C922F5E056000AB3BE /* splash-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126C822F5E056000AB3BE /* splash-logo.png */; };
 		51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126CA22F5E05B000AB3BE /* splash-bg.png */; };
+		51ECA04323546D9C00E4EB90 /* breathein.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA03F23546D9C00E4EB90 /* breathein.mp3 */; };
+		51ECA04423546D9C00E4EB90 /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04023546D9C00E4EB90 /* bell.mp3 */; };
+		51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04123546D9C00E4EB90 /* hold.mp3 */; };
+		51ECA04623546D9C00E4EB90 /* breatheout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04223546D9C00E4EB90 /* breatheout.mp3 */; };
 		9890CA0AD4902A6B84B926A9 /* libPods-Breathly-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5A31E104F6EBD83D2BEA06 /* libPods-Breathly-tvOSTests.a */; };
 		E2EB64CAD158EA6326940DFE /* libPods-Breathly-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D79156E0EB2B91815EC42851 /* libPods-Breathly-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -59,6 +63,10 @@
 		2D02E4901E0B4A5D006451C7 /* Breathly-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Breathly-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace-personal/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
 		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace-personal/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
+		51ECA03F23546D9C00E4EB90 /* breathein.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breathein.mp3; path = Breathly/Audio/breathein.mp3; sourceTree = "<group>"; };
+		51ECA04023546D9C00E4EB90 /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bell.mp3; path = Breathly/Audio/bell.mp3; sourceTree = "<group>"; };
+		51ECA04123546D9C00E4EB90 /* hold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hold.mp3; path = Breathly/Audio/hold.mp3; sourceTree = "<group>"; };
+		51ECA04223546D9C00E4EB90 /* breatheout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breatheout.mp3; path = Breathly/Audio/breatheout.mp3; sourceTree = "<group>"; };
 		62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Breathly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		650C5BD2A235878242928217 /* Pods-Breathly-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOS/Pods-Breathly-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		8881C0958F3F0CDD6055A367 /* Pods-Breathly-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOSTests/Pods-Breathly-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +173,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				51ECA04023546D9C00E4EB90 /* bell.mp3 */,
+				51ECA03F23546D9C00E4EB90 /* breathein.mp3 */,
+				51ECA04223546D9C00E4EB90 /* breatheout.mp3 */,
+				51ECA04123546D9C00E4EB90 /* hold.mp3 */,
 				13B07FAE1A68108700A75B9A /* Breathly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BreathlyTests */,
@@ -347,8 +359,12 @@
 			files = (
 				51B126C922F5E056000AB3BE /* splash-logo.png in Resources */,
 				51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */,
+				51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */,
+				51ECA04323546D9C00E4EB90 /* breathein.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				51ECA04423546D9C00E4EB90 /* bell.mp3 in Resources */,
+				51ECA04623546D9C00E4EB90 /* breatheout.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
