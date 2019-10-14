@@ -27,9 +27,6 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
     toggleGuidedBreathing
   } = useAppContext();
 
-  console.log("systemColorScheme", systemColorScheme);
-  console.log("followSystemDarkModeFlag", followSystemDarkModeFlag);
-
   return (
     <PageContainer
       title="Settings"
