@@ -6,7 +6,6 @@ Breathly app is an Open Source app provided by Mazzarolo Matteo at no cost and i
 
 Breathly app does not directly collect any information about its usage but some informations can be shared with the following third parties:
 
-- [Google Analytics](https://analytics.google.com/) to collect information about crashes and app usage.
 - [Google Play Console](https://play.google.com/apps/publish/) to handle the app distribution and the beta testing.
 
 No personal information is ever sent to third parties, only an anonymous id. Services may collect the user's IP. Some device information may be included for debugging purposes.
