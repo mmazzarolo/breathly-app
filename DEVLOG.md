@@ -1,5 +1,11 @@
 # DEVLOG
 
+## 2019-10-11
+
+- Updated React-Native to `0.61.2`: this has been a painless update 🙌
+- Added sound effects for guided audio exercises. I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv).  
+- Automatically switch to dark/light mode theme based on the iOS 13 theme settings
+
 ## 2019-08-04
 
 - Updated React-Native to `0.60.4` and the official hooks support.
