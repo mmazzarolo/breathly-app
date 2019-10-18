@@ -7,10 +7,17 @@
 
 &nbsp;
 
-Breathly is a React-Native mobile app that allows you to focus on your breathing.
+Breathly is an open-source React-Native mobile app that allows you to focus on your breathing.
 You can use Breathly for daily relaxation and breath training: just choose a breathing technique and focus on the guided exercise.
 
 &nbsp;
+
+
+<p align="center" margin-bottom="0">
+  <a href="https://breathly.app">
+    <img alt="Breathly" width="820" height="auto" src="https://github.com/mmazzarolo/breathly-website/raw/master/.github/screenshot.png">
+  </a>
+</p>
 
 <p align="center" margin-bottom="0">
   <a href="https://breathly.app">
@@ -35,14 +42,14 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 
 ## Overview
 
-In this repository you'll be able to find the source code of the Breathly mobile app.
+In this repository you'll find the source code of the Breathly mobile app.
 
 Breathly is a small React-Native app that I developed on my free time in 2018 for playing around with the React-Native `Animated` API.  
 With the incoming React-Native's hooks support I decided to get back on it, rewrite it with hooks, and also release it in the Play Store and in App Store.
 
 I hope the source code will be useful to someone.
 
-**Pleace check the [DEVLOG](./DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
+👉**Pleace check the [DEVLOG](./DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
 
 ### Features / Stack
 
@@ -65,6 +72,7 @@ I tried to keep track of them during the development process.
   - [iBreathe – Relax and Breathe](https://itunes.apple.com/us/app/ibreathe-relax-and-breathe/id1296605806)
   - [Deep calm Daily breathing app](https://itunes.apple.com/us/app/daily-calm-deep-breathing-app/id1361009455?mt=8)
   - [Oak - Meditation & Breathing](https://itunes.apple.com/us/app/oak-meditation-breathing/id1210209691?mt=8)
+- I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv). 
 
 ## Contributing
 
