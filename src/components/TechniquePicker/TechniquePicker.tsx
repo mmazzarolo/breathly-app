@@ -56,7 +56,7 @@ export const TechniquePicker: FC<Props> = ({
 
   return (
     <PageContainer
-      title="Pick a Technique"
+      title="Techniques"
       visible={visible}
       onBackButtonPress={onBackButtonPress}
       onHide={onHide}
