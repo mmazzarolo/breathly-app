@@ -19,6 +19,7 @@
 		4F866C7CE7FF1B694332BF5B /* libPods-Breathly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */; };
 		51B126C922F5E056000AB3BE /* splash-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126C822F5E056000AB3BE /* splash-logo.png */; };
 		51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126CA22F5E05B000AB3BE /* splash-bg.png */; };
+		51B844582468921000902B0A /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B844572468921000902B0A /* Dummy.swift */; };
 		51ECA04323546D9C00E4EB90 /* breathein.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA03F23546D9C00E4EB90 /* breathein.mp3 */; };
 		51ECA04423546D9C00E4EB90 /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04023546D9C00E4EB90 /* bell.mp3 */; };
 		51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04123546D9C00E4EB90 /* hold.mp3 */; };
@@ -65,6 +66,8 @@
 		49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-BreathlyTests.debug.xcconfig"; path = "Target Support Files/Pods-Breathly-BreathlyTests/Pods-Breathly-BreathlyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace-personal/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
 		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace-personal/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
+		51B8445424688F2D00902B0A /* Breathly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Breathly-Bridging-Header.h"; sourceTree = "<group>"; };
+		51B844572468921000902B0A /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		51ECA03F23546D9C00E4EB90 /* breathein.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breathein.mp3; path = Breathly/Audio/breathein.mp3; sourceTree = "<group>"; };
 		51ECA04023546D9C00E4EB90 /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bell.mp3; path = Breathly/Audio/bell.mp3; sourceTree = "<group>"; };
 		51ECA04123546D9C00E4EB90 /* hold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hold.mp3; path = Breathly/Audio/hold.mp3; sourceTree = "<group>"; };
@@ -142,12 +145,14 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				51B844572468921000902B0A /* Dummy.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				51B126C822F5E056000AB3BE /* splash-logo.png */,
 				51B126CA22F5E05B000AB3BE /* splash-bg.png */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				51B8445424688F2D00902B0A /* Breathly-Bridging-Header.h */,
 			);
 			name = Breathly;
 			sourceTree = "<group>";
@@ -306,7 +311,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -315,6 +320,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = G65HTDBUSN;
+						LastSwiftMigration = 1140;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -560,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				51B844582468921000902B0A /* Dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +620,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -636,6 +644,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6634A2775A129C7DCB2CA49F /* Pods-Breathly-BreathlyTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = BreathlyTests/Info.plist;
@@ -656,9 +665,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEBC80926F7A99E757239865 /* Pods-Breathly.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEAD_CODE_STRIPPING = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = G65HTDBUSN;
 				INFOPLIST_FILE = Breathly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -670,6 +681,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mmazzarolo.breathly;
 				PRODUCT_NAME = Breathly;
+				SWIFT_OBJC_BRIDGING_HEADER = "Breathly-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -679,7 +693,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE6D887CA19877E313DEBBB7 /* Pods-Breathly.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G65HTDBUSN;
 				INFOPLIST_FILE = Breathly/Info.plist;
@@ -692,6 +708,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mmazzarolo.breathly;
 				PRODUCT_NAME = Breathly;
+				SWIFT_OBJC_BRIDGING_HEADER = "Breathly-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -810,7 +828,9 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -845,6 +865,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"FB_SONARKIT_ENABLED=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -854,6 +875,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /usr/lib/swift";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -863,7 +890,9 @@
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -900,6 +929,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /usr/lib/swift";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
