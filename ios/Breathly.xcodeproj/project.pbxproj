@@ -16,7 +16,6 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BreathlyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BreathlyTests.m */; };
-		45B5F340B0C5AFEC9B2CD2EC /* libPods-BreathlyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE23FD52323CA105E588E183 /* libPods-BreathlyTests.a */; };
 		4F866C7CE7FF1B694332BF5B /* libPods-Breathly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */; };
 		51B126C922F5E056000AB3BE /* splash-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126C822F5E056000AB3BE /* splash-logo.png */; };
 		51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126CA22F5E05B000AB3BE /* splash-bg.png */; };
@@ -25,6 +24,7 @@
 		51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04123546D9C00E4EB90 /* hold.mp3 */; };
 		51ECA04623546D9C00E4EB90 /* breatheout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04223546D9C00E4EB90 /* breatheout.mp3 */; };
 		9890CA0AD4902A6B84B926A9 /* libPods-Breathly-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5A31E104F6EBD83D2BEA06 /* libPods-Breathly-tvOSTests.a */; };
+		B6D6BC2ECA542411C8247F07 /* libPods-Breathly-BreathlyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E33E0CF4562261C285A4955 /* libPods-Breathly-BreathlyTests.a */; };
 		E2EB64CAD158EA6326940DFE /* libPods-Breathly-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D79156E0EB2B91815EC42851 /* libPods-Breathly-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +50,7 @@
 		00E356EE1AD99517003FC87E /* BreathlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreathlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BreathlyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreathlyTests.m; sourceTree = "<group>"; };
+		0E33E0CF4562261C285A4955 /* libPods-Breathly-BreathlyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Breathly-BreathlyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EBF6C433BC0AEEC7311E757 /* Pods-Breathly-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOS/Pods-Breathly-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		122B624D23BE4F553F16A9E4 /* Pods-BreathlyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreathlyTests.release.xcconfig"; path = "Target Support Files/Pods-BreathlyTests/Pods-BreathlyTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Breathly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathly.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +62,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Breathly/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Breathly-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Breathly-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Breathly-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Breathly-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-BreathlyTests.debug.xcconfig"; path = "Target Support Files/Pods-Breathly-BreathlyTests/Pods-Breathly-BreathlyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace-personal/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
 		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace-personal/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
 		51ECA03F23546D9C00E4EB90 /* breathein.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breathein.mp3; path = Breathly/Audio/breathein.mp3; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		51ECA04223546D9C00E4EB90 /* breatheout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breatheout.mp3; path = Breathly/Audio/breatheout.mp3; sourceTree = "<group>"; };
 		62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Breathly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		650C5BD2A235878242928217 /* Pods-Breathly-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOS/Pods-Breathly-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		6634A2775A129C7DCB2CA49F /* Pods-Breathly-BreathlyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-BreathlyTests.release.xcconfig"; path = "Target Support Files/Pods-Breathly-BreathlyTests/Pods-Breathly-BreathlyTests.release.xcconfig"; sourceTree = "<group>"; };
 		8881C0958F3F0CDD6055A367 /* Pods-Breathly-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOSTests/Pods-Breathly-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9E364F781C98D02765DC5A7B /* Pods-BreathlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreathlyTests.debug.xcconfig"; path = "Target Support Files/Pods-BreathlyTests/Pods-BreathlyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AE6D887CA19877E313DEBBB7 /* Pods-Breathly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly.release.xcconfig"; path = "Target Support Files/Pods-Breathly/Pods-Breathly.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,7 +80,6 @@
 		DD5A31E104F6EBD83D2BEA06 /* libPods-Breathly-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Breathly-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EE23FD52323CA105E588E183 /* libPods-BreathlyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BreathlyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEBC80926F7A99E757239865 /* Pods-Breathly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly.debug.xcconfig"; path = "Target Support Files/Pods-Breathly/Pods-Breathly.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B5F340B0C5AFEC9B2CD2EC /* libPods-BreathlyTests.a in Frameworks */,
+				B6D6BC2ECA542411C8247F07 /* libPods-Breathly-BreathlyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +160,7 @@
 				62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */,
 				D79156E0EB2B91815EC42851 /* libPods-Breathly-tvOS.a */,
 				DD5A31E104F6EBD83D2BEA06 /* libPods-Breathly-tvOSTests.a */,
-				EE23FD52323CA105E588E183 /* libPods-BreathlyTests.a */,
+				0E33E0CF4562261C285A4955 /* libPods-Breathly-BreathlyTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,6 +213,8 @@
 				8881C0958F3F0CDD6055A367 /* Pods-Breathly-tvOSTests.release.xcconfig */,
 				9E364F781C98D02765DC5A7B /* Pods-BreathlyTests.debug.xcconfig */,
 				122B624D23BE4F553F16A9E4 /* Pods-BreathlyTests.release.xcconfig */,
+				49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */,
+				6634A2775A129C7DCB2CA49F /* Pods-Breathly-BreathlyTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -451,7 +455,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BreathlyTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Breathly-BreathlyTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -607,7 +611,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E364F781C98D02765DC5A7B /* Pods-BreathlyTests.debug.xcconfig */;
+			baseConfigurationReference = 49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -630,7 +634,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 122B624D23BE4F553F16A9E4 /* Pods-BreathlyTests.release.xcconfig */;
+			baseConfigurationReference = 6634A2775A129C7DCB2CA49F /* Pods-Breathly-BreathlyTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
