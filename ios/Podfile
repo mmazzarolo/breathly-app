@@ -76,7 +76,6 @@ target 'Breathly' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
-  pod 'react-native-appearance', :path => '../node_modules/react-native-appearance'
 
   target 'BreathlyTests' do
     inherit! :complete

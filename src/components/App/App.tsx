@@ -15,10 +15,8 @@ if (Platform.OS === "android") {
 // App entry point used to wrap the core logic of the app with context providers
 export const App: FC = () => {
   return (
-    <AppearanceProvider>
-      <AppContextProvider>
-        <AppMain />
-      </AppContextProvider>
-    </AppearanceProvider>
+    <AppContextProvider>
+      <AppMain />
+    </AppContextProvider>
   );
 };
