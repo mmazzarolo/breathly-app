@@ -37,7 +37,7 @@ export const TechniquePickerViewPager: FC<Props> = ({
     Animated.timing(panX, {
       toValue: config.toValue,
       duration: config.duration,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start(() => {
       if (config.toValue < 0) {
         panX.setValue(0);
@@ -57,11 +57,17 @@ export const TechniquePickerViewPager: FC<Props> = ({
       if (gestureState.dx < 0 && !swipingRight.current) {
         swipingLeft.current = true;
         swipingRight.current = false;
-        Animated.event([null, { dx: panX }])(evt, gestureState);
+        Animated.event([null, { dx: panX }], { useNativeDriver: false })(
+          evt,
+          gestureState
+        );
       } else if (gestureState.dx > 0 && !swipingLeft.current) {
         swipingRight.current = true;
         swipingLeft.current = false;
-        Animated.event([null, { dx: panX }])(evt, gestureState);
+        Animated.event([null, { dx: panX }], { useNativeDriver: false })(
+          evt,
+          gestureState
+        );
       }
     },
     onPanResponderRelease: (e, { dx }) => {
@@ -71,7 +77,7 @@ export const TechniquePickerViewPager: FC<Props> = ({
           // Complete the animation and set the next item as the visible one
           animateTransition({
             toValue: -fullSwipeThreshold,
-            duration: fullAnimDuration - fullAnimDuration * progress
+            duration: fullAnimDuration - fullAnimDuration * progress,
           });
         } else {
           // Set the next item as the visible one
@@ -84,7 +90,7 @@ export const TechniquePickerViewPager: FC<Props> = ({
           // Complete the animation and set the next item as the visible one
           animateTransition({
             toValue: fullSwipeThreshold,
-            duration: fullAnimDuration - fullAnimDuration * progress
+            duration: fullAnimDuration - fullAnimDuration * progress,
           });
         } else {
           // Set the previous item as the visible one
@@ -95,12 +101,12 @@ export const TechniquePickerViewPager: FC<Props> = ({
         // Rewind to the previous item
         animateTransition({
           toValue: 0,
-          duration: 200
+          duration: 200,
         });
       }
       swipingRight.current = false;
       swipingLeft.current = false;
-    }
+    },
   });
 
   return (

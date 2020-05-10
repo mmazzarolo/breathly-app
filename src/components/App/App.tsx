@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { AppearanceProvider } from "react-native-appearance";
 import { AppContextProvider } from "../../context/AppContext";
 import { AppMain } from "./AppMain";
 import { Platform, UIManager } from "react-native";

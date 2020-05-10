@@ -13,7 +13,7 @@
     "studio": "open -a /Applications/Android\\ Studio.app ./android/"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.6.1",
+    "@react-native-community/async-storage": "^1.10.0",
     "immer": "^4.0.1",
     "react": "16.11.0",
     "react-native": "0.62.2",
@@ -35,7 +35,7 @@
     "metro-react-native-babel-preset": "^0.58.0",
     "prettier": "^1.18.2",
     "react-test-renderer": "16.11.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "preset": "react-native"
