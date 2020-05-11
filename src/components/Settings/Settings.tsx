@@ -24,7 +24,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
     followSystemDarkModeFlag,
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
-    toggleGuidedBreathing
+    toggleGuidedBreathing,
   } = useAppContext();
 
   return (
@@ -38,7 +38,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
         <SettingsSection label={"Dark mode"}>
           {systemColorScheme !== "no-preference" && (
             <SettingsItemSwitch
-              label="Follow iOS settings"
+              label="Follow system settings"
               color={theme.mainColor}
               value={followSystemDarkModeFlag}
               onValueChange={() => {
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     marginHorizontal: 36,
-    marginVertical: 12
-  }
+    marginVertical: 12,
+  },
 });
