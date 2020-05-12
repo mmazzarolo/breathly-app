@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef } from "react";
 import { Animated, StyleSheet } from "react-native";
 import { techniques } from "../../config/techniques";
 import { useAppContext } from "../../context/AppContext";
@@ -7,7 +7,11 @@ import { getPrevIndex } from "../../utils/getPrevIndex";
 import { PageContainer } from "../PageContainer/PageContainer";
 import { TechniquePickerDot } from "./TechniquePickerDot";
 import { TechniquePickerItem } from "./TechniquePickerItem";
-import { TechniquePickerViewPager } from "./TechniquePickerViewPager";
+import {
+  TechniquePickerViewPager,
+  RefObject as TechniquePickerViewPagerRef,
+} from "./TechniquePickerViewPager";
+import { TechniquePickerButton } from "./TechniquePickerButton";
 
 interface Props {
   visible: boolean;
@@ -18,11 +22,13 @@ interface Props {
 export const TechniquePicker: FC<Props> = ({
   visible,
   onHide,
-  onBackButtonPress
+  onBackButtonPress,
 }) => {
   const { technique, setTechniqueId } = useAppContext();
+  const [animatingManually, setAnimatingManually] = useState(false);
+  const viewPagerRef = useRef<TechniquePickerViewPagerRef>(null);
   const currentTechniqueIndex = techniques.findIndex(
-    x => x.id === technique.id
+    (x) => x.id === technique.id
   );
   const [panX] = useState(new Animated.Value(0));
 
@@ -36,7 +42,15 @@ export const TechniquePicker: FC<Props> = ({
     }
   };
 
+  const handleButtonPress = (direction: "prev" | "next") => {
+    setAnimatingManually(true);
+    if (viewPagerRef.current) {
+      viewPagerRef.current.animateTransition(direction);
+    }
+  };
+
   const setNewTechnique = (direction: "prev" | "next") => {
+    setAnimatingManually(false);
     const newTechniqueIndex =
       direction === "next"
         ? getNextIndex(techniques, currentTechniqueIndex)
@@ -51,7 +65,7 @@ export const TechniquePicker: FC<Props> = ({
   const visibleTechniques = [
     techniques[getPrevIndex(techniques, currentTechniqueIndex)],
     techniques[currentTechniqueIndex],
-    techniques[getNextIndex(techniques, currentTechniqueIndex)]
+    techniques[getNextIndex(techniques, currentTechniqueIndex)],
   ];
 
   return (
@@ -63,6 +77,7 @@ export const TechniquePicker: FC<Props> = ({
     >
       <Animated.View style={styles.content}>
         <TechniquePickerViewPager
+          ref={viewPagerRef}
           panX={panX}
           onNextReached={handleNextReached}
           onPrevReached={handlePrevReached}
@@ -70,7 +85,7 @@ export const TechniquePicker: FC<Props> = ({
         >
           {visibleTechniques.map((technique, index) => {
             const originalTechniqueIndex = techniques.findIndex(
-              x => x.id === technique.id
+              (x) => x.id === technique.id
             );
             const position = mapIndexToPosition(originalTechniqueIndex);
             return (
@@ -85,18 +100,30 @@ export const TechniquePicker: FC<Props> = ({
             );
           })}
         </TechniquePickerViewPager>
-        <Animated.View style={[styles.dots]}>
-          {techniques.map((technique, index) => {
-            const position = mapIndexToPosition(index);
-            return (
-              <TechniquePickerDot
-                key={technique.id}
-                position={position}
-                panX={panX}
-                color={technique.color}
-              />
-            );
-          })}
+        <Animated.View style={styles.footer}>
+          <TechniquePickerButton
+            disabled={animatingManually}
+            direction="prev"
+            onPress={() => handleButtonPress("prev")}
+          />
+          <Animated.View style={[styles.dots]}>
+            {techniques.map((technique, index) => {
+              const position = mapIndexToPosition(index);
+              return (
+                <TechniquePickerDot
+                  key={technique.id}
+                  position={position}
+                  panX={panX}
+                  color={technique.color}
+                />
+              );
+            })}
+          </Animated.View>
+          <TechniquePickerButton
+            disabled={animatingManually}
+            direction="next"
+            onPress={() => handleButtonPress("next")}
+          />
         </Animated.View>
       </Animated.View>
     </PageContainer>
@@ -106,16 +133,27 @@ export const TechniquePicker: FC<Props> = ({
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   viewPager: {
     flex: 1,
-    width: "100%"
+    width: "100%",
   },
   dots: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 32,
-    marginBottom: 26
-  }
+    marginBottom: 26,
+  },
+  arrow: {
+    width: 20,
+    height: 20,
+    backgroundColor: "red",
+  },
+  arrowLeft: {},
+  arrowRight: {},
 });
