@@ -7,6 +7,7 @@ import { Menu } from "../Menu/Menu";
 import { Settings } from "../Settings/Settings";
 import { TechniquePicker } from "../TechniquePicker/TechniquePicker";
 import { changeNavigationBarColor } from "../../utils/changeNavigationBarColor";
+import { useHardwareBackButton } from "../../hooks/useHardwareBackButton";
 
 // AppRouter handles the navigation in the app.
 // We have 4 main screens we want the user to navigate:
@@ -48,6 +49,18 @@ export const AppRouter: FC = () => {
   const [currentMainScreen, setCurrentMainScreen] = useState<MainScreen>(
     "menu"
   );
+
+  useHardwareBackButton(() => {
+    if (currentScreen === "main" && currentMainScreen === "menu") {
+      return false;
+    }
+    if (currentScreen === "settings") {
+      handleSettingsBackButtonPress();
+    } else if (currentScreen === "techniquepicker") {
+      handleTechniquePickerBackButtonPress();
+    }
+    return true;
+  });
 
   useEffect(() => {
     if (currentMainScreen === "menu") {
@@ -165,6 +178,6 @@ export const AppRouter: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
