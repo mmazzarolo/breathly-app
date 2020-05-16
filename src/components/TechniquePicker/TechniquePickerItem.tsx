@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { Animated, StyleSheet } from "react-native";
+import { Animated, StyleSheet, Platform } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import {
   fullSwipeThreshold,
-  itemAnimHideThreshold
+  itemAnimHideThreshold,
 } from "./TechniquePickerViewPager";
 import { fontMono, fontLight } from "../../config/fonts";
 
@@ -20,7 +20,7 @@ export const TechniquePickerItem: FC<Props> = ({
   position,
   name,
   durations,
-  description
+  description,
 }) => {
   const { theme } = useAppContext();
   let titleOpacity: Animated.AnimatedInterpolation | number = 1;
@@ -31,22 +31,22 @@ export const TechniquePickerItem: FC<Props> = ({
     titleOpacity = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [0, 1, 0],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     titleTranslateX = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [-10, 0, -10],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionOpacity = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [0, 1, 0],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionScale = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [1.1, 1, 1.1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
   } else if (position === "prev") {
     titleOpacity = panX.interpolate({
@@ -54,20 +54,20 @@ export const TechniquePickerItem: FC<Props> = ({
         -fullSwipeThreshold,
         -itemAnimHideThreshold,
         itemAnimHideThreshold,
-        fullSwipeThreshold
+        fullSwipeThreshold,
       ],
       outputRange: [0, 0, 0, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionOpacity = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [0, 0, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionScale = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [1, 1.1, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
   } else {
     titleOpacity = panX.interpolate({
@@ -75,29 +75,29 @@ export const TechniquePickerItem: FC<Props> = ({
         -fullSwipeThreshold,
         -itemAnimHideThreshold,
         itemAnimHideThreshold,
-        fullSwipeThreshold
+        fullSwipeThreshold,
       ],
       outputRange: [1, 0, 0, 0],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionOpacity = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [1, 0, 0],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
     descriptionScale = panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: [1, 1.1, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
   }
   const titleAnimatedStyle = {
     opacity: titleOpacity,
-    transform: [{ translateX: titleTranslateX }]
+    transform: [{ translateX: titleTranslateX }],
   };
   const descriptionAnimatedStyle = {
     opacity: descriptionOpacity,
-    transform: [{ scale: descriptionScale }]
+    transform: [{ scale: descriptionScale }],
   };
   return (
     <Animated.View style={styles.container}>
@@ -130,26 +130,34 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     height: "100%",
-    paddingHorizontal: 32
+    paddingHorizontal: 32,
   },
-  content: {
-    marginHorizontal: 4,
-    marginTop: 48
-  },
+  content: Platform.select({
+    default: {
+      marginHorizontal: 4,
+      marginTop: 48,
+    },
+    android: {
+      marginHorizontal: 4,
+      height: "100%",
+      zIndex: 2,
+      marginTop: 48,
+    },
+  }),
   title: {},
   description: {},
   titleText: {
     fontSize: 40,
-    ...fontLight
+    ...fontLight,
   },
   durationsText: {
     marginTop: 6,
     fontSize: 30,
-    ...fontMono
+    ...fontMono,
   },
   descriptionText: {
     marginTop: 16,
     fontSize: 24,
-    ...fontLight
-  }
+    ...fontLight,
+  },
 });
