@@ -17,7 +17,7 @@ export const PageContainerBackButton: FC<Props> = ({ onPress }) => {
         top: 4,
         bottom: 4,
         left: 4,
-        right: 4
+        right: 4,
       }}
     >
       <Image
@@ -32,16 +32,16 @@ export const PageContainerBackButton: FC<Props> = ({ onPress }) => {
 const styles = StyleSheet.create({
   touchable: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   label: {
     fontSize: 18,
     textAlign: "center",
-    marginHorizontal: 6
+    marginHorizontal: 6,
   },
   image: {
     width: 22,
     height: 22,
-    zIndex: 2
-  }
+    zIndex: 2,
+  },
 });

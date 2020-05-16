@@ -14,5 +14,5 @@ export const images = {
   iconPlay: buildImageSource("IconPlay", "icon_play"),
   iconSettings: buildImageSource("IconSettings", "icon_settings"),
   logo: buildImageSource("Logo", "logo"),
-  starsBackground: buildImageSource("StarsBackground", "background_stars")
+  starsBackground: buildImageSource("StarsBackground", "background_stars"),
 };

@@ -15,12 +15,12 @@ export const ExerciseComplete: FC<Props> = () => {
 
   const mountAnimation = animate(mountAnimVal, {
     toValue: 1,
-    duration: mountAnimDuration
+    duration: mountAnimDuration,
   });
 
   const unmountAnimation = animate(mountAnimVal, {
     toValue: 0,
-    duration: unmountAnimDuration
+    duration: unmountAnimDuration,
   });
 
   useOnMount(() => {
@@ -34,14 +34,14 @@ export const ExerciseComplete: FC<Props> = () => {
   const containerAnimatedStyle = {
     opacity: mountAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateTranslateY(mountAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, 8]
-      })
-    ]
+        outputRange: [0, 8],
+      }),
+    ],
   };
 
   return (
@@ -55,12 +55,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 50,
     textAlign: "center",
     color: "white",
-    ...fontThin
-  }
+    ...fontThin,
+  },
 });

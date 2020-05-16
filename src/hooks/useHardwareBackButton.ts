@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { NativeEventSubscription, BackHandler } from "react-native";
 
-export function useHardwareBackButton(onBackButtonPress: () => void) {
+export function useHardwareBackButton(onBackButtonPress: () => boolean) {
   const backHandlerRef = useRef<NativeEventSubscription>();
   useEffect(() => {
     backHandlerRef.current = BackHandler.addEventListener(

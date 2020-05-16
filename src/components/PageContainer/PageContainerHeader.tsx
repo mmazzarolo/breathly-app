@@ -12,7 +12,7 @@ interface Props {
 export const PageContainerHeader: FC<Props> = ({
   title,
   onBackButtonPress,
-  style
+  style,
 }) => {
   const { theme } = useAppContext();
   return (
@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 12,
-    marginHorizontal: 6
+    marginHorizontal: 6,
   },
   title: {
     fontSize: 22,
     marginRight: 32,
     marginTop: -4,
     textAlign: "right",
-    fontWeight: "500"
-  }
+    fontWeight: "500",
+  },
 });

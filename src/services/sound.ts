@@ -6,7 +6,7 @@ const soundEffects = {
   breatheIn: { path: "breathein.mp3", sound: null as any },
   breatheOut: { path: "breatheout.mp3", sound: null as any },
   hold: { path: "hold.mp3", sound: null as any },
-  bell: { path: "bell.mp3", sound: null as any }
+  bell: { path: "bell.mp3", sound: null as any },
 };
 
 const preloadSound = async (id: SoundEffectId) => {
@@ -15,7 +15,7 @@ const preloadSound = async (id: SoundEffectId) => {
     const sound: any = new ReactNativeSound(
       soundEffect.path,
       ReactNativeSound.MAIN_BUNDLE,
-      error => {
+      (error) => {
         if (error) {
           console.error("Failed to preload ", soundEffect.path);
           return reject(error);
@@ -45,7 +45,7 @@ export const initializeAudio = async () => {
   // Preload sound effects
   try {
     const soundEffectIds = Object.keys(soundEffects) as SoundEffectId[];
-    Promise.all(soundEffectIds.map(id => preloadSound(id)));
+    Promise.all(soundEffectIds.map((id) => preloadSound(id)));
   } catch (error) {
     console.error("Failed to preload sound", error);
   }
@@ -66,5 +66,5 @@ export const playSound = async (id: SoundEffectId) => {
 
 export const releaseAudio = () => {
   const soundEffectIds = Object.keys(soundEffects) as SoundEffectId[];
-  Promise.all(soundEffectIds.map(id => releaseSound(id)));
+  Promise.all(soundEffectIds.map((id) => releaseSound(id)));
 };

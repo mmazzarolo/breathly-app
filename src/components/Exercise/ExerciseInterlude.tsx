@@ -21,12 +21,12 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
 
   const showSubtitleAnimation = animate(subtitleAnimVal, {
     toValue: 1,
-    duration: interludeAnimDuration
+    duration: interludeAnimDuration,
   });
 
   const hideContainerAnimation = animate(containerAnimVal, {
     toValue: 0,
-    duration: interludeAnimDuration
+    duration: interludeAnimDuration,
   });
 
   const animateInterlude = async () => {
@@ -41,7 +41,7 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
       setStep(1);
       await delay(1000);
       if (!isMounted.current) return;
-      hideContainerAnimation.start(finished => finished && onComplete());
+      hideContainerAnimation.start((finished) => finished && onComplete());
     });
   };
 
@@ -57,26 +57,26 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
   const containerAnimatedStyle = {
     opacity: containerAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateTranslateY(containerAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, 8]
-      })
-    ]
+        outputRange: [0, 8],
+      }),
+    ],
   };
   const subtitleAnimatedStyle = {
     opacity: subtitleAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateTranslateY(subtitleAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, -8]
-      })
-    ]
+        outputRange: [0, -8],
+      }),
+    ],
   };
 
   return (
@@ -95,18 +95,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 50,
     textAlign: "center",
     color: "white",
-    ...fontThin
+    ...fontThin,
   },
   subtitleText: {
     fontSize: 20,
     textAlign: "center",
     color: "white",
-    ...fontThin
-  }
+    ...fontThin,
+  },
 });

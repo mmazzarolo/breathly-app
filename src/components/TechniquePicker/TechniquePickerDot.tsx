@@ -20,7 +20,7 @@ export const TechniquePickerDot: FC<Props> = ({ panX, position, color }) => {
     return panX.interpolate({
       inputRange: [-itemAnimHideThreshold, 0, itemAnimHideThreshold],
       outputRange: outputRange,
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
   };
   let scaleOutputRange = [];
@@ -41,17 +41,17 @@ export const TechniquePickerDot: FC<Props> = ({ panX, position, color }) => {
   const scale = createInterpolator(scaleOutputRange);
   const dotOpacity = createInterpolator(dotOpacityOutputRange);
   const containerAnimatedStyle = {
-    transform: [{ scale: scale }]
+    transform: [{ scale: scale }],
   };
   const dotAnimatedStyle = {
-    opacity: dotOpacity
+    opacity: dotOpacity,
   };
   return (
     <Animated.View
       style={[
         styles.container,
         containerAnimatedStyle,
-        { backgroundColor: theme.textColorLighter }
+        { backgroundColor: theme.textColorLighter },
       ]}
     >
       <Animated.View
@@ -66,12 +66,12 @@ const styles = StyleSheet.create({
     width: size,
     height: size,
     borderRadius: size / 2,
-    margin: margin
+    margin: margin,
   },
   dot: {
     position: "absolute",
     width: size,
     height: size,
-    borderRadius: size / 2
-  }
+    borderRadius: size / 2,
+  },
 });

@@ -79,7 +79,12 @@ export const AppRouter: FC = () => {
       }
       StatusBar.setBarStyle("light-content", true);
     }
-  }, [theme.backgroundColor, theme.darkMode, currentMainScreen]);
+  }, [
+    theme.backgroundColor,
+    theme.darkMode,
+    theme.mainColor,
+    currentMainScreen,
+  ]);
 
   const handleButtonAnimatorExpand = () => {
     setCurrentMainScreen("exercise");

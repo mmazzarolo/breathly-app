@@ -4,7 +4,7 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 
@@ -24,7 +24,7 @@ export const MenuButton: FC<Props> = ({ imageSource, onPress, label }) => {
         top: 4,
         bottom: 4,
         left: 4,
-        right: 4
+        right: 4,
       }}
     >
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
@@ -41,15 +41,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    zIndex: 2
+    zIndex: 2,
   },
   label: {
     fontSize: 13,
     textAlign: "center",
-    marginRight: 6
+    marginRight: 6,
   },
   image: {
     width: 26,
-    height: 26
-  }
+    height: 26,
+  },
 });

@@ -16,19 +16,19 @@ export const SettingsItemPickerIOS: FC<Props> = ({
   items,
   value,
   color,
-  onValueChange
+  onValueChange,
 }) => {
   const { theme } = useAppContext();
-  const valueIndex = items.findIndex(x => x.value === value);
+  const valueIndex = items.findIndex((x) => x.value === value);
   const handleValueChange = (selectedLabel: string) => {
-    const selectedItem = items.find(x => x.label === selectedLabel)!;
+    const selectedItem = items.find((x) => x.label === selectedLabel)!;
     onValueChange(selectedItem.value);
   };
   return (
     <Animated.View style={styles.container}>
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
       <SegmentedControlIOS
-        values={items.map(x => x.label)}
+        values={items.map((x) => x.label)}
         selectedIndex={valueIndex}
         tintColor={color}
         onValueChange={handleValueChange}
@@ -40,13 +40,13 @@ export const SettingsItemPickerIOS: FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   label: {
     fontSize: 18,
-    ...fontLight
+    ...fontLight,
   },
   picker: {
-    marginTop: 8
-  }
+    marginTop: 8,
+  },
 });
