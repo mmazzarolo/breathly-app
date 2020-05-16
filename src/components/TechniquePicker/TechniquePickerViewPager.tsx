@@ -74,11 +74,17 @@ export const TechniquePickerViewPager = forwardRef(
         if (gestureState.dx < 0 && !swipingRight.current) {
           swipingLeft.current = true;
           swipingRight.current = false;
-          Animated.event([null, { dx: panX }])(evt, gestureState);
+          Animated.event([null, { dx: panX }], { useNativeDriver: false })(
+            evt,
+            gestureState
+          );
         } else if (gestureState.dx > 0 && !swipingLeft.current) {
           swipingRight.current = true;
           swipingLeft.current = false;
-          Animated.event([null, { dx: panX }])(evt, gestureState);
+          Animated.event([null, { dx: panX }], { useNativeDriver: false })(
+            evt,
+            gestureState
+          );
         }
       },
       onPanResponderRelease: (e, { dx }) => {

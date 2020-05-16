@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import { View } from "react-native";
+import { Appearance, View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
-import { useColorScheme, Appearance } from "react-native-appearance";
 import { useAppContext } from "../../context/AppContext";
 import { useOnMount } from "../../hooks/useOnMount";
 import { useOnUpdate } from "../../hooks/useOnUpdate";
@@ -14,23 +13,16 @@ export const AppMain: FC = () => {
 
   useOnMount(() => {
     initialize();
-    Appearance.addChangeListener((data: any) => {
-      setSystemColorScheme(data.colorScheme);
+    Appearance.addChangeListener((data) => {
+      setSystemColorScheme(data.colorScheme || "no-preference");
     });
   });
 
-  useOnUpdate(prevReady => {
+  useOnUpdate((prevReady) => {
     if (!prevReady && ready) {
       SplashScreen.hide();
     }
   }, ready);
-
-  let colorScheme = useColorScheme();
-  if (colorScheme === "dark") {
-    // render some dark thing
-  } else {
-    // render some light thing
-  }
 
   if (!ready) {
     return <View />;

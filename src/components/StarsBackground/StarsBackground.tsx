@@ -19,11 +19,11 @@ export const StarsBackground: FC<Props> = ({ expanded, animationDuration }) => {
 
   const translateUpAnimation = animate(translateAnimVal, {
     toValue: 1,
-    duration: animationDuration
+    duration: animationDuration,
   });
   const translateDownAnimation = animate(translateAnimVal, {
     toValue: 0,
-    duration: animationDuration
+    duration: animationDuration,
   });
 
   useOnMount(() => {
@@ -33,7 +33,7 @@ export const StarsBackground: FC<Props> = ({ expanded, animationDuration }) => {
     };
   });
 
-  useOnUpdate(prevExpanded => {
+  useOnUpdate((prevExpanded) => {
     if (!prevExpanded && expanded) {
       translateUpAnimation.start();
     } else if (prevExpanded && !expanded) {
@@ -45,16 +45,15 @@ export const StarsBackground: FC<Props> = ({ expanded, animationDuration }) => {
     transform: [
       interpolateTranslateY(translateAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, -translateY]
-      })
-    ]
+        outputRange: [0, -translateY],
+      }),
+    ],
   };
 
   return (
     <View pointerEvents="none" style={styles.container}>
       <Animated.Image
         source={images.starsBackground}
-        pointerEvents="none"
         resizeMode="cover"
         style={[styles.backgroundImage, backgroundImageAnimatedStyle]}
       />
@@ -66,10 +65,10 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     width: deviceWidth,
-    height: deviceHeight + 60
+    height: deviceHeight + 60,
   },
   backgroundImage: {
     height: "100%",
-    width: "100%"
-  }
+    width: "100%",
+  },
 });

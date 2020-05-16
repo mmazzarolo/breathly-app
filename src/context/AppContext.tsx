@@ -3,10 +3,10 @@ import React, {
   Dispatch,
   FC,
   useContext,
-  useReducer
+  useReducer,
 } from "react";
+import { Appearance } from "react-native";
 import { produce } from "immer";
-import { Appearance } from "react-native-appearance";
 import { darkThemeColors, lightThemeColors } from "../config/themes";
 import {
   restoreString,
@@ -14,7 +14,7 @@ import {
   restoreBoolean,
   persistString,
   persistNumber,
-  persistBoolean
+  persistBoolean,
 } from "../services/storage";
 import { techniques } from "../config/techniques";
 
@@ -46,7 +46,7 @@ const initialState: State = {
   timerDuration: 0,
   followSystemDarkModeFlag: false,
   customDarkModeFlag: false,
-  guidedBreathingFlag: false
+  guidedBreathingFlag: false,
 };
 
 const reducer = produce((draft: State = initialState, action: Action) => {
@@ -80,7 +80,7 @@ const reducer = produce((draft: State = initialState, action: Action) => {
 });
 
 const getTechnique = (state: State) => {
-  return techniques.find(x => x.id === state.techniqueId)!;
+  return techniques.find((x) => x.id === state.techniqueId)!;
 };
 
 const getTheme = (state: State) => {
@@ -94,7 +94,7 @@ const getTheme = (state: State) => {
   return {
     darkMode: darkMode,
     ...(darkMode ? darkThemeColors : lightThemeColors),
-    mainColor: technique.color
+    mainColor: technique.color,
   };
 };
 
@@ -105,14 +105,14 @@ interface AppContext {
 
 const AppContext = createContext<AppContext>({
   state: initialState,
-  dispatch: () => null
+  dispatch: () => null,
 });
 
 export const AppContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{ state: state!, dispatch }}>
       {children}
     </AppContext.Provider>
   );
@@ -126,22 +126,24 @@ export const useAppContext = () => {
       timerDuration,
       customDarkModeFlag,
       followSystemDarkModeFlag,
-      guidedBreathingFlag
+      guidedBreathingFlag,
     ] = await Promise.all([
       restoreString("techniqueId", "square"),
       restoreNumber("timerDuration", 0),
       restoreBoolean("customDarkModeFlag"),
       restoreBoolean("followSystemDarkModeFlag"),
-      restoreBoolean("guidedBreathingFlag")
+      restoreBoolean("guidedBreathingFlag"),
     ]);
+    const colorScheme: SystemColorScheme =
+      Appearance.getColorScheme() || "no-preference";
     const payload = {
       ...initialState,
-      systemColorScheme: Appearance.getColorScheme(),
+      systemColorScheme: colorScheme,
       techniqueId,
       timerDuration,
       customDarkModeFlag,
       followSystemDarkModeFlag,
-      guidedBreathingFlag
+      guidedBreathingFlag,
     };
     dispatch({ type: "INITIALIZE", payload: payload });
   };
@@ -178,6 +180,6 @@ export const useAppContext = () => {
     setTimerDuration,
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
-    toggleGuidedBreathing
+    toggleGuidedBreathing,
   };
 };
