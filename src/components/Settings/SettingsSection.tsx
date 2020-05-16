@@ -20,11 +20,11 @@ export const SettingsSection: FC<Props> = ({ label, children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 26
+    marginBottom: 26,
   },
   label: {
     fontSize: 13,
     fontWeight: "bold",
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 });

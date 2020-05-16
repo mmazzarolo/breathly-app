@@ -16,7 +16,7 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
   items,
   value,
   color,
-  onValueChange
+  onValueChange,
 }) => {
   const { theme } = useAppContext();
   return (
@@ -28,10 +28,10 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
           const itemStyle = {
             borderLeftWidth: index === 0 ? 0 : 1,
             borderColor: color,
-            backgroundColor: selected ? color : "transparent"
+            backgroundColor: selected ? color : "transparent",
           };
           const labelStyle = {
-            color: selected ? "white" : color
+            color: selected ? "white" : color,
           };
           return (
             <TouchableOpacity
@@ -52,28 +52,28 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   label: {
     fontSize: 18,
-    ...fontLight
+    ...fontLight,
   },
   picker: {
     marginTop: 8,
     width: "100%",
     flexDirection: "row",
     borderRadius: 4,
-    borderWidth: 1
+    borderWidth: 1,
   },
   pickerItem: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   pickerItemLabel: {
     paddingVertical: 4,
     overflow: "hidden",
-    ...fontLight
-  }
+    ...fontLight,
+  },
 });

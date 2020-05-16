@@ -17,13 +17,13 @@ export const ExerciseTimer: FC<Props> = ({ limit, onLimitReached }) => {
   const [opacityAnimVal] = useState(new Animated.Value(0));
 
   const increaseElapsedTime = () => {
-    setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+    setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
   };
 
   useInterval(increaseElapsedTime, 1000);
 
   const showContainerAnimation = animate(opacityAnimVal, {
-    toValue: 1
+    toValue: 1,
   });
 
   useOnMount(() => {
@@ -37,13 +37,15 @@ export const ExerciseTimer: FC<Props> = ({ limit, onLimitReached }) => {
     if (limit && elapsedTime * 1000 >= limit) {
       onLimitReached();
     }
+    // TODO: Check this
+    // eslint-disable-next-line react-app/react-hooks/exhaustive-deps
   }, [limit, elapsedTime]);
 
   const containerAnimatedStyle = {
     opacity: opacityAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
-    })
+      outputRange: [0, 1],
+    }),
   };
 
   const timerText = limit
@@ -59,12 +61,12 @@ export const ExerciseTimer: FC<Props> = ({ limit, onLimitReached }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: buttonSize
+    marginTop: buttonSize,
   },
   text: {
     textAlign: "center",
     fontSize: 26,
     color: "white",
-    ...fontMono
-  }
+    ...fontMono,
+  },
 });

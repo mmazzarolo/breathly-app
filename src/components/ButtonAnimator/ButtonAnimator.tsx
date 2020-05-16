@@ -9,7 +9,7 @@ import { useOnUpdate } from "../../hooks/useOnUpdate";
 import { animate } from "../../utils/animate";
 import {
   interpolateScale,
-  interpolateTranslateY
+  interpolateTranslateY,
 } from "../../utils/interpolate";
 import { StarsBackground } from "../StarsBackground/StarsBackground";
 
@@ -45,7 +45,7 @@ export const ButtonAnimator: FC<Props> = ({
   onExpandPress,
   onClosePress,
   front,
-  back
+  back,
 }) => {
   const { theme } = useAppContext();
   const [visibilityAnimVal] = useState(new Animated.Value(0));
@@ -59,12 +59,12 @@ export const ButtonAnimator: FC<Props> = ({
 
   const showAnimation = animate(visibilityAnimVal, {
     toValue: 1,
-    duration: showAnimDuration
+    duration: showAnimDuration,
   });
 
   const hideAnimation = animate(visibilityAnimVal, {
     toValue: 0,
-    duration: hideAnimDuration
+    duration: hideAnimDuration,
   });
 
   useOnMount(() => {
@@ -73,7 +73,7 @@ export const ButtonAnimator: FC<Props> = ({
     });
   });
 
-  useOnUpdate(prevVisible => {
+  useOnUpdate((prevVisible) => {
     if (prevVisible && !visible) {
       hideAnimation.start(() => {
         setStatus("hidden");
@@ -91,79 +91,81 @@ export const ButtonAnimator: FC<Props> = ({
     } else {
       onClosePress();
     }
-    setStatus(prevStatus => (prevStatus === "front" ? "to-back" : "to-front"));
+    setStatus((prevStatus) =>
+      prevStatus === "front" ? "to-back" : "to-front"
+    );
     animate(expandAnimVal, {
       toValue: status === "front" || status === "to-back" ? 1 : 0,
-      duration: expandAnimValDuration
+      duration: expandAnimValDuration,
     }).start(() => {
-      setStatus(prevStatus => (prevStatus === "to-front" ? "front" : "back"));
+      setStatus((prevStatus) => (prevStatus === "to-front" ? "front" : "back"));
     });
   };
   const underlayAnimatedStyle = {
     opacity: visibilityAnimVal.interpolate({
       inputRange: [0.99, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateScale(expandAnimVal, {
         inputRange: [0, 1],
-        outputRange: [1, Math.ceil(maxExpansionScale)]
-      })
-    ]
+        outputRange: [1, Math.ceil(maxExpansionScale)],
+      }),
+    ],
   };
   const underlayChildrenAnimatedStyle = {
     opacity: expandAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateTranslateY(expandAnimVal, {
         inputRange: [0, 1],
-        outputRange: [expandAnimValFrontTranslateY, 0]
-      })
-    ]
+        outputRange: [expandAnimValFrontTranslateY, 0],
+      }),
+    ],
   };
   const inactiveIconAnimatedStyle = {
     opacity: expandAnimVal.interpolate({
       inputRange: [0, 0.2, 1],
-      outputRange: [1, 0, 0]
-    })
+      outputRange: [1, 0, 0],
+    }),
   };
   const activeButtonAnimatedStyle = {
     opacity: expandAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateScale(expandAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, 1]
-      })
-    ]
+        outputRange: [0, 1],
+      }),
+    ],
   };
   const inactiveButtonAnimatedStyle = {
     opacity: visibilityAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateScale(visibilityAnimVal, {
         inputRange: [0, 1],
-        outputRange: [0, 1]
-      })
-    ]
+        outputRange: [0, 1],
+      }),
+    ],
   };
   const animatedFrontStyle = {
     opacity: visibilityAnimVal.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, 1],
     }),
     transform: [
       interpolateTranslateY(visibilityAnimVal, {
         inputRange: [0, 1],
-        outputRange: [30, 0]
-      })
-    ]
+        outputRange: [30, 0],
+      }),
+    ],
   };
 
   return (
@@ -174,7 +176,7 @@ export const ButtonAnimator: FC<Props> = ({
           style={[
             styles.underlay,
             underlayAnimatedStyle,
-            { backgroundColor: theme.mainColor }
+            { backgroundColor: theme.mainColor },
           ]}
         />
         <TouchableOpacity
@@ -187,7 +189,7 @@ export const ButtonAnimator: FC<Props> = ({
               styles.button,
               styles.buttonInactive,
               inactiveButtonAnimatedStyle,
-              { backgroundColor: theme.mainColor }
+              { backgroundColor: theme.mainColor },
             ]}
           >
             <Animated.Image
@@ -195,7 +197,7 @@ export const ButtonAnimator: FC<Props> = ({
               style={[
                 styles.icon,
                 inactiveIconAnimatedStyle,
-                { tintColor: "white" }
+                { tintColor: "white" },
               ]}
             />
           </Animated.View>
@@ -210,7 +212,7 @@ export const ButtonAnimator: FC<Props> = ({
               styles.button,
               styles.buttonActive,
               activeButtonAnimatedStyle,
-              { backgroundColor: "white" } // TODO:
+              { backgroundColor: "white" }, // TODO:
             ]}
           >
             <Animated.Image
@@ -238,10 +240,10 @@ const shadowStyle = {
   shadowColor: "#000",
   shadowOffset: {
     width: 0,
-    height: 2
+    height: 2,
   },
   shadowOpacity: 0.25,
-  shadowRadius: 3.84
+  shadowRadius: 3.84,
 };
 
 const styles = StyleSheet.create({
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     bottom: 0,
-    marginBottom: buttonSize / 2
+    marginBottom: buttonSize / 2,
   },
   underlay: {
     position: "absolute",
@@ -261,12 +263,12 @@ const styles = StyleSheet.create({
     borderRadius: buttonSize / 2,
     justifyContent: "center",
     alignItems: "center",
-    ...shadowStyle
+    ...shadowStyle,
   },
   underlayChildren: {
     position: "absolute",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   backContainer: {},
   button: {
@@ -274,14 +276,14 @@ const styles = StyleSheet.create({
     height: buttonSize,
     borderRadius: buttonSize / 2,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   buttonActive: {
-    ...shadowStyle
+    ...shadowStyle,
   },
   buttonInactive: {},
   icon: {
     width: buttonSize / 3,
-    height: buttonSize / 3
-  }
+    height: buttonSize / 3,
+  },
 });

@@ -23,20 +23,20 @@ export const PageContainer: FC<Props> = ({
   visible,
   title,
   onHide,
-  onBackButtonPress
+  onBackButtonPress,
 }) => {
   const [mountAnimVal] = useState(new Animated.Value(0));
 
   const mountAnimation = animate(mountAnimVal, {
     toValue: 1,
     duration: mountAnimDuration,
-    easing: Easing.linear
+    easing: Easing.linear,
   });
 
   const unmountAnimation = animate(mountAnimVal, {
     toValue: 0,
     duration: unmountAnimDuration,
-    easing: Easing.linear
+    easing: Easing.linear,
   });
 
   useOnMount(() => {
@@ -47,7 +47,7 @@ export const PageContainer: FC<Props> = ({
     };
   });
 
-  useOnUpdate(prevVisible => {
+  useOnUpdate((prevVisible) => {
     if (prevVisible && !visible) {
       unmountAnimation.start(() => {
         onHide();
@@ -59,23 +59,23 @@ export const PageContainer: FC<Props> = ({
     opacity: mountAnimVal.interpolate({
       inputRange: [0, 0.4],
       outputRange: [0, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     }),
     transform: [
       interpolateTranslateY(mountAnimVal, {
         inputRange: [0, 0.4],
         outputRange: [mountAnimContentTranslateY, 0],
-        extrapolate: "clamp"
-      })
-    ]
+        extrapolate: "clamp",
+      }),
+    ],
   };
 
   const headerAnimatedStyle = {
     opacity: mountAnimVal.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
-      extrapolate: "clamp"
-    })
+      extrapolate: "clamp",
+    }),
   };
 
   return (
@@ -97,9 +97,9 @@ export const PageContainer: FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   content: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

@@ -14,7 +14,7 @@ export const SettingsItemSwitch: FC<Props> = ({
   label,
   color,
   value,
-  onValueChange
+  onValueChange,
 }) => {
   const { theme } = useAppContext();
   return (
@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12
+    marginBottom: 12,
   },
   label: {
     fontSize: 18,
-    ...fontLight
-  }
+    ...fontLight,
+  },
 });

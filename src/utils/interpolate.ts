@@ -7,9 +7,10 @@ export const interpolate = (
 ) => {
   return {
     [field]: value.interpolate({
+      // @ts-ignore
       inputRange: [0, 1],
-      ...config
-    })
+      ...config,
+    }),
   };
 };
 

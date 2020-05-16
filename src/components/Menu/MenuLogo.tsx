@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   logoImage: {
     width: deviceWidth,
     height: deviceWidth,
-    maxWidth: deviceHeight * 0.6
-  }
+    maxWidth: deviceHeight * 0.6,
+  },
 });

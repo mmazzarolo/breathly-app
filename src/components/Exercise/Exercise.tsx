@@ -26,7 +26,7 @@ export const Exercise: FC<Props> = () => {
 
   const unmountContentAnimation = animate(unmountContentAnimVal, {
     toValue: 0,
-    duration: unmountAnimDuration
+    duration: unmountAnimDuration,
   });
 
   useOnMount(() => {
@@ -50,7 +50,7 @@ export const Exercise: FC<Props> = () => {
   };
 
   const contentAnimatedStyle = {
-    opacity: unmountContentAnimVal
+    opacity: unmountContentAnimVal,
   };
 
   return (
@@ -75,9 +75,9 @@ export const Exercise: FC<Props> = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: buttonAnimatorContentHeight
+    height: buttonAnimatorContentHeight,
   },
   content: {
-    height: buttonAnimatorContentHeight
-  }
+    height: buttonAnimatorContentHeight,
+  },
 });

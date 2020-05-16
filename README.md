@@ -12,7 +12,6 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 
 &nbsp;
 
-
 <p align="center" margin-bottom="0">
   <a href="https://breathly.app">
     <img alt="Breathly" width="820" height="auto" src="https://github.com/mmazzarolo/breathly-website/raw/master/.github/screenshot.png">
@@ -72,7 +71,7 @@ I tried to keep track of them during the development process.
   - [iBreathe – Relax and Breathe](https://itunes.apple.com/us/app/ibreathe-relax-and-breathe/id1296605806)
   - [Deep calm Daily breathing app](https://itunes.apple.com/us/app/daily-calm-deep-breathing-app/id1361009455?mt=8)
   - [Oak - Meditation & Breathing](https://itunes.apple.com/us/app/oak-meditation-breathing/id1210209691?mt=8)
-- I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv). 
+- I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv).
 
 ## Contributing
 

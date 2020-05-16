@@ -1,4 +1,4 @@
-import React, { FC, useRef, useImperativeHandle, forwardRef, Ref } from "react";
+import React, { useRef, useImperativeHandle, forwardRef, Ref } from "react";
 import { Animated, PanResponder } from "react-native";
 import { deviceWidth } from "../../config/constants";
 

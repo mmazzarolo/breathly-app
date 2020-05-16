@@ -10,5 +10,5 @@ export const techniques: Technique[] = [
   deepCalmTechnique,
   pranayamaTechnique,
   squareTechnique,
-  ujjayiTechnique
+  ujjayiTechnique,
 ];

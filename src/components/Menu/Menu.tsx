@@ -13,7 +13,7 @@ interface Props {
 
 export const Menu: FC<Props> = ({
   onTechniquePickerPress,
-  onSettingsPress
+  onSettingsPress,
 }) => {
   const { technique, theme } = useAppContext();
   return (
@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
   container: {
     height: buttonAnimatorContentHeight,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   buttons: {
     position: "absolute",
     alignItems: "flex-end",
     right: 20,
     top: 26,
-    zIndex: 20
-  }
+    zIndex: 20,
+  },
 });

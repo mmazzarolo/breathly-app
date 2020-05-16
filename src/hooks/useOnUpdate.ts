@@ -17,5 +17,7 @@ export function useOnUpdate<T>(onUpdate: (prevValue: T) => void, value: T) {
     }
     // Update the ref object each time the value is updated
     valueRef.current = value;
+    // TODO: Check this
+    // eslint-disable-next-line react-app/react-hooks/exhaustive-deps
   }, [value]); // Run only when the value updates
 }
