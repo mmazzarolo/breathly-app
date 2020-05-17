@@ -298,7 +298,7 @@ PODS:
     - React-cxxreact (= 0.62.2)
     - React-jsi (= 0.62.2)
     - ReactCommon/callinvoker (= 0.62.2)
-  - RNCAsyncStorage (1.6.1):
+  - RNCAsyncStorage (1.10.1):
     - React
   - RNSound (0.11.0):
     - React
@@ -479,11 +479,11 @@ SPEC CHECKSUMS:
   React-RCTText: fae545b10cfdb3d247c36c56f61a94cfd6dba41d
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
-  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
+  RNCAsyncStorage: 39831e0dc5f547a1fb2669eb9e091d460a9be2be
   RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 2918d10573576b94074473c40beeaf3999a627f1
+PODFILE CHECKSUM: ed1cffcf4c06cfa14107624cfad2e44c6cbc368c
 
 COCOAPODS: 1.8.4
