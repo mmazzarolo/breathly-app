@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
   },
   left: {},
   title: {
-    fontSize: 24,
+    fontSize: 22,
     ...fontLight,
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 20,
     ...fontMono,
   },
 });
