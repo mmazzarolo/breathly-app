@@ -27,7 +27,8 @@ type Action =
   | { type: "SET_TIMER_DURATION"; payload: number }
   | { type: "TOGGLE_GUIDED_BREATHING" }
   | { type: "TOGGLE_FOLLOW_SYSTEM_DARK_MODE" }
-  | { type: "TOGGLE_CUSTOM_DARK_MODE" };
+  | { type: "TOGGLE_CUSTOM_DARK_MODE" }
+  | { type: "SET_CUSTOM_PATTERN_DURATIONS"; payload: number[] };
 
 interface State {
   ready: boolean;
@@ -37,7 +38,11 @@ interface State {
   customDarkModeFlag: boolean;
   followSystemDarkModeFlag: boolean;
   guidedBreathingFlag: boolean;
+  customPatternDurations: number[];
 }
+
+const initialCustomPatternDurations = techniques.find((x) => x.id === "custom")
+  ?.durations!;
 
 const initialState: State = {
   ready: false,
@@ -47,6 +52,7 @@ const initialState: State = {
   followSystemDarkModeFlag: false,
   customDarkModeFlag: false,
   guidedBreathingFlag: false,
+  customPatternDurations: initialCustomPatternDurations,
 };
 
 const reducer = produce((draft: State = initialState, action: Action) => {
@@ -76,6 +82,8 @@ const reducer = produce((draft: State = initialState, action: Action) => {
     case "TOGGLE_GUIDED_BREATHING":
       draft.guidedBreathingFlag = !draft.guidedBreathingFlag;
       return;
+    case "SET_CUSTOM_PATTERN_DURATIONS":
+      draft.customPatternDurations = action.payload;
   }
 });
 
@@ -112,6 +120,8 @@ export const AppContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
+    // TODO: Fix this readyonly Array error
+    // @ts-ignore
     <AppContext.Provider value={{ state: state!, dispatch }}>
       {children}
     </AppContext.Provider>
@@ -127,12 +137,17 @@ export const useAppContext = () => {
       customDarkModeFlag,
       followSystemDarkModeFlag,
       guidedBreathingFlag,
+      customPatternDurationsStr,
     ] = await Promise.all([
       restoreString("techniqueId", "square"),
       restoreNumber("timerDuration", 0),
       restoreBoolean("customDarkModeFlag"),
       restoreBoolean("followSystemDarkModeFlag"),
       restoreBoolean("guidedBreathingFlag"),
+      restoreString(
+        "customPatternDurations",
+        initialCustomPatternDurations.join(",")
+      ),
     ]);
     const colorScheme: SystemColorScheme =
       Appearance.getColorScheme() || "no-preference";
@@ -144,6 +159,7 @@ export const useAppContext = () => {
       customDarkModeFlag,
       followSystemDarkModeFlag,
       guidedBreathingFlag,
+      customPatternDurations: customPatternDurationsStr.split(",").map(Number),
     };
     dispatch({ type: "INITIALIZE", payload: payload });
   };
@@ -170,10 +186,33 @@ export const useAppContext = () => {
     persistBoolean("guidedBreathingFlag", !state.guidedBreathingFlag);
     dispatch({ type: "TOGGLE_GUIDED_BREATHING" });
   };
+  const updateCustomPatternDuration = (index: number, update: number) => {
+    const newCustomPatternDurations = produce(
+      state.customPatternDurations,
+      (draft) => {
+        draft[index] += update;
+      }
+    );
+    persistString(
+      "customPatternDurations",
+      newCustomPatternDurations.join(",")
+    );
+    dispatch({
+      type: "SET_CUSTOM_PATTERN_DURATIONS",
+      payload: newCustomPatternDurations,
+    });
+  };
+  const technique = getTechnique(state);
   return {
     ...state,
     theme: getTheme(state),
-    technique: getTechnique(state),
+    technique: {
+      ...technique,
+      durations:
+        technique.id === "custom"
+          ? state.customPatternDurations
+          : technique.durations,
+    },
     initialize,
     setSystemColorScheme,
     setTechniqueId,
@@ -181,5 +220,6 @@ export const useAppContext = () => {
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
     toggleGuidedBreathing,
+    updateCustomPatternDuration,
   };
 };

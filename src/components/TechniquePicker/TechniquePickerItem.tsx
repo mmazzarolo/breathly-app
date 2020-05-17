@@ -21,6 +21,7 @@ export const TechniquePickerItem: FC<Props> = ({
   name,
   durations,
   description,
+  children,
 }) => {
   const { theme } = useAppContext();
   let titleOpacity: Animated.AnimatedInterpolation | number = 1;
@@ -100,8 +101,11 @@ export const TechniquePickerItem: FC<Props> = ({
     transform: [{ scale: descriptionScale }],
   };
   return (
-    <Animated.View style={styles.container}>
-      <Animated.View style={styles.content}>
+    <Animated.View style={styles.container} pointerEvents="box-none">
+      <Animated.View
+        style={styles.content}
+        pointerEvents={position !== "curr" ? "box-none" : undefined}
+      >
         <Animated.View style={[styles.title, titleAnimatedStyle]}>
           <Animated.Text style={[styles.titleText, { color: theme.textColor }]}>
             {name}
@@ -118,6 +122,7 @@ export const TechniquePickerItem: FC<Props> = ({
           >
             {description}
           </Animated.Text>
+          {children}
         </Animated.View>
       </Animated.View>
     </Animated.View>
@@ -131,19 +136,13 @@ const styles = StyleSheet.create({
     left: 0,
     height: "100%",
     paddingHorizontal: 32,
+    width: "100%",
   },
-  content: Platform.select({
-    default: {
-      marginHorizontal: 4,
-      marginTop: 48,
-    },
-    android: {
-      marginHorizontal: 4,
-      height: "100%",
-      zIndex: 2,
-      marginTop: 48,
-    },
-  }),
+  content: {
+    marginHorizontal: 4,
+    marginTop: 28,
+    height: "100%",
+  },
   title: {},
   description: {},
   titleText: {

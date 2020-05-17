@@ -12,6 +12,7 @@ import {
   RefObject as TechniquePickerViewPagerRef,
 } from "./TechniquePickerViewPager";
 import { TechniquePickerButton } from "./TechniquePickerButton";
+import { TechniquePickerItemCustomization } from "./TechniquePickerItemCustomization";
 
 interface Props {
   visible: boolean;
@@ -24,7 +25,7 @@ export const TechniquePicker: FC<Props> = ({
   onHide,
   onBackButtonPress,
 }) => {
-  const { technique, setTechniqueId } = useAppContext();
+  const { technique, setTechniqueId, customPatternDurations } = useAppContext();
   const [animatingManually, setAnimatingManually] = useState(false);
   const viewPagerRef = useRef<TechniquePickerViewPagerRef>(null);
   const currentTechniqueIndex = techniques.findIndex(
@@ -94,9 +95,19 @@ export const TechniquePicker: FC<Props> = ({
                 position={position}
                 panX={panX}
                 name={technique.name}
-                durations={technique.durations}
+                durations={
+                  technique.id === "custom"
+                    ? customPatternDurations
+                    : technique.durations
+                }
                 description={technique.description}
-              />
+              >
+                {technique.id === "custom" ? (
+                  <TechniquePickerItemCustomization
+                    durations={customPatternDurations}
+                  />
+                ) : undefined}
+              </TechniquePickerItem>
             );
           })}
         </TechniquePickerViewPager>
@@ -115,6 +126,7 @@ export const TechniquePicker: FC<Props> = ({
                   position={position}
                   panX={panX}
                   color={technique.color}
+                  squared={technique.id === "custom"}
                 />
               );
             })}
