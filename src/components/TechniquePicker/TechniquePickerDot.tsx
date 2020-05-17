@@ -6,6 +6,7 @@ import { itemAnimHideThreshold } from "./TechniquePickerViewPager";
 interface Props {
   panX: Animated.Value;
   position: "prev" | "curr" | "next" | undefined;
+  squared?: boolean;
   color: string;
 }
 
@@ -14,7 +15,12 @@ const margin = 6;
 const maxScale = 1.3;
 const maxOpacity = 0.8;
 
-export const TechniquePickerDot: FC<Props> = ({ panX, position, color }) => {
+export const TechniquePickerDot: FC<Props> = ({
+  panX,
+  position,
+  color,
+  squared,
+}) => {
   const { theme } = useAppContext();
   const createInterpolator = (outputRange: number[]) => {
     return panX.interpolate({
@@ -51,11 +57,18 @@ export const TechniquePickerDot: FC<Props> = ({ panX, position, color }) => {
       style={[
         styles.container,
         containerAnimatedStyle,
-        { backgroundColor: theme.textColorLighter },
+        {
+          backgroundColor: theme.textColorLighter,
+          borderRadius: squared ? 2 : size / 2,
+        },
       ]}
     >
       <Animated.View
-        style={[styles.dot, dotAnimatedStyle, { backgroundColor: color }]}
+        style={[
+          styles.dot,
+          dotAnimatedStyle,
+          { backgroundColor: color, borderRadius: squared ? 2 : size / 2 },
+        ]}
       />
     </Animated.View>
   );

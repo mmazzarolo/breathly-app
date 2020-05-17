@@ -1,4 +1,5 @@
 import awakeTechnique from "../assets/techniques/awake.json";
+import customTechnique from "../assets/techniques/custom.json";
 import deepCalmTechnique from "../assets/techniques/deep-calm.json";
 import pranayamaTechnique from "../assets/techniques/pranayama.json";
 import squareTechnique from "../assets/techniques/square.json";
@@ -11,4 +12,5 @@ export const techniques: Technique[] = [
   pranayamaTechnique,
   squareTechnique,
   ujjayiTechnique,
+  customTechnique,
 ];

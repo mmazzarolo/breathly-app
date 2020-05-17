@@ -1,0 +1,7 @@
+{
+  "id": "custom",
+  "name": "Custom",
+  "durations": [4, 2, 6, 2],
+  "description": "Create your own pattern.",
+  "color": "#FAC175"
+}
