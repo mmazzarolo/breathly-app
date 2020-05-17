@@ -1,9 +1,49 @@
 # DEVLOG
 
+## 2020-05-17
+
+It has been a long time since my last update to the codebase.
+
+There are two main changes:
+
+### Updated React-Native to `0.62.2`
+
+React-Native 0.62 has been available for a couple of months now.  
+The major highlights from this release are the new [Flipper](https://fbflipper.com/) developer tool being enabled by default, the dark-mode support shipped out-of-the box, and several other improvements and bug-fixes.
+
+Updating Breathly to `react-native@0.62.2` was... well, definitely **not** painless.
+
+#### The update
+
+1. I started from the [web upgrade-helper](https://react-native-community.github.io/upgrade-helper/), updating by hand all the impacted files by checking each diff. A bunch of changes to the native codebase are required this time, mostly to support Flipper.
+2. In this upgrade there's one main change that's very hard to implement by just checking the diffs: the `*.xcodeproj` file. Thanksfully, the web upgrade-helper links [a great thread](https://github.com/react-native-community/upgrade-helper/issues/191) describing in details each step involved in the file update.
+
+#### Building iOS
+
+3. Once done with the changes I cleaned up the xCode project, updated the pods and tried an iOS build. It failed. Duh.
+4. First, I got a _"Use of undeclared identifier client"_ in the Flipper client. I was able to fix it following https://github.com/react-native-community/upgrade-support/issues/24.
+5. Next, it was the turn of the _"Undefined symbol: \_swift_getFunctionReplacement"_, fixed following https://github.com/react-native-community/upgrade-support/issues/25.
+6. At this point I was finally able to build the project and create a debug build.
+7. I immediately tried building production one, and it "worked"... with a minor, problem: the IPA size is now double the size it was before (https://github.com/facebook/react-native/issues/28890). Everything seems to be working fine though 🤷‍♂️
+
+### Building Android
+
+8. I was able to immediately build successfully Android in debug mode. Unfortunately, the release build failed because it was still trying to bundle Flipper, but following https://github.com/facebook/react-native/issues/28736 I was able to fix it.
+
+### Customization
+
+The other main change I worked on is a new "custom" technique pattern.
+I'm still not 100% convinced by the UI/UX, but I think it can still be a good starting point.
+
+<p align="center" margin-bottom="0">
+    <img width="420" height="auto" src="https://user-images.githubusercontent.com/9536354/82142918-3acc0700-9840-11ea-9f23-20b0e496c7d2.png">
+    <img width="420" height="auto" src="https://user-images.githubusercontent.com/9536354/82142919-3d2e6100-9840-11ea-9804-cfdfc5439b7f.png">
+</p>
+
 ## 2019-10-11
 
 - Updated React-Native to `0.61.2`: this has been a painless update 🙌
-- Added sound effects for guided audio exercises. I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv).  
+- Added sound effects for guided audio exercises. I personally requested and bought the audio voice lines from [voicebunny](https://voicebunny.com/p/10GUTaxhksaYXI-9jutm0hG0ku4hUZ-ta92slGswY4A~?p=pro-acq-inv).
 - Automatically switch to dark/light mode theme based on the iOS 13 theme settings
 
 ## 2019-08-04
