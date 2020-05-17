@@ -17,7 +17,7 @@ export const Stepper: FC<Props> = ({
   const { theme } = useAppContext();
   return (
     <Animated.View style={styles.container}>
-      <TouchableOpacity onPress={() => onPress(-1)} disabled={leftDisabled}>
+      <TouchableOpacity onPressIn={() => onPress(-1)} disabled={leftDisabled}>
         <View
           style={[
             styles.left,
@@ -43,7 +43,7 @@ export const Stepper: FC<Props> = ({
       <View
         style={[styles.separator, { backgroundColor: theme.textColorLighter }]}
       />
-      <TouchableOpacity disabled={rightDisabled} onPress={() => onPress(+1)}>
+      <TouchableOpacity disabled={rightDisabled} onPressIn={() => onPress(+1)}>
         <View
           style={[
             styles.right,
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 18,
     borderRightWidth: 0,
+    zIndex: 9999,
   },
   right: {
     borderRadius: 4,

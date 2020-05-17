@@ -104,7 +104,7 @@ export const TechniquePickerItem: FC<Props> = ({
     <Animated.View style={styles.container} pointerEvents="box-none">
       <Animated.View
         style={styles.content}
-        pointerEvents={position !== "curr" ? "box-none" : undefined}
+        pointerEvents={position !== "curr" ? "none" : undefined}
       >
         <Animated.View style={[styles.title, titleAnimatedStyle]}>
           <Animated.Text style={[styles.titleText, { color: theme.textColor }]}>
@@ -117,11 +117,13 @@ export const TechniquePickerItem: FC<Props> = ({
           </Animated.Text>
         </Animated.View>
         <Animated.View style={[styles.description, descriptionAnimatedStyle]}>
-          <Animated.Text
-            style={[styles.descriptionText, { color: theme.textColor }]}
-          >
-            {description}
-          </Animated.Text>
+          {name !== "Custom" ? (
+            <Animated.Text
+              style={[styles.descriptionText, { color: theme.textColor }]}
+            >
+              {description}
+            </Animated.Text>
+          ) : undefined}
           {children}
         </Animated.View>
       </Animated.View>
