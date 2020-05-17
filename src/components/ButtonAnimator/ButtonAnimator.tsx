@@ -1,5 +1,5 @@
 import React, { FC, ReactChild, useState } from "react";
-import { Animated, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { Animated, StyleSheet, Platform } from "react-native";
 import ReactNativeHaptic from "react-native-haptic";
 import { deviceHeight } from "../../config/constants";
 import { images } from "../../config/images";
@@ -12,6 +12,7 @@ import {
   interpolateTranslateY,
 } from "../../utils/interpolate";
 import { StarsBackground } from "../StarsBackground/StarsBackground";
+import { Touchable } from "../../common/Touchable";
 
 export const buttonSize = 60;
 export const buttonAnimatorContentHeight = deviceHeight - buttonSize * 2;
@@ -179,7 +180,9 @@ export const ButtonAnimator: FC<Props> = ({
             { backgroundColor: theme.mainColor },
           ]}
         />
-        <TouchableOpacity
+        <Touchable
+          accessibilityLabel="Start the exercise"
+          testID="exercise-button-start"
           onPress={handlePress}
           disabled={buttonDisabled}
           style={{ position: "absolute", zIndex: 2 }}
@@ -201,8 +204,10 @@ export const ButtonAnimator: FC<Props> = ({
               ]}
             />
           </Animated.View>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Touchable>
+        <Touchable
+          accessibilityLabel="End the exercise"
+          testID="exercise-button-stop"
           onPress={handlePress}
           disabled={buttonDisabled}
           style={{ position: "absolute", zIndex: 2 }} //TODO:
@@ -220,7 +225,7 @@ export const ButtonAnimator: FC<Props> = ({
               style={[styles.icon, { tintColor: theme.mainColor }]}
             />
           </Animated.View>
-        </TouchableOpacity>
+        </Touchable>
       </Animated.View>
       <Animated.View
         pointerEvents="none"

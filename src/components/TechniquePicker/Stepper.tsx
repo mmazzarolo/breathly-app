@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { StyleSheet, TouchableOpacity, Animated, View } from "react-native";
+import { StyleSheet, Animated, View } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import { fontLight } from "../../config/fonts";
+import { Touchable } from "../../common/Touchable";
 
 interface Props {
   onPress: (update: number) => void;
@@ -17,7 +18,13 @@ export const Stepper: FC<Props> = ({
   const { theme } = useAppContext();
   return (
     <Animated.View style={styles.container}>
-      <TouchableOpacity onPressIn={() => onPress(-1)} disabled={leftDisabled}>
+      <Touchable
+        onPressIn={() => onPress(-1)}
+        disabled={leftDisabled}
+        accessibilityLabel="Decrease seconds"
+        testID="decrease-seconds-button"
+        accessibilityState={{ disabled: leftDisabled }}
+      >
         <View
           style={[
             styles.left,
@@ -39,11 +46,17 @@ export const Stepper: FC<Props> = ({
             -
           </Animated.Text>
         </View>
-      </TouchableOpacity>
+      </Touchable>
       <View
         style={[styles.separator, { backgroundColor: theme.textColorLighter }]}
       />
-      <TouchableOpacity disabled={rightDisabled} onPressIn={() => onPress(+1)}>
+      <Touchable
+        disabled={rightDisabled}
+        onPressIn={() => onPress(+1)}
+        accessibilityLabel="Increase seconds"
+        testID="increase-seconds-button"
+        accessibilityState={{ disabled: leftDisabled }}
+      >
         <View
           style={[
             styles.right,
@@ -65,7 +78,7 @@ export const Stepper: FC<Props> = ({
             +
           </Animated.Text>
         </View>
-      </TouchableOpacity>
+      </Touchable>
     </Animated.View>
   );
 };

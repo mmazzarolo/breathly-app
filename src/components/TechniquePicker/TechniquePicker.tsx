@@ -116,6 +116,8 @@ export const TechniquePicker: FC<Props> = ({
             disabled={animatingManually}
             direction="prev"
             onPress={() => handleButtonPress("prev")}
+            testID="prev-technique-button"
+            accessibilityLabel="Previous technique"
           />
           <Animated.View style={[styles.dots]}>
             {techniques.map((technique, index) => {
@@ -135,6 +137,8 @@ export const TechniquePicker: FC<Props> = ({
             disabled={animatingManually}
             direction="next"
             onPress={() => handleButtonPress("next")}
+            testID="next-technique-button"
+            accessibilityLabel="Next technique"
           />
         </Animated.View>
       </Animated.View>

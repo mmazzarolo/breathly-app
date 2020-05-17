@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import { fontLight } from "../../config/fonts";
+import { Touchable } from "../../common/Touchable";
 
 interface Props {
   label: string;
@@ -22,7 +23,12 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
   return (
     <Animated.View style={styles.container}>
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
-      <Animated.View style={[styles.picker, { borderColor: color }]}>
+      <Animated.View
+        style={[styles.picker, { borderColor: color }]}
+        accessible
+        accessibilityLabel="Timer duration"
+        accessibilityRole="radiogroup"
+      >
         {items.map((item, index) => {
           const selected = value === item.value;
           const itemStyle = {
@@ -34,7 +40,11 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
             color: selected ? "white" : color,
           };
           return (
-            <TouchableOpacity
+            <Touchable
+              accessibilityLabel={`${item.value} seconds`}
+              testID={`timer-button-${item.value}`}
+              accessibilityRole="radio"
+              accessibilityState={{ selected }}
               key={item.value}
               onPress={() => onValueChange(item.value)}
               style={[styles.pickerItem, itemStyle]}
@@ -42,7 +52,7 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
               <Animated.Text style={[styles.pickerItemLabel, labelStyle]}>
                 {item.label}
               </Animated.Text>
-            </TouchableOpacity>
+            </Touchable>
           );
         })}
       </Animated.View>
