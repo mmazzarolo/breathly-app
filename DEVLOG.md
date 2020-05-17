@@ -26,7 +26,7 @@ Updating Breathly to `react-native@0.62.2` was... well, definitely **not** painl
 6. At this point I was finally able to build the project and create a debug build.
 7. I immediately tried building production one, and it "worked"... with a minor, problem: the IPA size is now double the size it was before (https://github.com/facebook/react-native/issues/28890). Everything seems to be working fine though 🤷‍♂️
 
-### Building Android
+#### Building Android
 
 8. I was able to immediately build successfully Android in debug mode. Unfortunately, the release build failed because it was still trying to bundle Flipper, but following https://github.com/facebook/react-native/issues/28736 I was able to fix it.
 
