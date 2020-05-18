@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 18,
     borderRightWidth: 0,
-    zIndex: 9999,
   },
   right: {
     borderRadius: 4,
