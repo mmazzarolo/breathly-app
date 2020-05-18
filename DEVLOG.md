@@ -24,7 +24,8 @@ Updating Breathly to `react-native@0.62.2` was... well, definitely **not** painl
 4. First, I got a _"Use of undeclared identifier client"_ in the Flipper client. I was able to fix it following https://github.com/react-native-community/upgrade-support/issues/24.
 5. Next, it was the turn of the _"Undefined symbol: \_swift_getFunctionReplacement"_, fixed following https://github.com/react-native-community/upgrade-support/issues/25.
 6. At this point I was finally able to build the project and create a debug build.
-7. I immediately tried building production one, and it "worked"... with a minor, problem: the IPA size is now double the size it was before (https://github.com/facebook/react-native/issues/28890). Everything seems to be working fine though 🤷‍♂️
+7. I immediately tried building production one, and it "worked"... with a minor, problem: the IPA size is now double the size it was before (https://github.com/facebook/react-native/issues/28890). Everything seems to be working fine though 🤷‍♂️  
+Update: also notice building on a real device is not working for me. Had to completely disable Flipper to make it work https://github.com/invertase/react-native-firebase/issues/3384
 
 #### Building Android
 
