@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Animated, StyleSheet } from "react-native";
+import { Animated, StyleSheet, Platform, Vibration } from "react-native";
 import { deviceWidth } from "../../config/constants";
 import { useOnMount } from "../../hooks/useOnMount";
 import { animate } from "../../utils/animate";
@@ -11,6 +11,7 @@ import { loopAnimations } from "../../utils/loopAnimations";
 import { ExerciseCircleDots } from "./ExerciseCircleDots";
 import { fontThin } from "../../config/fonts";
 import { playSound } from "../../services/sound";
+import ReactNativeHaptic from "react-native-haptic";
 
 interface Step {
   id: string;
@@ -23,12 +24,17 @@ interface Step {
 type Props = {
   steps: Step[];
   soundEnabled: boolean;
+  vibrationEnabled: boolean;
 };
 
 const circleSize = deviceWidth * 0.8;
 const fadeInAnimDuration = 400;
 
-export const ExerciseCircle: FC<Props> = ({ steps, soundEnabled }) => {
+export const ExerciseCircle: FC<Props> = ({
+  steps,
+  soundEnabled,
+  vibrationEnabled,
+}) => {
   const [showUpAnimVal] = useState(new Animated.Value(0));
   const [scaleAnimVal] = useState(new Animated.Value(0));
   const [textAnimVal] = useState(new Animated.Value(1));
@@ -86,6 +92,16 @@ export const ExerciseCircle: FC<Props> = ({ steps, soundEnabled }) => {
       hideCirlceMinAnimation.start();
     } else if (step.id === "afterInhale") {
       if (soundEnabled) playSound("hold");
+    }
+    if (vibrationEnabled) {
+      if (Platform.OS === "ios") {
+        // Uncomment to use a more subtle haptic feedback instead of vibrating
+        // ReactNativeHaptic.generate("impactHeavy");
+        // setTimeout(() => ReactNativeHaptic.generate("impactHeavy"), 100);
+        Vibration.vibrate(100);
+      } else if (Platform.OS === "android") {
+        Vibration.vibrate(200);
+      }
     }
   };
 

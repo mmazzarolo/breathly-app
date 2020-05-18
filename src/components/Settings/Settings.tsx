@@ -21,10 +21,12 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
     guidedBreathingFlag,
     timerDuration,
     setTimerDuration,
+    stepVibrationFlag,
     followSystemDarkModeFlag,
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
     toggleGuidedBreathing,
+    toggleStepVibration,
   } = useAppContext();
 
   return (
@@ -58,6 +60,14 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
               onValueChange={toggleCustomDarkMode}
             />
           )}
+        </SettingsSection>
+        <SettingsSection label={"Vibration"}>
+          <SettingsItemSwitch
+            label="Vibrate on step change"
+            color={theme.mainColor}
+            value={stepVibrationFlag}
+            onValueChange={toggleStepVibration}
+          />
         </SettingsSection>
         <SettingsSection label={"Audio"}>
           <SettingsItemSwitch

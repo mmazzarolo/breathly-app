@@ -19,7 +19,12 @@ type Props = {};
 const unmountAnimDuration = 300;
 
 export const Exercise: FC<Props> = () => {
-  const { technique, timerDuration, guidedBreathingFlag } = useAppContext();
+  const {
+    technique,
+    timerDuration,
+    guidedBreathingFlag,
+    stepVibrationFlag,
+  } = useAppContext();
   const [status, setStatus] = useState<Status>("interlude");
   const [unmountContentAnimVal] = useState(new Animated.Value(1));
   const steps = buildExerciseSteps(technique.durations);
@@ -64,7 +69,11 @@ export const Exercise: FC<Props> = () => {
             limit={timerDuration}
             onLimitReached={handleTimeLimitReached}
           />
-          <ExerciseCircle steps={steps} soundEnabled={guidedBreathingFlag} />
+          <ExerciseCircle
+            steps={steps}
+            soundEnabled={guidedBreathingFlag}
+            vibrationEnabled={stepVibrationFlag}
+          />
         </Animated.View>
       )}
       {status === "completed" && <ExerciseComplete />}
