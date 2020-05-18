@@ -1,9 +1,10 @@
 import React, { FC } from "react";
-import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import { images } from "../../config/images";
+import { Touchable, TouchableProps } from "../../common/Touchable";
 
-interface Props {
+interface Props extends TouchableProps {
   disabled: boolean;
   onPress: () => void;
   direction: "prev" | "next";
@@ -13,19 +14,15 @@ export const TechniquePickerButton: FC<Props> = ({
   disabled,
   onPress,
   direction,
+  ...otherProps
 }) => {
   const { theme } = useAppContext();
   return (
-    <TouchableOpacity
+    <Touchable
       disabled={disabled}
       onPress={onPress}
       style={styles.container}
-      hitSlop={{
-        top: 4,
-        bottom: 4,
-        left: 4,
-        right: 4,
-      }}
+      {...otherProps}
     >
       <Image
         source={images.iconLeftArrow}
@@ -37,7 +34,7 @@ export const TechniquePickerButton: FC<Props> = ({
           },
         ]}
       />
-    </TouchableOpacity>
+    </Touchable>
   );
 };
 

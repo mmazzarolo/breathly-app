@@ -23,11 +23,15 @@ export const Menu: FC<Props> = ({
           imageSource={images.iconSettings}
           label="Settings"
           onPress={onSettingsPress}
+          accessibilityLabel="Settings"
+          testID="settings-button"
         />
         <MenuButton
           imageSource={images.iconMeditation}
           label={`${technique.name}\nbreathing`}
           onPress={onTechniquePickerPress}
+          accessibilityLabel="Techniques"
+          testID="techniques-button"
         />
       </Animated.View>
       <Animated.View style={styles.container}>

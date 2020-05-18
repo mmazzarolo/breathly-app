@@ -1,38 +1,29 @@
 import React, { FC } from "react";
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { Image, ImageSourcePropType, StyleSheet, Text } from "react-native";
 import { useAppContext } from "../../context/AppContext";
+import { Touchable, TouchableProps } from "../../common/Touchable";
 
-interface Props {
+interface Props extends TouchableProps {
   imageSource: ImageSourcePropType;
   label: string;
   onPress: () => void;
 }
 
-export const MenuButton: FC<Props> = ({ imageSource, onPress, label }) => {
+export const MenuButton: FC<Props> = ({
+  imageSource,
+  onPress,
+  label,
+  ...otherPops
+}) => {
   const { theme } = useAppContext();
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={styles.touchable}
-      hitSlop={{
-        top: 4,
-        bottom: 4,
-        left: 4,
-        right: 4,
-      }}
-    >
+    <Touchable onPress={onPress} style={styles.touchable} {...otherPops}>
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
       <Image
         source={imageSource}
         style={[styles.image, { tintColor: theme.textColorLighter }]}
       />
-    </TouchableOpacity>
+    </Touchable>
   );
 };
 
