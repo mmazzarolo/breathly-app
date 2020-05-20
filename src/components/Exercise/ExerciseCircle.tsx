@@ -12,6 +12,7 @@ import { ExerciseCircleDots } from "./ExerciseCircleDots";
 import { fontThin } from "../../config/fonts";
 import { playSound } from "../../services/sound";
 import ReactNativeHaptic from "react-native-haptic";
+import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
 
 interface Step {
   id: string;
@@ -23,7 +24,7 @@ interface Step {
 
 type Props = {
   steps: Step[];
-  soundEnabled: boolean;
+  guidedBreathingMode: GuidedBreathingMode;
   vibrationEnabled: boolean;
 };
 
@@ -32,7 +33,7 @@ const fadeInAnimDuration = 400;
 
 export const ExerciseCircle: FC<Props> = ({
   steps,
-  soundEnabled,
+  guidedBreathingMode,
   vibrationEnabled,
 }) => {
   const [showUpAnimVal] = useState(new Animated.Value(0));
@@ -82,23 +83,29 @@ export const ExerciseCircle: FC<Props> = ({
     setCurrentStepIndex(stepIndex);
     const step = activeSteps[stepIndex];
     if (step.id === "exhale") {
-      if (soundEnabled) playSound("breatheOut");
+      if (guidedBreathingMode === "laura") playSound("lauraBreatheOut");
+      if (guidedBreathingMode === "paul") playSound("paulBreatheOut");
+      if (guidedBreathingMode === "bell") playSound("cueBell1");
       showCirlceMinAnimation.start();
     } else if (step.id === "inhale") {
-      if (soundEnabled) playSound("breatheIn");
+      if (guidedBreathingMode === "laura") playSound("lauraBreatheIn");
+      if (guidedBreathingMode === "paul") playSound("paulBreatheIn");
+      if (guidedBreathingMode === "bell") playSound("cueBell1");
       hideCirlceMinAnimation.start();
     } else if (step.id === "afterExhale") {
-      if (soundEnabled) playSound("hold");
+      if (guidedBreathingMode === "laura") playSound("lauraHold");
+      if (guidedBreathingMode === "paul") playSound("paulHold");
+      if (guidedBreathingMode === "bell") playSound("cueBell2");
       hideCirlceMinAnimation.start();
     } else if (step.id === "afterInhale") {
-      if (soundEnabled) playSound("hold");
+      if (guidedBreathingMode === "laura") playSound("lauraHold");
+      if (guidedBreathingMode === "paul") playSound("paulHold");
+      if (guidedBreathingMode === "bell") playSound("cueBell2");
     }
     if (vibrationEnabled) {
       if (Platform.OS === "ios") {
-        // Uncomment to use a more subtle haptic feedback instead of vibrating
-        // ReactNativeHaptic.generate("impactHeavy");
-        // setTimeout(() => ReactNativeHaptic.generate("impactHeavy"), 100);
-        Vibration.vibrate(100);
+        ReactNativeHaptic.generate("impactHeavy");
+        setTimeout(() => ReactNativeHaptic.generate("impactHeavy"), 100);
       } else if (Platform.OS === "android") {
         Vibration.vibrate(200);
       }

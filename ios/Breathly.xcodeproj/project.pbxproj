@@ -17,13 +17,18 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BreathlyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BreathlyTests.m */; };
 		4F866C7CE7FF1B694332BF5B /* libPods-Breathly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */; };
+		51AC1BA224746624007FD1A8 /* paulexhale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51AC1B9F24746623007FD1A8 /* paulexhale.mp3 */; };
+		51AC1BA324746624007FD1A8 /* paulhold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51AC1BA024746623007FD1A8 /* paulhold.mp3 */; };
+		51AC1BA424746624007FD1A8 /* paulinhale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51AC1BA124746624007FD1A8 /* paulinhale.mp3 */; };
 		51B126C922F5E056000AB3BE /* splash-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126C822F5E056000AB3BE /* splash-logo.png */; };
 		51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B126CA22F5E05B000AB3BE /* splash-bg.png */; };
 		51B844582468921000902B0A /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B844572468921000902B0A /* Dummy.swift */; };
-		51ECA04323546D9C00E4EB90 /* breathein.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA03F23546D9C00E4EB90 /* breathein.mp3 */; };
-		51ECA04423546D9C00E4EB90 /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04023546D9C00E4EB90 /* bell.mp3 */; };
-		51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04123546D9C00E4EB90 /* hold.mp3 */; };
-		51ECA04623546D9C00E4EB90 /* breatheout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA04223546D9C00E4EB90 /* breatheout.mp3 */; };
+		51FC1CE12473CB0C00DF5A26 /* cuebell2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CDB2473CB0C00DF5A26 /* cuebell2.mp3 */; };
+		51FC1CE22473CB0C00DF5A26 /* lauraexhale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CDC2473CB0C00DF5A26 /* lauraexhale.mp3 */; };
+		51FC1CE32473CB0C00DF5A26 /* cuebell1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CDD2473CB0C00DF5A26 /* cuebell1.mp3 */; };
+		51FC1CE42473CB0C00DF5A26 /* laurahold.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CDE2473CB0C00DF5A26 /* laurahold.mp3 */; };
+		51FC1CE52473CB0C00DF5A26 /* laurainhale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CDF2473CB0C00DF5A26 /* laurainhale.mp3 */; };
+		51FC1CE62473CB0C00DF5A26 /* endingbell1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FC1CE02473CB0C00DF5A26 /* endingbell1.mp3 */; };
 		9890CA0AD4902A6B84B926A9 /* libPods-Breathly-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5A31E104F6EBD83D2BEA06 /* libPods-Breathly-tvOSTests.a */; };
 		B6D6BC2ECA542411C8247F07 /* libPods-Breathly-BreathlyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E33E0CF4562261C285A4955 /* libPods-Breathly-BreathlyTests.a */; };
 		E2EB64CAD158EA6326940DFE /* libPods-Breathly-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D79156E0EB2B91815EC42851 /* libPods-Breathly-tvOS.a */; };
@@ -64,14 +69,19 @@
 		2D02E47B1E0B4A5D006451C7 /* Breathly-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Breathly-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Breathly-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Breathly-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C68D507621578C7673E380 /* Pods-Breathly-BreathlyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-BreathlyTests.debug.xcconfig"; path = "Target Support Files/Pods-Breathly-BreathlyTests/Pods-Breathly-BreathlyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		51AC1B9F24746623007FD1A8 /* paulexhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulexhale.mp3; path = ../.assets/audio/paulexhale.mp3; sourceTree = "<group>"; };
+		51AC1BA024746623007FD1A8 /* paulhold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulhold.mp3; path = ../.assets/audio/paulhold.mp3; sourceTree = "<group>"; };
+		51AC1BA124746624007FD1A8 /* paulinhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulinhale.mp3; path = ../.assets/audio/paulinhale.mp3; sourceTree = "<group>"; };
 		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace-personal/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
 		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace-personal/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
 		51B8445424688F2D00902B0A /* Breathly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Breathly-Bridging-Header.h"; sourceTree = "<group>"; };
 		51B844572468921000902B0A /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
-		51ECA03F23546D9C00E4EB90 /* breathein.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breathein.mp3; path = Breathly/Audio/breathein.mp3; sourceTree = "<group>"; };
-		51ECA04023546D9C00E4EB90 /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bell.mp3; path = Breathly/Audio/bell.mp3; sourceTree = "<group>"; };
-		51ECA04123546D9C00E4EB90 /* hold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hold.mp3; path = Breathly/Audio/hold.mp3; sourceTree = "<group>"; };
-		51ECA04223546D9C00E4EB90 /* breatheout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = breatheout.mp3; path = Breathly/Audio/breatheout.mp3; sourceTree = "<group>"; };
+		51FC1CDB2473CB0C00DF5A26 /* cuebell2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cuebell2.mp3; path = ../.assets/audio/cuebell2.mp3; sourceTree = "<group>"; };
+		51FC1CDC2473CB0C00DF5A26 /* lauraexhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = lauraexhale.mp3; path = ../.assets/audio/lauraexhale.mp3; sourceTree = "<group>"; };
+		51FC1CDD2473CB0C00DF5A26 /* cuebell1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cuebell1.mp3; path = ../.assets/audio/cuebell1.mp3; sourceTree = "<group>"; };
+		51FC1CDE2473CB0C00DF5A26 /* laurahold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = laurahold.mp3; path = ../.assets/audio/laurahold.mp3; sourceTree = "<group>"; };
+		51FC1CDF2473CB0C00DF5A26 /* laurainhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = laurainhale.mp3; path = ../.assets/audio/laurainhale.mp3; sourceTree = "<group>"; };
+		51FC1CE02473CB0C00DF5A26 /* endingbell1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = endingbell1.mp3; path = ../.assets/audio/endingbell1.mp3; sourceTree = "<group>"; };
 		62C4548A633A5FE84FFD67D2 /* libPods-Breathly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Breathly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		650C5BD2A235878242928217 /* Pods-Breathly-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Breathly-tvOS/Pods-Breathly-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		6634A2775A129C7DCB2CA49F /* Pods-Breathly-BreathlyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breathly-BreathlyTests.release.xcconfig"; path = "Target Support Files/Pods-Breathly-BreathlyTests/Pods-Breathly-BreathlyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +152,15 @@
 		13B07FAE1A68108700A75B9A /* Breathly */ = {
 			isa = PBXGroup;
 			children = (
+				51AC1B9F24746623007FD1A8 /* paulexhale.mp3 */,
+				51AC1BA024746623007FD1A8 /* paulhold.mp3 */,
+				51AC1BA124746624007FD1A8 /* paulinhale.mp3 */,
+				51FC1CDD2473CB0C00DF5A26 /* cuebell1.mp3 */,
+				51FC1CDB2473CB0C00DF5A26 /* cuebell2.mp3 */,
+				51FC1CE02473CB0C00DF5A26 /* endingbell1.mp3 */,
+				51FC1CDC2473CB0C00DF5A26 /* lauraexhale.mp3 */,
+				51FC1CDE2473CB0C00DF5A26 /* laurahold.mp3 */,
+				51FC1CDF2473CB0C00DF5A26 /* laurainhale.mp3 */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -180,10 +199,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				51ECA04023546D9C00E4EB90 /* bell.mp3 */,
-				51ECA03F23546D9C00E4EB90 /* breathein.mp3 */,
-				51ECA04223546D9C00E4EB90 /* breatheout.mp3 */,
-				51ECA04123546D9C00E4EB90 /* hold.mp3 */,
 				13B07FAE1A68108700A75B9A /* Breathly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BreathlyTests */,
@@ -367,14 +382,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51FC1CE52473CB0C00DF5A26 /* laurainhale.mp3 in Resources */,
 				51B126C922F5E056000AB3BE /* splash-logo.png in Resources */,
+				51FC1CE32473CB0C00DF5A26 /* cuebell1.mp3 in Resources */,
+				51FC1CE22473CB0C00DF5A26 /* lauraexhale.mp3 in Resources */,
+				51FC1CE62473CB0C00DF5A26 /* endingbell1.mp3 in Resources */,
+				51FC1CE12473CB0C00DF5A26 /* cuebell2.mp3 in Resources */,
+				51AC1BA224746624007FD1A8 /* paulexhale.mp3 in Resources */,
+				51AC1BA424746624007FD1A8 /* paulinhale.mp3 in Resources */,
+				51AC1BA324746624007FD1A8 /* paulhold.mp3 in Resources */,
 				51B126CB22F5E05B000AB3BE /* splash-bg.png in Resources */,
-				51ECA04523546D9C00E4EB90 /* hold.mp3 in Resources */,
-				51ECA04323546D9C00E4EB90 /* breathein.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				51ECA04423546D9C00E4EB90 /* bell.mp3 in Resources */,
-				51ECA04623546D9C00E4EB90 /* breatheout.mp3 in Resources */,
+				51FC1CE42473CB0C00DF5A26 /* laurahold.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

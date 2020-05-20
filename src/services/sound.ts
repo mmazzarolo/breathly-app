@@ -3,10 +3,15 @@ import ReactNativeSound from "react-native-sound";
 type SoundEffectId = keyof typeof soundEffects;
 
 const soundEffects = {
-  breatheIn: { path: "breathein.mp3", sound: null as any },
-  breatheOut: { path: "breatheout.mp3", sound: null as any },
-  hold: { path: "hold.mp3", sound: null as any },
-  bell: { path: "bell.mp3", sound: null as any },
+  lauraBreatheIn: { path: "laurainhale.mp3", sound: null as any },
+  lauraBreatheOut: { path: "lauraexhale.mp3", sound: null as any },
+  lauraHold: { path: "laurahold.mp3", sound: null as any },
+  paulBreatheIn: { path: "paulinhale.mp3", sound: null as any },
+  paulBreatheOut: { path: "paulexhale.mp3", sound: null as any },
+  paulHold: { path: "paulhold.mp3", sound: null as any },
+  endingBell: { path: "endingbell1.mp3", sound: null as any },
+  cueBell1: { path: "cuebell1.mp3", sound: null as any },
+  cueBell2: { path: "cuebell2.mp3", sound: null as any },
 };
 
 const preloadSound = async (id: SoundEffectId) => {
