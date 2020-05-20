@@ -11,12 +11,7 @@ interface Props {
 export const PageContainerBackButton: FC<Props> = ({ onPress }) => {
   const { theme } = useAppContext();
   return (
-    <Touchable
-      onPress={onPress}
-      style={styles.touchable}
-      accessibilityLabel="Go Back"
-      testID="back-button"
-    >
+    <Touchable onPress={onPress} style={styles.touchable} testID="back-button">
       <Image
         source={images.iconLeftArrow}
         style={[styles.image, { tintColor: theme.textColorLighter }]}

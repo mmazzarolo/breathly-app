@@ -22,12 +22,7 @@ export const SettingsItemRadio: FC<Props> = ({
 }) => {
   const { theme } = useAppContext();
   return (
-    <Touchable
-      accessible
-      accessibilityLabel={label}
-      accessibilityState={{ selected }}
-      onPress={onPress}
-    >
+    <Touchable onPress={onPress}>
       <Animated.View
         style={[styles.container, { marginTop: index === 0 ? 8 : 18 }]}
       >

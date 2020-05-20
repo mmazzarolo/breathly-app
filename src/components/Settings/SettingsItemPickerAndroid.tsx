@@ -23,12 +23,7 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
   return (
     <Animated.View style={styles.container}>
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
-      <Animated.View
-        style={[styles.picker, { borderColor: color }]}
-        accessible
-        accessibilityLabel="Timer duration"
-        accessibilityRole="radiogroup"
-      >
+      <Animated.View style={[styles.picker, { borderColor: color }]}>
         {items.map((item, index) => {
           const selected = value === item.value;
           const itemStyle = {
@@ -41,10 +36,7 @@ export const SettingsItemPickerAndroid: FC<Props> = ({
           };
           return (
             <Touchable
-              accessibilityLabel={`${item.value} seconds`}
               testID={`timer-button-${item.value}`}
-              accessibilityRole="radio"
-              accessibilityState={{ selected }}
               key={item.value}
               onPress={() => onValueChange(item.value)}
               style={[styles.pickerItem, itemStyle]}
