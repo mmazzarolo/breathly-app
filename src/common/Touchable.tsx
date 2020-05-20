@@ -11,12 +11,7 @@ export const Touchable: FC<TouchableProps> = ({ children, ...otherProps }) => {
     right: 4,
   };
   return (
-    <TouchableOpacity
-      accessible
-      accessibilityRole="button"
-      hitSlop={hitSlop}
-      {...otherProps}
-    >
+    <TouchableOpacity hitSlop={hitSlop} {...otherProps}>
       {children}
     </TouchableOpacity>
   );

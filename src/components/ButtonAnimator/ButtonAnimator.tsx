@@ -181,7 +181,6 @@ export const ButtonAnimator: FC<Props> = ({
           ]}
         />
         <Touchable
-          accessibilityLabel="Start the exercise"
           testID="exercise-button-start"
           onPress={handlePress}
           disabled={buttonDisabled}
@@ -206,7 +205,6 @@ export const ButtonAnimator: FC<Props> = ({
           </Animated.View>
         </Touchable>
         <Touchable
-          accessibilityLabel="End the exercise"
           testID="exercise-button-stop"
           onPress={handlePress}
           disabled={buttonDisabled}

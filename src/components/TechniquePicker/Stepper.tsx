@@ -21,9 +21,7 @@ export const Stepper: FC<Props> = ({
       <Touchable
         onPressIn={() => onPress(-1)}
         disabled={leftDisabled}
-        accessibilityLabel="Decrease seconds"
         testID="decrease-seconds-button"
-        accessibilityState={{ disabled: leftDisabled }}
       >
         <View
           style={[
@@ -53,9 +51,7 @@ export const Stepper: FC<Props> = ({
       <Touchable
         disabled={rightDisabled}
         onPressIn={() => onPress(+1)}
-        accessibilityLabel="Increase seconds"
         testID="increase-seconds-button"
-        accessibilityState={{ disabled: leftDisabled }}
       >
         <View
           style={[

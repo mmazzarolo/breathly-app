@@ -25,9 +25,6 @@ export const SettingsItemSwitch: FC<Props> = ({
         onValueChange={onValueChange}
         trackColor={{ false: "undefined", true: color }}
         thumbColor={Platform.OS === "android" && value ? color : undefined}
-        accessible
-        accessibilityLabel={label}
-        accessibilityState={{ checked: value }}
       />
     </Animated.View>
   );
