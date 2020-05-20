@@ -1,11 +1,18 @@
 import React, { FC } from "react";
-import { Animated, StyleSheet, LayoutAnimation } from "react-native";
+import {
+  Animated,
+  StyleSheet,
+  LayoutAnimation,
+  ScrollView,
+} from "react-native";
 import { timerLimits } from "../../config/timerLimits";
 import { useAppContext } from "../../context/AppContext";
 import { PageContainer } from "../PageContainer/PageContainer";
 import { SettingsItemPicker } from "./SettingsItemPicker";
 import { SettingsItemSwitch } from "./SettingsItemSwitch";
 import { SettingsSection } from "./SettingsSection";
+import { SettingsItemRadio } from "./SettingsItemRadio";
+import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
 
 interface Props {
   visible: boolean;
@@ -18,16 +25,26 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
     theme,
     systemColorScheme,
     customDarkModeFlag,
-    guidedBreathingFlag,
+    guidedBreathingMode,
     timerDuration,
     setTimerDuration,
     stepVibrationFlag,
     followSystemDarkModeFlag,
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
-    toggleGuidedBreathing,
+    setGuidedBreathingMode,
     toggleStepVibration,
   } = useAppContext();
+
+  const guidedBreathingItems: {
+    value: GuidedBreathingMode;
+    label: string;
+  }[] = [
+    { value: "disabled", label: "Disabled" },
+    { value: "laura", label: "Laura's voice" },
+    { value: "paul", label: "Paul's voice" },
+    { value: "bell", label: "Bell cue" },
+  ];
 
   return (
     <PageContainer
@@ -36,7 +53,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
       onBackButtonPress={onBackButtonPress}
       onHide={onHide}
     >
-      <Animated.View style={styles.content}>
+      <ScrollView style={styles.content}>
         <SettingsSection label={"Dark mode"}>
           {systemColorScheme !== "no-preference" && (
             <SettingsItemSwitch
@@ -69,13 +86,17 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
             onValueChange={toggleStepVibration}
           />
         </SettingsSection>
-        <SettingsSection label={"Audio"}>
-          <SettingsItemSwitch
-            label="Guided breathing"
-            color={theme.mainColor}
-            value={guidedBreathingFlag}
-            onValueChange={toggleGuidedBreathing}
-          />
+        <SettingsSection label={"Guided Breathing"}>
+          {guidedBreathingItems.map(({ label, value }, index) => (
+            <SettingsItemRadio
+              key={value}
+              index={index}
+              label={label}
+              color={theme.mainColor}
+              selected={value === guidedBreathingMode}
+              onPress={() => setGuidedBreathingMode(value)}
+            />
+          ))}
         </SettingsSection>
         <SettingsSection label={"Timer"}>
           <SettingsItemPicker
@@ -86,7 +107,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
             onValueChange={setTimerDuration}
           />
         </SettingsSection>
-      </Animated.View>
+      </ScrollView>
     </PageContainer>
   );
 };

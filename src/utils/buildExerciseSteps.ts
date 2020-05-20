@@ -3,7 +3,7 @@
 export const buildExerciseSteps = (durations: number[]) => [
   {
     id: "inhale",
-    label: "Breathe in",
+    label: "Inhale",
     duration: durations[0] * 1000,
     showDots: false,
     skipped: durations[0] === 0,
@@ -17,7 +17,7 @@ export const buildExerciseSteps = (durations: number[]) => [
   },
   {
     id: "exhale",
-    label: "Breathe out",
+    label: "Exhale",
     duration: durations[2] * 1000,
     showDots: false,
     skipped: durations[2] === 0,

@@ -22,7 +22,7 @@ export const Exercise: FC<Props> = () => {
   const {
     technique,
     timerDuration,
-    guidedBreathingFlag,
+    guidedBreathingMode,
     stepVibrationFlag,
   } = useAppContext();
   const [status, setStatus] = useState<Status>("interlude");
@@ -35,9 +35,9 @@ export const Exercise: FC<Props> = () => {
   });
 
   useOnMount(() => {
-    if (guidedBreathingFlag) initializeAudio();
+    if (guidedBreathingMode !== "disabled") initializeAudio();
     return () => {
-      if (guidedBreathingFlag) releaseAudio();
+      if (guidedBreathingMode !== "disabled") releaseAudio();
     };
   });
 
@@ -48,7 +48,7 @@ export const Exercise: FC<Props> = () => {
   const handleTimeLimitReached = () => {
     unmountContentAnimation.start(({ finished }) => {
       if (finished) {
-        if (guidedBreathingFlag) playSound("bell");
+        if (guidedBreathingMode !== "disabled") playSound("endingBell");
         setStatus("completed");
       }
     });
@@ -71,7 +71,7 @@ export const Exercise: FC<Props> = () => {
           />
           <ExerciseCircle
             steps={steps}
-            soundEnabled={guidedBreathingFlag}
+            guidedBreathingMode={guidedBreathingMode}
             vibrationEnabled={stepVibrationFlag}
           />
         </Animated.View>

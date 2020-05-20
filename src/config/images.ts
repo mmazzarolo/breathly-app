@@ -8,6 +8,7 @@ const buildImageSource = (
 };
 
 export const images = {
+  iconCheck: buildImageSource("IconCheck", "icon_check"),
   iconClose: buildImageSource("IconClose", "icon_close"),
   iconLeftArrow: buildImageSource("IconLeftArrow", "icon_left_arrow"),
   iconMeditation: buildImageSource("IconMeditation", "icon_meditation"),
