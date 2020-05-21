@@ -115,7 +115,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    marginHorizontal: 36,
+    paddingHorizontal: 36,
     marginVertical: 12,
   },
 });
