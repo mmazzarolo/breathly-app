@@ -247,8 +247,8 @@ PODS:
     - React-cxxreact (= 0.62.2)
     - React-jsi (= 0.62.2)
     - ReactCommon/callinvoker (= 0.62.2)
-  - RNCAsyncStorage (1.10.1):
-    - React
+  - RNCAsyncStorage (1.12.1):
+    - React-Core
   - RNSound (0.11.0):
     - React
     - RNSound/Core (= 0.11.0)
@@ -373,8 +373,8 @@ SPEC CHECKSUMS:
   React-jsi: b6dc94a6a12ff98e8877287a0b7620d365201161
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
-  react-native-haptic: d90a0a661333a22cb2b434c7094a65f27aed773d
-  react-native-keep-awake: afad8a51dfef9fe9655a6344771be32c8596d774
+  react-native-haptic: b83dbc1933ebfc2d474914eae483b324a0d27aa5
+  react-native-keep-awake: eba3137546b10003361b37c761f6c429b59814ae
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
@@ -386,10 +386,10 @@ SPEC CHECKSUMS:
   React-RCTText: fae545b10cfdb3d247c36c56f61a94cfd6dba41d
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
-  RNCAsyncStorage: 39831e0dc5f547a1fb2669eb9e091d460a9be2be
-  RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
+  RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
+  RNSound: c980916b596cc15c8dcd2f6ecd3b13c4881dbe20
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
 
 PODFILE CHECKSUM: 5674add3deb48b2700ddb15d3ce10122ef1e018e
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

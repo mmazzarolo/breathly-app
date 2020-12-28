@@ -72,8 +72,8 @@
 		51AC1B9F24746623007FD1A8 /* paulexhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulexhale.mp3; path = ../.assets/audio/paulexhale.mp3; sourceTree = "<group>"; };
 		51AC1BA024746623007FD1A8 /* paulhold.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulhold.mp3; path = ../.assets/audio/paulhold.mp3; sourceTree = "<group>"; };
 		51AC1BA124746624007FD1A8 /* paulinhale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paulinhale.mp3; path = ../.assets/audio/paulinhale.mp3; sourceTree = "<group>"; };
-		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace-personal/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
-		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace-personal/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
+		51B126C822F5E056000AB3BE /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../../../workspace/breathly-app/ios/splash-logo.png"; sourceTree = "<group>"; };
+		51B126CA22F5E05B000AB3BE /* splash-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-bg.png"; path = "../../../workspace/breathly-app/ios/splash-bg.png"; sourceTree = "<group>"; };
 		51B8445424688F2D00902B0A /* Breathly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Breathly-Bridging-Header.h"; sourceTree = "<group>"; };
 		51B844572468921000902B0A /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		51FC1CDB2473CB0C00DF5A26 /* cuebell2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cuebell2.mp3; path = ../.assets/audio/cuebell2.mp3; sourceTree = "<group>"; };
