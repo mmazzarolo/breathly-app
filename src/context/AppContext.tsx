@@ -192,6 +192,11 @@ export const useAppContext = () => {
     persistNumber("timerDuration", timerDuration);
     dispatch({ type: "SET_TIMER_DURATION", payload: timerDuration });
   };
+  const toggleTimer = () => {
+    const timerDuration = state.timerDuration ? 0 : 3 * 1000 * 60;
+    persistNumber("timerDuration", timerDuration);
+    dispatch({ type: "SET_TIMER_DURATION", payload: timerDuration });
+  };
   const toggleCustomDarkMode = () => {
     persistBoolean("customDarkModeFlag", !state.customDarkModeFlag);
     dispatch({ type: "TOGGLE_CUSTOM_DARK_MODE" });
@@ -245,6 +250,7 @@ export const useAppContext = () => {
     toggleCustomDarkMode,
     toggleFollowSystemDarkMode,
     toggleStepVibration,
+    toggleTimer,
     setGuidedBreathingMode,
     updateCustomPatternDuration,
   };

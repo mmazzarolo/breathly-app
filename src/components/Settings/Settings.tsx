@@ -1,18 +1,12 @@
 import React, { FC } from "react";
-import {
-  Animated,
-  StyleSheet,
-  LayoutAnimation,
-  ScrollView,
-} from "react-native";
-import { timerLimits } from "../../config/timerLimits";
+import { StyleSheet, LayoutAnimation, ScrollView } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import { PageContainer } from "../PageContainer/PageContainer";
-import { SettingsItemPicker } from "./SettingsItemPicker";
 import { SettingsItemSwitch } from "./SettingsItemSwitch";
 import { SettingsSection } from "./SettingsSection";
 import { SettingsItemRadio } from "./SettingsItemRadio";
 import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
+import { SettingsItemMinutesInput } from "./SettingsItemMinutesInput";
 
 interface Props {
   visible: boolean;
@@ -27,6 +21,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
     customDarkModeFlag,
     guidedBreathingMode,
     timerDuration,
+    toggleTimer,
     setTimerDuration,
     stepVibrationFlag,
     followSystemDarkModeFlag,
@@ -78,6 +73,32 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
             />
           )}
         </SettingsSection>
+        <SettingsSection label={"Timer"}>
+          <SettingsItemSwitch
+            label="Enable excercise timer"
+            color={theme.mainColor}
+            value={!!timerDuration}
+            onValueChange={() => {
+              LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut
+              );
+              toggleTimer();
+            }}
+          />
+          {!!timerDuration && (
+            <SettingsItemMinutesInput
+              label="Timer duration (minutes)"
+              color={theme.mainColor}
+              value={timerDuration}
+              onValueChange={(value) => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut
+                );
+                setTimerDuration(value);
+              }}
+            />
+          )}
+        </SettingsSection>
         <SettingsSection label={"Vibration"}>
           <SettingsItemSwitch
             label="Vibrate on step change"
@@ -97,15 +118,6 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
               onPress={() => setGuidedBreathingMode(value)}
             />
           ))}
-        </SettingsSection>
-        <SettingsSection label={"Timer"}>
-          <SettingsItemPicker
-            label="Timer duration"
-            color={theme.mainColor}
-            items={timerLimits}
-            value={timerDuration}
-            onValueChange={setTimerDuration}
-          />
         </SettingsSection>
       </ScrollView>
     </PageContainer>
