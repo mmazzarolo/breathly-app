@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.10.1",
-    "immer": "^6.0.5",
+    "immer": "^8.0.1",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-haptic": "oblador/react-native-haptic#package-cleanup",
