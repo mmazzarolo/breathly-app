@@ -20,10 +20,10 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 
 <p align="center" margin-bottom="0">
   <a href="https://breathly.app">
-    <img alt="Breathly" width="420" height="auto" src="./.github/iphone-1.png">
+    <img alt="Breathly" width="380" height="auto" src="./.github/iphone-1.png">
   </a>
   <a href="https://breathly.app">
-    <img alt="Breathly" width="420" height="auto" src="./.github/iphone-2.png">
+    <img alt="Breathly" width="380" height="auto" src="./.github/iphone-2.png">
   </a>
 </p>
 
@@ -36,7 +36,7 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
   </a>
 </p>
 <p align="center">
-  <a href="https://breathly.app">Breathly App landing page</a>
+  <a href="https://www.producthunt.com/posts/breathly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-breathly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=290679&theme=light" alt="Breathly - Open-source breath training and relaxation app | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
 
 ## Overview
@@ -48,7 +48,7 @@ With the incoming React-Native's hooks support I decided to get back on it, rewr
 
 I hope the source code will be useful to someone.
 
-👉**Check the [DEVLOG](./DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
+👉 **Check the [DEVLOG](./DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
 
 ### Features / Stack
 
