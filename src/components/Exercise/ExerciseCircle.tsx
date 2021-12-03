@@ -13,14 +13,7 @@ import { fontThin } from "../../config/fonts";
 import { playSound } from "../../services/sound";
 import ReactNativeHaptic from "react-native-haptic";
 import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
-
-interface Step {
-  id: string;
-  label: string;
-  duration: number;
-  showDots: boolean;
-  skipped: boolean;
-}
+import { Step } from "../../types/Step";
 
 type Props = {
   steps: Step[];
