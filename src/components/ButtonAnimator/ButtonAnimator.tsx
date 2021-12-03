@@ -208,14 +208,14 @@ export const ButtonAnimator: FC<Props> = ({
           testID="exercise-button-stop"
           onPress={handlePress}
           disabled={buttonDisabled}
-          style={{ position: "absolute", zIndex: 2 }} //TODO:
+          style={styles.stopButtonTouchable}
         >
           <Animated.View
             style={[
               styles.button,
               styles.buttonActive,
               activeButtonAnimatedStyle,
-              { backgroundColor: "white" }, // TODO:
+              styles.stopButton,
             ]}
           >
             <Animated.Image
@@ -285,6 +285,13 @@ const styles = StyleSheet.create({
     ...shadowStyle,
   },
   buttonInactive: {},
+  stopButtonTouchable: {
+    position: "absolute",
+    zIndex: 2,
+  },
+  stopButton: {
+    backgroundColor: "white",
+  },
   icon: {
     width: buttonSize / 3,
     height: buttonSize / 3,
