@@ -1,6 +1,8 @@
+import { Step } from "../types/Step";
+
 // Given an array of durations (e.g.: [4, 4, 4, 4]) maps it to an array of
 // objects with the steps informations
-export const buildExerciseSteps = (durations: number[]) => [
+export const buildExerciseSteps = (durations: number[]): Step[] => [
   {
     id: "inhale",
     label: "Inhale",
