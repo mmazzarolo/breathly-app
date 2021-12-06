@@ -41,7 +41,7 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
       setStep(1);
       await delay(1000);
       if (!isMounted.current) return;
-      hideContainerAnimation.start((finished) => finished && onComplete());
+      hideContainerAnimation.start((done) => done && onComplete());
     });
   };
 
