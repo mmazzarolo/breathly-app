@@ -10,7 +10,7 @@ type Props = {
   onComplete: () => void;
 };
 
-const interuldeInitialDelay = 600;
+const interludeInitialDelay = 600;
 const interludeAnimDuration = 400;
 
 export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
@@ -30,7 +30,7 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
   });
 
   const animateInterlude = async () => {
-    await delay(interuldeInitialDelay);
+    await delay(interludeInitialDelay);
     showSubtitleAnimation.start(async ({ finished }) => {
       if (!finished) return;
       await delay(1000);
