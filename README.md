@@ -35,6 +35,12 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
     <img alt="Breathly" width="auto" height="40" src="./.github/google-play-badge.png">
   </a>
 </p>
+
+<p align="center">
+  <a href="https://f-droid.org/packages/com.mmazzarolo.breathly/">
+    <img alt="Breathly" width="auto" height="60" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png">
+  </a>
+  </p>
 <p align="center">
   <a href="https://www.producthunt.com/posts/breathly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-breathly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=290679&theme=light" alt="Breathly - Open-source breath training and relaxation app | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
