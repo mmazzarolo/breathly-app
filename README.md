@@ -66,12 +66,12 @@ I hope the source code will be useful to someone.
 ### Resources and acknowledgements
 
 Most of the stuff you see in the app is just a derivation of other people's work.  
-I tried to keep track of them during the development process.
+I tried to keep track of them during the development process:
 
 - The "play" button animation is based on a Switft custom modal transition called [BubbleTransition](https://github.com/andreamazz/BubbleTransition)
-- For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logos and I used [this one](./.github/breathly-hatchful-logo.png) as the building ground for the current one (build with PhotoShop)
+- For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logos and I used [this one](./.github/breathly-hatchful-logo.png) as the foundation for the current one (build with PhotoShop)
 - The technique picker View Pager animations are inspired by the InVision Android app onboarding screen
-- I used [this mockup](https://gumroad.com/l/edFPQ) from [Lstore design goodies](https://gumroad.com/lstore) to create the iPhone X image that you can see at the top of the README.
+- I used [this mockup](https://gumroad.com/l/edFPQ) from [Lstore design goodies](https://gumroad.com/lstore) to create the iPhone X preview that you can see at the top of the README.
 - The breathing techniques are the same ones used in a bunch of other iOS apps and their description were obtained with a Google search. A few of the apps used as inspirations are:
   - [Breathe+ Simple Breath Trainer](https://itunes.apple.com/us/app/breathe-simple-breath-trainer/id1106998959?mt=8)
   - [iBreathe – Relax and Breathe](https://itunes.apple.com/us/app/ibreathe-relax-and-breathe/id1296605806)
