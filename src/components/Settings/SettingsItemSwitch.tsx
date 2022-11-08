@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Animated, StyleSheet, Switch, Text, Platform } from "react-native";
-import { useAppContext } from "../../context/AppContext";
 import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   label: string;
@@ -10,12 +10,7 @@ interface Props {
   onValueChange: (value: boolean) => void;
 }
 
-export const SettingsItemSwitch: FC<Props> = ({
-  label,
-  color,
-  value,
-  onValueChange,
-}) => {
+export const SettingsItemSwitch: FC<Props> = ({ label, color, value, onValueChange }) => {
   const { theme } = useAppContext();
   return (
     <Animated.View style={styles.container}>

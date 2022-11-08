@@ -1,31 +1,23 @@
 import React, { FC } from "react";
 import { Animated, StyleSheet, Text, Image } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { fontLight } from "../../config/fonts";
+import { images } from "../../assets/images";
 import { Touchable } from "../../common/Touchable";
-import { images } from "../../config/images";
+import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   index: number;
   label: string;
   color: string;
   selected: boolean;
-  onPress: (value: any) => void;
+  onPress: () => void;
 }
 
-export const SettingsItemRadio: FC<Props> = ({
-  index,
-  label,
-  color,
-  selected,
-  onPress,
-}) => {
+export const SettingsItemRadio: FC<Props> = ({ index, label, color, selected, onPress }) => {
   const { theme } = useAppContext();
   return (
     <Touchable onPress={onPress}>
-      <Animated.View
-        style={[styles.container, { marginTop: index === 0 ? 8 : 18 }]}
-      >
+      <Animated.View style={[styles.container, { marginTop: index === 0 ? 8 : 18 }]}>
         <Text
           style={[
             styles.label,
@@ -38,10 +30,7 @@ export const SettingsItemRadio: FC<Props> = ({
           {label}
         </Text>
         {selected ? (
-          <Image
-            style={[styles.checkmark, { tintColor: color }]}
-            source={images.iconCheck}
-          />
+          <Image style={[styles.checkmark, { tintColor: color }]} source={images.iconCheck} />
         ) : undefined}
       </Animated.View>
     </Touchable>

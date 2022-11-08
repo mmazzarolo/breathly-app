@@ -1,18 +1,16 @@
+import { impactAsync } from "expo-haptics";
 import React, { FC, ReactChild, useState } from "react";
-import { Animated, StyleSheet, Platform } from "react-native";
-import ReactNativeHaptic from "react-native-haptic";
+import { Animated, StyleSheet, Platform, ViewStyle } from "react-native";
+import { images } from "../../assets/images";
+import { Touchable } from "../../common/Touchable";
 import { deviceHeight } from "../../config/constants";
-import { images } from "../../config/images";
 import { useAppContext } from "../../context/AppContext";
 import { useOnMount } from "../../hooks/useOnMount";
 import { useOnUpdate } from "../../hooks/useOnUpdate";
+import { Haptics } from "../../services/haptics";
 import { animate } from "../../utils/animate";
-import {
-  interpolateScale,
-  interpolateTranslateY,
-} from "../../utils/interpolate";
+import { interpolateScale, interpolateTranslateY } from "../../utils/interpolate";
 import { StarsBackground } from "../StarsBackground/StarsBackground";
-import { Touchable } from "../../common/Touchable";
 
 export const buttonSize = 60;
 export const buttonAnimatorContentHeight = deviceHeight - buttonSize * 2;
@@ -31,14 +29,7 @@ type Props = {
   back: ReactChild;
 };
 
-type Status =
-  | "showing"
-  | "hiding"
-  | "hidden"
-  | "front"
-  | "back"
-  | "to-front"
-  | "to-back";
+type Status = "showing" | "hiding" | "hidden" | "front" | "back" | "to-front" | "to-back";
 
 export const ButtonAnimator: FC<Props> = ({
   visible,
@@ -54,8 +45,7 @@ export const ButtonAnimator: FC<Props> = ({
   const [status, setStatus] = useState<Status>("showing");
 
   const buttonDisabled = status !== "front" && status !== "back";
-  const backVisible =
-    status === "back" || status === "to-back" || status === "to-front";
+  const backVisible = status === "back" || status === "to-back" || status === "to-front";
   const backgroundExpanded = status === "back" || status === "to-back";
 
   const showAnimation = animate(visibilityAnimVal, {
@@ -85,16 +75,15 @@ export const ButtonAnimator: FC<Props> = ({
 
   const handlePress = () => {
     if (Platform.OS === "ios") {
-      ReactNativeHaptic.generate("impact");
+      impactAsync();
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
     if (status === "front") {
       onExpandPress();
     } else {
       onClosePress();
     }
-    setStatus((prevStatus) =>
-      prevStatus === "front" ? "to-back" : "to-front"
-    );
+    setStatus((prevStatus) => (prevStatus === "front" ? "to-back" : "to-front"));
     animate(expandAnimVal, {
       toValue: status === "front" || status === "to-back" ? 1 : 0,
       duration: expandAnimValDuration,
@@ -156,7 +145,7 @@ export const ButtonAnimator: FC<Props> = ({
       }),
     ],
   };
-  const animatedFrontStyle = {
+  const animatedFrontStyle: Animated.WithAnimatedObject<ViewStyle> = {
     opacity: visibilityAnimVal.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
@@ -174,11 +163,7 @@ export const ButtonAnimator: FC<Props> = ({
       <Animated.View style={animatedFrontStyle}>{front}</Animated.View>
       <Animated.View style={styles.buttonContainer}>
         <Animated.View
-          style={[
-            styles.underlay,
-            underlayAnimatedStyle,
-            { backgroundColor: theme.mainColor },
-          ]}
+          style={[styles.underlay, underlayAnimatedStyle, { backgroundColor: theme.mainColor }]}
         />
         <Touchable
           testID="exercise-button-start"
@@ -196,11 +181,7 @@ export const ButtonAnimator: FC<Props> = ({
           >
             <Animated.Image
               source={images.iconPlay}
-              style={[
-                styles.icon,
-                inactiveIconAnimatedStyle,
-                { tintColor: "white" },
-              ]}
+              style={[styles.icon, inactiveIconAnimatedStyle, { tintColor: "white" }]}
             />
           </Animated.View>
         </Touchable>
@@ -231,10 +212,7 @@ export const ButtonAnimator: FC<Props> = ({
       >
         {backVisible && back}
       </Animated.View>
-      <StarsBackground
-        expanded={backgroundExpanded}
-        animationDuration={expandAnimValDuration}
-      />
+      <StarsBackground expanded={backgroundExpanded} animationDuration={expandAnimValDuration} />
     </>
   );
 };

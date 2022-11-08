@@ -1,7 +1,6 @@
 import { Platform } from "react-native";
-
-import { SettingsItemPickerIOS } from "./SettingsItemPickerIOS";
 import { SettingsItemPickerAndroid } from "./SettingsItemPickerAndroid";
+import { SettingsItemPickerIOS } from "./SettingsItemPickerIOS";
 
 export const SettingsItemPicker =
   Platform.OS === "android" ? SettingsItemPickerAndroid : SettingsItemPickerIOS;

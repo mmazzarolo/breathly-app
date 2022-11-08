@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Image, ImageSourcePropType, StyleSheet, Text } from "react-native";
-import { useAppContext } from "../../context/AppContext";
 import { Touchable, TouchableProps } from "../../common/Touchable";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props extends TouchableProps {
   imageSource: ImageSourcePropType;
@@ -9,20 +9,12 @@ interface Props extends TouchableProps {
   onPress: () => void;
 }
 
-export const MenuButton: FC<Props> = ({
-  imageSource,
-  onPress,
-  label,
-  ...otherPops
-}) => {
+export const MenuButton: FC<Props> = ({ imageSource, onPress, label, ...otherPops }) => {
   const { theme } = useAppContext();
   return (
     <Touchable onPress={onPress} style={styles.touchable} {...otherPops}>
       <Text style={[styles.label, { color: theme.textColor }]}>{label}</Text>
-      <Image
-        source={imageSource}
-        style={[styles.image, { tintColor: theme.textColorLighter }]}
-      />
+      <Image source={imageSource} style={[styles.image, { tintColor: theme.textColorLighter }]} />
     </Touchable>
   );
 };

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { StyleSheet, Animated, View } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { fontLight } from "../../config/fonts";
 import { Touchable } from "../../common/Touchable";
+import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   onPress: (update: number) => void;
@@ -10,11 +10,7 @@ interface Props {
   rightDisabled?: boolean;
 }
 
-export const Stepper: FC<Props> = ({
-  onPress,
-  leftDisabled,
-  rightDisabled,
-}) => {
+export const Stepper: FC<Props> = ({ onPress, leftDisabled, rightDisabled }) => {
   const { theme } = useAppContext();
   return (
     <Animated.View style={styles.container}>
@@ -45,9 +41,7 @@ export const Stepper: FC<Props> = ({
           </Animated.Text>
         </View>
       </Touchable>
-      <View
-        style={[styles.separator, { backgroundColor: theme.textColorLighter }]}
-      />
+      <View style={[styles.separator, { backgroundColor: theme.textColorLighter }]} />
       <Touchable
         disabled={rightDisabled}
         onPressIn={() => onPress(+1)}

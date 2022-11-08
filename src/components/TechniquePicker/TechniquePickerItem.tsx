@@ -1,11 +1,8 @@
-import React, { FC } from "react";
-import { Animated, StyleSheet, Platform } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import {
-  fullSwipeThreshold,
-  itemAnimHideThreshold,
-} from "./TechniquePickerViewPager";
+import React, { FC, PropsWithChildren } from "react";
+import { Animated, StyleSheet } from "react-native";
 import { fontMono, fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
+import { fullSwipeThreshold, itemAnimHideThreshold } from "./TechniquePickerViewPager";
 
 interface Props {
   panX: Animated.Value;
@@ -15,7 +12,7 @@ interface Props {
   description: string;
 }
 
-export const TechniquePickerItem: FC<Props> = ({
+export const TechniquePickerItem: FC<PropsWithChildren<Props>> = ({
   panX,
   position,
   name,
@@ -110,17 +107,13 @@ export const TechniquePickerItem: FC<Props> = ({
           <Animated.Text style={[styles.titleText, { color: theme.textColor }]}>
             {name}
           </Animated.Text>
-          <Animated.Text
-            style={[styles.durationsText, { color: theme.textColor }]}
-          >
+          <Animated.Text style={[styles.durationsText, { color: theme.textColor }]}>
             {durations.join(" - ")}
           </Animated.Text>
         </Animated.View>
         <Animated.View style={[styles.description, descriptionAnimatedStyle]}>
           {name !== "Custom" ? (
-            <Animated.Text
-              style={[styles.descriptionText, { color: theme.textColor }]}
-            >
+            <Animated.Text style={[styles.descriptionText, { color: theme.textColor }]}>
               {description}
             </Animated.Text>
           ) : undefined}

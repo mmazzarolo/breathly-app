@@ -1,10 +1,10 @@
 import React, { FC, useRef, useState } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
+import { fontThin } from "../../config/fonts";
 import { useOnMount } from "../../hooks/useOnMount";
 import { animate } from "../../utils/animate";
 import { delay } from "../../utils/delay";
 import { interpolateTranslateY } from "../../utils/interpolate";
-import { fontThin } from "../../config/fonts";
 
 type Props = {
   onComplete: () => void;

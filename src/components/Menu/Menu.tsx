@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Animated, StyleSheet } from "react-native";
-import { images } from "../../config/images";
+import { images } from "../../assets/images";
 import { useAppContext } from "../../context/AppContext";
 import { buttonAnimatorContentHeight } from "../ButtonAnimator/ButtonAnimator";
 import { MenuButton } from "./MenuButton";
@@ -11,10 +11,7 @@ interface Props {
   onSettingsPress: () => void;
 }
 
-export const Menu: FC<Props> = ({
-  onTechniquePickerPress,
-  onSettingsPress,
-}) => {
+export const Menu: FC<Props> = ({ onTechniquePickerPress, onSettingsPress }) => {
   const { technique, theme } = useAppContext();
   return (
     <>

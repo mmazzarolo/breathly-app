@@ -15,12 +15,7 @@ const margin = 6;
 const maxScale = 1.3;
 const maxOpacity = 0.8;
 
-export const TechniquePickerDot: FC<Props> = ({
-  panX,
-  position,
-  color,
-  squared,
-}) => {
+export const TechniquePickerDot: FC<Props> = ({ panX, position, color, squared }) => {
   const { theme } = useAppContext();
   const createInterpolator = (outputRange: number[]) => {
     return panX.interpolate({

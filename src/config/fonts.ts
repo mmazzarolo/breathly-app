@@ -17,6 +17,5 @@ export const fontLight: Font = {
 
 export const fontMono: Font = {
   fontWeight: "200",
-  fontFamily:
-    Platform.OS === "android" ? "sans-serif-thin" : "HelveticaNeue-Light",
+  fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "HelveticaNeue-Light",
 };

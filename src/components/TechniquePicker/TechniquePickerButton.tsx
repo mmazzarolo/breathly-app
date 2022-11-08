@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { StyleSheet, Image } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { images } from "../../config/images";
+import { images } from "../../assets/images";
 import { Touchable, TouchableProps } from "../../common/Touchable";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props extends TouchableProps {
   disabled: boolean;
@@ -18,12 +18,7 @@ export const TechniquePickerButton: FC<Props> = ({
 }) => {
   const { theme } = useAppContext();
   return (
-    <Touchable
-      disabled={disabled}
-      onPress={onPress}
-      style={styles.container}
-      {...otherProps}
-    >
+    <Touchable disabled={disabled} onPress={onPress} style={styles.container} {...otherProps}>
       <Image
         source={images.iconLeftArrow}
         style={[

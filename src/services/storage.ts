@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const persistString = async (key: string, value: string) => {
   return await AsyncStorage.setItem(key, value);

@@ -1,5 +1,5 @@
 import React, { useRef, useImperativeHandle, forwardRef, Ref } from "react";
-import { Animated, PanResponder } from "react-native";
+import { Animated, PanResponder, StyleProp, ViewStyle } from "react-native";
 import { deviceWidth } from "../../config/constants";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   onNextReached: () => void;
   onPrevReached: () => void;
   children: React.ReactNode;
-  style?: any;
+  style?: StyleProp<ViewStyle> | Animated.WithAnimatedObject<ViewStyle>;
 }
 
 export interface RefObject {
@@ -29,11 +29,9 @@ export const itemAnimHideThreshold = fullSwipeThreshold * 0.5;
 export const fullAnimDuration = 1000;
 export const manualAnimDuration = 500;
 
+// eslint-disable-next-line react/display-name
 export const TechniquePickerViewPager = forwardRef(
-  (
-    { panX, onNextReached, onPrevReached, children, ...otherProps }: Props,
-    ref: Ref<RefObject>
-  ) => {
+  ({ panX, onNextReached, onPrevReached, children, ...otherProps }: Props, ref: Ref<RefObject>) => {
     const swipingRight = useRef(false);
     const swipingLeft = useRef(false);
 
@@ -43,15 +41,11 @@ export const TechniquePickerViewPager = forwardRef(
 
     const manualAnimateTransition = (direction: "prev" | "next") =>
       animateTransition({
-        toValue:
-          direction === "next" ? -fullSwipeThreshold : +fullSwipeThreshold,
+        toValue: direction === "next" ? -fullSwipeThreshold : +fullSwipeThreshold,
         duration: manualAnimDuration,
       });
 
-    const animateTransition = (config: {
-      toValue: number;
-      duration: number;
-    }) => {
+    const animateTransition = (config: { toValue: number; duration: number }) => {
       Animated.timing(panX, {
         toValue: config.toValue,
         duration: config.duration,
@@ -74,17 +68,11 @@ export const TechniquePickerViewPager = forwardRef(
         if (gestureState.dx < 0 && !swipingRight.current) {
           swipingLeft.current = true;
           swipingRight.current = false;
-          Animated.event([null, { dx: panX }], { useNativeDriver: false })(
-            evt,
-            gestureState
-          );
+          Animated.event([null, { dx: panX }], { useNativeDriver: false })(evt, gestureState);
         } else if (gestureState.dx > 0 && !swipingLeft.current) {
           swipingRight.current = true;
           swipingLeft.current = false;
-          Animated.event([null, { dx: panX }], { useNativeDriver: false })(
-            evt,
-            gestureState
-          );
+          Animated.event([null, { dx: panX }], { useNativeDriver: false })(evt, gestureState);
         }
       },
       onPanResponderRelease: (e, { dx }) => {
@@ -127,11 +115,7 @@ export const TechniquePickerViewPager = forwardRef(
     });
 
     return (
-      <Animated.View
-        pointerEvents="box-none"
-        {...panResponder.panHandlers}
-        {...otherProps}
-      >
+      <Animated.View pointerEvents="box-none" {...panResponder.panHandlers} {...otherProps}>
         {children}
       </Animated.View>
     );

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Image, StyleSheet, Text } from "react-native";
-import { images } from "../../config/images";
-import { useAppContext } from "../../context/AppContext";
+import { images } from "../../assets/images";
 import { Touchable } from "../../common/Touchable";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   onPress: () => void;

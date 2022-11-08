@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { Animated, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { fontLight } from "../../config/fonts";
+import { Animated, StyleSheet, Text } from "react-native";
 import { Touchable } from "../../common/Touchable";
+import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   label: string;

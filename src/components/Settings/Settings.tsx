@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { StyleSheet, LayoutAnimation, ScrollView } from "react-native";
 import { useAppContext } from "../../context/AppContext";
+import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
 import { PageContainer } from "../PageContainer/PageContainer";
+import { SettingsItemMinutesInput } from "./SettingsItemMinutesInput";
+import { SettingsItemRadio } from "./SettingsItemRadio";
 import { SettingsItemSwitch } from "./SettingsItemSwitch";
 import { SettingsSection } from "./SettingsSection";
-import { SettingsItemRadio } from "./SettingsItemRadio";
-import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
-import { SettingsItemMinutesInput } from "./SettingsItemMinutesInput";
 
 interface Props {
   visible: boolean;
@@ -56,15 +56,12 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
               color={theme.mainColor}
               value={followSystemDarkModeFlag}
               onValueChange={() => {
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut
-                );
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
                 toggleFollowSystemDarkMode();
               }}
             />
           )}
-          {(systemColorScheme === "no-preference" ||
-            !followSystemDarkModeFlag) && (
+          {(systemColorScheme === "no-preference" || !followSystemDarkModeFlag) && (
             <SettingsItemSwitch
               label="Use dark mode"
               color={theme.mainColor}
@@ -79,9 +76,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
             color={theme.mainColor}
             value={!!timerDuration}
             onValueChange={() => {
-              LayoutAnimation.configureNext(
-                LayoutAnimation.Presets.easeInEaseOut
-              );
+              LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
               toggleTimer();
             }}
           />
@@ -91,9 +86,7 @@ export const Settings: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
               color={theme.mainColor}
               value={timerDuration}
               onValueChange={(value) => {
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut
-                );
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
                 setTimerDuration(value);
               }}
             />

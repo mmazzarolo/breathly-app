@@ -15,18 +15,10 @@ type Props = {
   totalDuration: number;
 };
 
-export const ExerciseCircleDots: FC<Props> = ({
-  visible = false,
-  numberOfDots,
-  totalDuration,
-}) => {
-  const [dotAnimVals] = useState(
-    times(numberOfDots).map(() => new Animated.Value(0))
-  );
+export const ExerciseCircleDots: FC<Props> = ({ visible = false, numberOfDots, totalDuration }) => {
+  const [dotAnimVals] = useState(times(numberOfDots).map(() => new Animated.Value(0)));
 
-  const delayDuration = Math.floor(
-    totalDuration / numberOfDots - fadeInAnimDuration
-  );
+  const delayDuration = Math.floor(totalDuration / numberOfDots - fadeInAnimDuration);
 
   const createDotAnimation = (index: number) => {
     return animate(dotAnimVals[index], {
@@ -73,10 +65,7 @@ export const ExerciseCircleDots: FC<Props> = ({
   return (
     <Animated.View style={[styles.container]}>
       {times(numberOfDots).map((index) => (
-        <Animated.View
-          key={`dot_${index}`}
-          style={[styles.dot, dotsAnimatedStyles[index]]}
-        />
+        <Animated.View key={`dot_${index}`} style={[styles.dot, dotsAnimatedStyles[index]]} />
       ))}
     </Animated.View>
   );

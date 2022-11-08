@@ -5,14 +5,14 @@ import { useAppContext } from "../../context/AppContext";
 import { getNextIndex } from "../../utils/getNextIndex";
 import { getPrevIndex } from "../../utils/getPrevIndex";
 import { PageContainer } from "../PageContainer/PageContainer";
+import { TechniquePickerButton } from "./TechniquePickerButton";
 import { TechniquePickerDot } from "./TechniquePickerDot";
 import { TechniquePickerItem } from "./TechniquePickerItem";
+import { TechniquePickerItemCustomization } from "./TechniquePickerItemCustomization";
 import {
   TechniquePickerViewPager,
   RefObject as TechniquePickerViewPagerRef,
 } from "./TechniquePickerViewPager";
-import { TechniquePickerButton } from "./TechniquePickerButton";
-import { TechniquePickerItemCustomization } from "./TechniquePickerItemCustomization";
 
 interface Props {
   visible: boolean;
@@ -20,17 +20,11 @@ interface Props {
   onBackButtonPress: () => void;
 }
 
-export const TechniquePicker: FC<Props> = ({
-  visible,
-  onHide,
-  onBackButtonPress,
-}) => {
+export const TechniquePicker: FC<Props> = ({ visible, onHide, onBackButtonPress }) => {
   const { technique, setTechniqueId, customPatternDurations } = useAppContext();
   const [animatingManually, setAnimatingManually] = useState(false);
   const viewPagerRef = useRef<TechniquePickerViewPagerRef>(null);
-  const currentTechniqueIndex = techniques.findIndex(
-    (x) => x.id === technique.id
-  );
+  const currentTechniqueIndex = techniques.findIndex((x) => x.id === technique.id);
   const [panX] = useState(new Animated.Value(0));
 
   const mapIndexToPosition = (index: number) => {
@@ -85,9 +79,7 @@ export const TechniquePicker: FC<Props> = ({
           style={styles.viewPager}
         >
           {visibleTechniques.map((technique, index) => {
-            const originalTechniqueIndex = techniques.findIndex(
-              (x) => x.id === technique.id
-            );
+            const originalTechniqueIndex = techniques.findIndex((x) => x.id === technique.id);
             const position = mapIndexToPosition(originalTechniqueIndex);
             return (
               <TechniquePickerItem
@@ -95,17 +87,11 @@ export const TechniquePicker: FC<Props> = ({
                 position={position}
                 panX={panX}
                 name={technique.name}
-                durations={
-                  technique.id === "custom"
-                    ? customPatternDurations
-                    : technique.durations
-                }
+                durations={technique.id === "custom" ? customPatternDurations : technique.durations}
                 description={technique.description}
               >
                 {technique.id === "custom" ? (
-                  <TechniquePickerItemCustomization
-                    durations={customPatternDurations}
-                  />
+                  <TechniquePickerItemCustomization durations={customPatternDurations} />
                 ) : undefined}
               </TechniquePickerItem>
             );

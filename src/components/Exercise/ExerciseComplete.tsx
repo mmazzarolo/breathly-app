@@ -1,16 +1,14 @@
 import React, { FC, useState } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
+import { fontThin } from "../../config/fonts";
 import { useOnMount } from "../../hooks/useOnMount";
 import { animate } from "../../utils/animate";
 import { interpolateTranslateY } from "../../utils/interpolate";
-import { fontThin } from "../../config/fonts";
-
-type Props = {};
 
 const mountAnimDuration = 400;
 const unmountAnimDuration = 400;
 
-export const ExerciseComplete: FC<Props> = () => {
+export const ExerciseComplete: FC = () => {
   const [mountAnimVal] = useState(new Animated.Value(0));
 
   const mountAnimation = animate(mountAnimVal, {

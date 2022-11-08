@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Animated, Platform, StyleSheet, Text, TextInput } from "react-native";
-import { useAppContext } from "../../context/AppContext";
 import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   label: string;
@@ -10,12 +10,7 @@ interface Props {
   onValueChange: (newValue: number) => void;
 }
 
-export const SettingsItemMinutesInput: FC<Props> = ({
-  label,
-  value,
-  color,
-  onValueChange,
-}) => {
+export const SettingsItemMinutesInput: FC<Props> = ({ label, value, color, onValueChange }) => {
   const [inputValue, setInputValue] = useState((value / 1000 / 60).toString());
   const { theme } = useAppContext();
   const onDone = () => {
@@ -29,11 +24,8 @@ export const SettingsItemMinutesInput: FC<Props> = ({
         onChangeText={(text) => {
           setInputValue(text.replace(/[^0-9]/g, ""));
         }}
-        style={[
-          styles.input,
-          { color: theme.textColor, borderBottomColor: theme.textColor },
-        ]}
-        autoCompleteType="off"
+        style={[styles.input, { color: theme.textColor, borderBottomColor: theme.textColor }]}
+        autoComplete="off"
         onFocus={() => setInputValue("")}
         clearTextOnFocus={true}
         keyboardType="numeric"

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Animated, StyleSheet } from "react-native";
+import { images } from "../../assets/images";
 import { deviceHeight, deviceWidth } from "../../config/constants";
-import { images } from "../../config/images";
 
 interface Props {
   color: string;

@@ -1,19 +1,16 @@
 import React, { FC, useState } from "react";
 import { Animated, StyleSheet, Platform, Vibration } from "react-native";
 import { deviceWidth } from "../../config/constants";
-import { useOnMount } from "../../hooks/useOnMount";
-import { animate } from "../../utils/animate";
-import {
-  interpolateScale,
-  interpolateTranslateY,
-} from "../../utils/interpolate";
-import { loopAnimations } from "../../utils/loopAnimations";
-import { ExerciseCircleDots } from "./ExerciseCircleDots";
 import { fontThin } from "../../config/fonts";
-import { playSound } from "../../services/sound";
-import ReactNativeHaptic from "react-native-haptic";
+import { useOnMount } from "../../hooks/useOnMount";
+import { playGuidedBreathingSound } from "../../services/audio";
+import { Haptics } from "../../services/haptics";
 import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
 import { Step } from "../../types/Step";
+import { animate } from "../../utils/animate";
+import { interpolateScale, interpolateTranslateY } from "../../utils/interpolate";
+import { loopAnimations } from "../../utils/loopAnimations";
+import { ExerciseCircleDots } from "./ExerciseCircleDots";
 
 type Props = {
   steps: Step[];
@@ -24,11 +21,7 @@ type Props = {
 const circleSize = deviceWidth * 0.8;
 const fadeInAnimDuration = 400;
 
-export const ExerciseCircle: FC<Props> = ({
-  steps,
-  guidedBreathingMode,
-  vibrationEnabled,
-}) => {
+export const ExerciseCircle: FC<Props> = ({ steps, guidedBreathingMode, vibrationEnabled }) => {
   const [showUpAnimVal] = useState(new Animated.Value(0));
   const [scaleAnimVal] = useState(new Animated.Value(0));
   const [textAnimVal] = useState(new Animated.Value(1));
@@ -76,29 +69,20 @@ export const ExerciseCircle: FC<Props> = ({
     setCurrentStepIndex(stepIndex);
     const step = activeSteps[stepIndex];
     if (step.id === "exhale") {
-      if (guidedBreathingMode === "laura") playSound("lauraBreatheOut");
-      if (guidedBreathingMode === "paul") playSound("paulBreatheOut");
-      if (guidedBreathingMode === "bell") playSound("cueBell1");
+      playGuidedBreathingSound("breatheOut");
       showCircleMinAnimation.start();
     } else if (step.id === "inhale") {
-      if (guidedBreathingMode === "laura") playSound("lauraBreatheIn");
-      if (guidedBreathingMode === "paul") playSound("paulBreatheIn");
-      if (guidedBreathingMode === "bell") playSound("cueBell1");
+      playGuidedBreathingSound("breatheIn");
       hideCircleMinAnimation.start();
     } else if (step.id === "afterExhale") {
-      if (guidedBreathingMode === "laura") playSound("lauraHold");
-      if (guidedBreathingMode === "paul") playSound("paulHold");
-      if (guidedBreathingMode === "bell") playSound("cueBell2");
+      playGuidedBreathingSound("hold");
       hideCircleMinAnimation.start();
     } else if (step.id === "afterInhale") {
-      if (guidedBreathingMode === "laura") playSound("lauraHold");
-      if (guidedBreathingMode === "paul") playSound("paulHold");
-      if (guidedBreathingMode === "bell") playSound("cueBell2");
+      playGuidedBreathingSound("hold");
     }
     if (vibrationEnabled) {
       if (Platform.OS === "ios") {
-        ReactNativeHaptic.generate("impactHeavy");
-        setTimeout(() => ReactNativeHaptic.generate("impactHeavy"), 100);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       } else if (Platform.OS === "android") {
         Vibration.vibrate(200);
       }
@@ -108,10 +92,7 @@ export const ExerciseCircle: FC<Props> = ({
   const startAnimationSteps = () => {
     const createStepAnimations = () =>
       activeSteps.map((x) =>
-        animateStep(
-          x.id === "inhale" || x.id === "afterInhale" ? 1 : 0,
-          x.duration
-        )
+        animateStep(x.id === "inhale" || x.id === "afterInhale" ? 1 : 0, x.duration)
       );
     const stopLoop = loopAnimations(createStepAnimations, onStepStart);
     return stopLoop;

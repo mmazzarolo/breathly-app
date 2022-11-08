@@ -1,11 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, PropsWithChildren, useState } from "react";
 import { Animated, Easing, StyleSheet } from "react-native";
 import { useOnMount } from "../../hooks/useOnMount";
 import { useOnUpdate } from "../../hooks/useOnUpdate";
 import { animate } from "../../utils/animate";
 import { interpolateTranslateY } from "../../utils/interpolate";
-import { PageContainerHeader } from "./PageContainerHeader";
 import { StarsBackground } from "../StarsBackground/StarsBackground";
+import { PageContainerHeader } from "./PageContainerHeader";
 
 interface Props {
   visible: boolean;
@@ -18,7 +18,7 @@ const mountAnimDuration = 800;
 const mountAnimContentTranslateY = 40;
 const unmountAnimDuration = 300;
 
-export const PageContainer: FC<Props> = ({
+export const PageContainer: FC<PropsWithChildren<Props>> = ({
   children,
   visible,
   title,
@@ -87,9 +87,7 @@ export const PageContainer: FC<Props> = ({
           onBackButtonPress={onBackButtonPress}
           style={headerAnimatedStyle}
         />
-        <Animated.View style={[styles.content, contentAnimatedStyle]}>
-          {children}
-        </Animated.View>
+        <Animated.View style={[styles.content, contentAnimatedStyle]}>{children}</Animated.View>
       </Animated.View>
     </>
   );

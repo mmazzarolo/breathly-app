@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 
@@ -6,13 +6,11 @@ interface Props {
   label: string;
 }
 
-export const SettingsSection: FC<Props> = ({ label, children }) => {
+export const SettingsSection: FC<PropsWithChildren<Props>> = ({ children, label }) => {
   const { theme } = useAppContext();
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: theme.textColor }]}>
-        {label.toUpperCase()}
-      </Text>
+      <Text style={[styles.label, { color: theme.textColor }]}>{label.toUpperCase()}</Text>
       {children}
     </View>
   );

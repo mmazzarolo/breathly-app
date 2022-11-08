@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-export interface TouchableProps extends TouchableOpacityProps {}
+export type TouchableProps = TouchableOpacityProps;
 
 export const Touchable: FC<TouchableProps> = ({ children, ...otherProps }) => {
   const hitSlop = {

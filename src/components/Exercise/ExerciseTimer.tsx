@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import { Animated, StyleSheet } from "react-native";
+import { fontMono } from "../../config/fonts";
 import { useInterval } from "../../hooks/useInterval";
 import { useOnMount } from "../../hooks/useOnMount";
 import { animate } from "../../utils/animate";
 import { formatTimer } from "../../utils/formatTimer";
 import { buttonSize } from "../ButtonAnimator/ButtonAnimator";
-import { fontMono } from "../../config/fonts";
 
 type Props = {
   limit: number;
@@ -38,7 +38,7 @@ export const ExerciseTimer: FC<Props> = ({ limit, onLimitReached }) => {
       onLimitReached();
     }
     // TODO: Check this
-    // eslint-disable-next-line react-app/react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, elapsedTime]);
 
   const containerAnimatedStyle = {
@@ -48,9 +48,7 @@ export const ExerciseTimer: FC<Props> = ({ limit, onLimitReached }) => {
     }),
   };
 
-  const timerText = limit
-    ? formatTimer(limit / 1000 - elapsedTime)
-    : formatTimer(elapsedTime);
+  const timerText = limit ? formatTimer(limit / 1000 - elapsedTime) : formatTimer(elapsedTime);
 
   return (
     <Animated.View style={[styles.container, containerAnimatedStyle]}>

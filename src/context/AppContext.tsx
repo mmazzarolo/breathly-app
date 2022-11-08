@@ -1,12 +1,14 @@
+import { produce } from "immer";
 import React, {
   createContext,
   Dispatch,
   FC,
+  PropsWithChildren,
   useContext,
   useReducer,
 } from "react";
 import { Appearance } from "react-native";
-import { produce } from "immer";
+import { techniques } from "../config/techniques";
 import { darkThemeColors, lightThemeColors } from "../config/themes";
 import {
   restoreString,
@@ -16,7 +18,6 @@ import {
   persistNumber,
   persistBoolean,
 } from "../services/storage";
-import { techniques } from "../config/techniques";
 import { GuidedBreathingMode } from "../types/GuidedBreathingMode";
 
 type SystemColorScheme = "no-preference" | "dark" | "light";
@@ -44,8 +45,8 @@ interface State {
   customPatternDurations: number[];
 }
 
-const initialCustomPatternDurations = techniques.find((x) => x.id === "custom")
-  ?.durations!;
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+const initialCustomPatternDurations = techniques.find((x) => x.id === "custom")?.durations!;
 
 const initialState: State = {
   ready: false,
@@ -60,7 +61,9 @@ const initialState: State = {
 };
 
 const reducer = produce((draft: State = initialState, action: Action) => {
-  console.log(action);
+  if (__DEV__) {
+    console.log(action);
+  }
   switch (action.type) {
     case "INITIALIZE": {
       return { ...initialState, ...action.payload, ready: true };
@@ -102,6 +105,7 @@ const reducer = produce((draft: State = initialState, action: Action) => {
 });
 
 const getTechnique = (state: State) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return techniques.find((x) => x.id === state.techniqueId)!;
 };
 
@@ -130,15 +134,13 @@ const AppContext = createContext<AppContext>({
   dispatch: () => null,
 });
 
-export const AppContextProvider: FC = ({ children }) => {
+export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     // TODO: Fix this readyonly Array error
     // @ts-ignore
-    <AppContext.Provider value={{ state: state!, dispatch }}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={{ state: state!, dispatch }}>{children}</AppContext.Provider>
   );
 };
 
@@ -160,13 +162,9 @@ export const useAppContext = () => {
       restoreBoolean("followSystemDarkModeFlag"),
       restoreString("guidedBreathingMode", "disabled"),
       restoreBoolean("stepVibrationFlag"),
-      restoreString(
-        "customPatternDurations",
-        initialCustomPatternDurations.join(",")
-      ),
+      restoreString("customPatternDurations", initialCustomPatternDurations.join(",")),
     ]);
-    const colorScheme: SystemColorScheme =
-      Appearance.getColorScheme() || "no-preference";
+    const colorScheme: SystemColorScheme = Appearance.getColorScheme() || "no-preference";
     const guidedBreathingMode = _guidedBreathingMode as GuidedBreathingMode;
     const payload = {
       ...initialState,
@@ -217,16 +215,10 @@ export const useAppContext = () => {
     dispatch({ type: "TOGGLE_STEP_VIBRATION" });
   };
   const updateCustomPatternDuration = (index: number, update: number) => {
-    const newCustomPatternDurations = produce(
-      state.customPatternDurations,
-      (draft) => {
-        draft[index] += update;
-      }
-    );
-    persistString(
-      "customPatternDurations",
-      newCustomPatternDurations.join(",")
-    );
+    const newCustomPatternDurations = produce(state.customPatternDurations, (draft) => {
+      draft[index] += update;
+    });
+    persistString("customPatternDurations", newCustomPatternDurations.join(","));
     dispatch({
       type: "SET_CUSTOM_PATTERN_DURATIONS",
       payload: newCustomPatternDurations,
@@ -238,10 +230,7 @@ export const useAppContext = () => {
     theme: getTheme(state),
     technique: {
       ...technique,
-      durations:
-        technique.id === "custom"
-          ? state.customPatternDurations
-          : technique.durations,
+      durations: technique.id === "custom" ? state.customPatternDurations : technique.durations,
     },
     initialize,
     setSystemColorScheme,

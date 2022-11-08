@@ -1,7 +1,8 @@
 import React, { FC } from "react";
+// @ts-ignore SegmentedControlIOS is deprecated
 import { Animated, SegmentedControlIOS, StyleSheet, Text } from "react-native";
-import { useAppContext } from "../../context/AppContext";
 import { fontLight } from "../../config/fonts";
+import { useAppContext } from "../../context/AppContext";
 
 interface Props {
   label: string;
@@ -11,13 +12,7 @@ interface Props {
   onValueChange: (newValue: number) => void;
 }
 
-export const SettingsItemPickerIOS: FC<Props> = ({
-  label,
-  items,
-  value,
-  color,
-  onValueChange,
-}) => {
+export const SettingsItemPickerIOS: FC<Props> = ({ label, items, value, color, onValueChange }) => {
   const { theme } = useAppContext();
   const valueIndex = items.findIndex((x) => x.value === value);
   const handleValueChange = (selectedLabel: string) => {

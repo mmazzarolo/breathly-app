@@ -1,13 +1,14 @@
 import React, { FC, useState, useEffect } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Platform } from "react-native";
+import { androidStatusBarHeight } from "../../config/constants";
 import { useAppContext } from "../../context/AppContext";
+import { useHardwareBackButton } from "../../hooks/useHardwareBackButton";
+import { changeNavigationBarColor } from "../../utils/changeNavigationBarColor";
 import { ButtonAnimator } from "../ButtonAnimator/ButtonAnimator";
 import { Exercise } from "../Exercise/Exercise";
 import { Menu } from "../Menu/Menu";
 import { Settings } from "../Settings/Settings";
 import { TechniquePicker } from "../TechniquePicker/TechniquePicker";
-import { changeNavigationBarColor } from "../../utils/changeNavigationBarColor";
-import { useHardwareBackButton } from "../../hooks/useHardwareBackButton";
 
 // AppRouter handles the navigation in the app.
 // We have 4 main screens we want the user to navigate:
@@ -46,9 +47,7 @@ export const AppRouter: FC = () => {
   const { theme } = useAppContext();
   const [currentScreen, setCurrentScreen] = useState<Screen>("main");
   const [currentMenuPage, setCurrentMenuPage] = useState<MenuPage>(null);
-  const [currentMainScreen, setCurrentMainScreen] = useState<MainScreen>(
-    "menu"
-  );
+  const [currentMainScreen, setCurrentMainScreen] = useState<MainScreen>("menu");
 
   useHardwareBackButton(() => {
     if (currentScreen === "main" && currentMainScreen === "menu") {
@@ -68,10 +67,7 @@ export const AppRouter: FC = () => {
         changeNavigationBarColor(theme.backgroundColor, !theme.darkMode);
         StatusBar.setBackgroundColor(theme.backgroundColor);
       }
-      StatusBar.setBarStyle(
-        theme.darkMode ? "light-content" : "dark-content",
-        true
-      );
+      StatusBar.setBarStyle(theme.darkMode ? "light-content" : "dark-content", true);
     } else if (currentMainScreen === "exercise") {
       if (Platform.OS === "android") {
         changeNavigationBarColor(theme.mainColor, false);
@@ -79,12 +75,7 @@ export const AppRouter: FC = () => {
       }
       StatusBar.setBarStyle("light-content", true);
     }
-  }, [
-    theme.backgroundColor,
-    theme.darkMode,
-    theme.mainColor,
-    currentMainScreen,
-  ]);
+  }, [theme.backgroundColor, theme.darkMode, theme.mainColor, currentMainScreen]);
 
   const handleButtonAnimatorExpand = () => {
     setCurrentMainScreen("exercise");
@@ -98,15 +89,12 @@ export const AppRouter: FC = () => {
   // completely hidden.
   // With the *Mounted vars we keep track of which screen is actually
   // rendered.
-  const buttonAnimatorMounted =
-    currentScreen === "hiding-main" || currentScreen === "main";
+  const buttonAnimatorMounted = currentScreen === "hiding-main" || currentScreen === "main";
 
   const techniquePickerMounted =
-    currentScreen === "hiding-techniquepicker" ||
-    currentScreen === "techniquepicker";
+    currentScreen === "hiding-techniquepicker" || currentScreen === "techniquepicker";
 
-  const settingsMounted =
-    currentScreen === "hiding-settings" || currentScreen === "settings";
+  const settingsMounted = currentScreen === "hiding-settings" || currentScreen === "settings";
 
   // Settings navigation
   const handleSettingsButtonPress = () => {
@@ -145,9 +133,7 @@ export const AppRouter: FC = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
-    >
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       {buttonAnimatorMounted && (
         <ButtonAnimator
           visible={currentScreen === "main"}
@@ -184,5 +170,6 @@ export const AppRouter: FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === "android" ? androidStatusBarHeight : undefined,
   },
 });

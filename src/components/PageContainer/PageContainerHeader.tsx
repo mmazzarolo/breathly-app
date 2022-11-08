@@ -1,26 +1,20 @@
 import React, { FC } from "react";
-import { Animated, StyleSheet } from "react-native";
+import { Animated, StyleProp, StyleSheet, ViewStyle } from "react-native";
 import { useAppContext } from "../../context/AppContext";
 import { PageContainerBackButton } from "./PageContainerBackButton";
 
 interface Props {
   title: string;
   onBackButtonPress: () => void;
-  style?: any;
+  style?: StyleProp<ViewStyle> | Animated.WithAnimatedObject<ViewStyle>;
 }
 
-export const PageContainerHeader: FC<Props> = ({
-  title,
-  onBackButtonPress,
-  style,
-}) => {
+export const PageContainerHeader: FC<Props> = ({ title, onBackButtonPress, style }) => {
   const { theme } = useAppContext();
   return (
     <Animated.View style={[styles.container, style]}>
       <PageContainerBackButton onPress={onBackButtonPress} />
-      <Animated.Text style={[styles.title, { color: theme.textColor }]}>
-        {title}
-      </Animated.Text>
+      <Animated.Text style={[styles.title, { color: theme.textColor }]}>{title}</Animated.Text>
     </Animated.View>
   );
 };

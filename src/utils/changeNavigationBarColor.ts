@@ -1,13 +1,8 @@
-import { NativeModules, Platform } from "react-native";
+import * as NavigationBar from "expo-navigation-bar";
 
-export const changeNavigationBarColor = async (
-  color: string,
-  light: boolean = false
-) => {
-  if (Platform.OS === "android") {
-    return NativeModules.NavigationBarColor.changeNavigationBarColor(
-      color,
-      light
-    );
-  }
+export const changeNavigationBarColor = async (color: string, light = false) => {
+  return Promise.all([
+    NavigationBar.setBackgroundColorAsync(color),
+    NavigationBar.setButtonStyleAsync(light ? "dark" : "light"),
+  ]);
 };

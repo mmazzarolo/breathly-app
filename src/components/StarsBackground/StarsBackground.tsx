@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
+import { images } from "../../assets/images";
 import { deviceHeight, deviceWidth } from "../../config/constants";
-import { images } from "../../config/images";
 import { useOnMount } from "../../hooks/useOnMount";
 import { useOnUpdate } from "../../hooks/useOnUpdate";
 import { animate } from "../../utils/animate";
