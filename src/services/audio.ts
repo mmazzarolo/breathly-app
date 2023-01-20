@@ -1,6 +1,6 @@
 import { Audio } from "expo-av";
 import { sounds } from "../assets/sounds";
-import { GuidedBreathingMode } from "../types/GuidedBreathingMode";
+import { GuidedBreathingMode } from "../types/guided-breathing-mode";
 
 (async function () {
   Audio.setAudioModeAsync({ playsInSilentModeIOS: true });

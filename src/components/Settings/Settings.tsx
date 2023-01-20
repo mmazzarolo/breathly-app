@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { StyleSheet, LayoutAnimation, ScrollView } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { GuidedBreathingMode } from "../../types/GuidedBreathingMode";
-import { PageContainer } from "../PageContainer/PageContainer";
-import { SettingsItemMinutesInput } from "./SettingsItemMinutesInput";
-import { SettingsItemRadio } from "./SettingsItemRadio";
-import { SettingsItemSwitch } from "./SettingsItemSwitch";
-import { SettingsSection } from "./SettingsSection";
+import { useAppContext } from "../../context/app-context";
+import { GuidedBreathingMode } from "../../types/guided-breathing-mode";
+import { PageContainer } from "../page-container/page-container";
+import { SettingsItemMinutesInput } from "./settings-item-minutes-input";
+import { SettingsItemRadio } from "./settings-item-radio";
+import { SettingsItemSwitch } from "./settings-item-switch";
+import { SettingsSection } from "./settings-section";
 
 interface Props {
   visible: boolean;

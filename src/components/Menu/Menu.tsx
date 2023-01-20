@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Animated, StyleSheet } from "react-native";
 import { images } from "../../assets/images";
-import { useAppContext } from "../../context/AppContext";
-import { buttonAnimatorContentHeight } from "../ButtonAnimator/ButtonAnimator";
-import { MenuButton } from "./MenuButton";
-import { MenuLogo } from "./MenuLogo";
+import { useAppContext } from "../../context/app-context";
+import { buttonAnimatorContentHeight } from "../button-animator/button-animator";
+import { MenuButton } from "./menu-button";
+import { MenuLogo } from "./menu-logo";
 
 interface Props {
   onTechniquePickerPress: () => void;

@@ -1,20 +1,20 @@
 import { useKeepAwake } from "expo-keep-awake";
 import React, { FC, useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
-import { useAppContext } from "../../context/AppContext";
-import { useOnMount } from "../../hooks/useOnMount";
+import { useAppContext } from "../../context/app-context";
+import { useOnMount } from "../../hooks/use-on-mount";
 import {
   setupGuidedBreathingAudio,
   releaseGuidedBreathingAudio,
   playEndingBellSound,
 } from "../../services/audio";
 import { animate } from "../../utils/animate";
-import { buildExerciseSteps } from "../../utils/buildExerciseSteps";
-import { buttonAnimatorContentHeight } from "../ButtonAnimator/ButtonAnimator";
-import { ExerciseCircle } from "./ExerciseCircle";
-import { ExerciseComplete } from "./ExerciseComplete";
-import { ExerciseInterlude } from "./ExerciseInterlude";
-import { ExerciseTimer } from "./ExerciseTimer";
+import { buildExerciseSteps } from "../../utils/build-exercise-steps";
+import { buttonAnimatorContentHeight } from "../button-animator/button-animator";
+import { ExerciseCircle } from "./exercise-circle";
+import { ExerciseComplete } from "./exercise-complete";
+import { ExerciseInterlude } from "./exercise-interlude";
+import { ExerciseTimer } from "./exercise-timer";
 
 type Status = "interlude" | "running" | "completed";
 
