@@ -8,8 +8,8 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#A9A9A9"
+      "resizeMode": "cover",
+      "backgroundColor": "#F2F2F1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/ios-icon.png",
-      "buildNumber": "11",
+      "buildNumber": "15",
       "bundleIdentifier": "com.mmazzarolo.breathly"
     },
     "android": {
@@ -32,19 +32,33 @@
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-adaptive-icon-foreground.png",
-        "backgroundImage": "./assets/android-adaptive-icon-background.png"
+        "backgroundColor": "#ffffff"
       },
       "icon": "./assets/android-icon.png",
       "package": "com.mmazzarolo.breathly",
-      "versionCode": 3145740
+      "versionCode": 3145745
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#F2F2F1"
     },
     "extra": {
       "eas": {
         "projectId": "8a2dbb83-3bcc-4d88-9d99-5fd3220273ea"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true
+          }
+        }
+      ]
+    ]
   }
 }

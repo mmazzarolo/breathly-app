@@ -1,7 +1,7 @@
 import { Animated } from "react-native";
 
-// Since loops using the native driver cannot contain Animated.sequence
-// we create a custom function that goes trough them
+// Since loops using the native driver cannot contain `Animated.sequence`
+// we handle them within a plain loop.
 export const loopAnimations = (
   createAnimations: () => Animated.CompositeAnimation[],
   onStepStart: (stepIndex: number) => void

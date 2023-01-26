@@ -14,16 +14,10 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 
 <p align="center" margin-bottom="0">
   <a href="https://breathly.app">
-    <img alt="Breathly" width="820" height="auto" src="https://github.com/mmazzarolo/breathly-website/raw/master/.github/screenshot.png">
-  </a>
-</p>
-
-<p align="center" margin-bottom="0">
-  <a href="https://breathly.app">
-    <img alt="Breathly" width="380" height="auto" src="./.github/iphone-1.png">
+    <img alt="Breathly" width="300" height="auto" src="./.github/iphone-1.png">
   </a>
   <a href="https://breathly.app">
-    <img alt="Breathly" width="380" height="auto" src="./.github/iphone-2.png">
+    <img alt="Breathly" width="300" height="auto" src="./.github/iphone-2.png">
   </a>
 </p>
 
@@ -49,29 +43,18 @@ You can use Breathly for daily relaxation and breath training: just choose a bre
 
 In this repository you'll find the source code of the Breathly mobile app.
 
-Breathly is a small React-Native app that I developed on my free time in 2018 for playing around with the React-Native `Animated` API.  
-With the incoming React-Native's hooks support I decided to get back on it, rewrite it with hooks, and also release it in the Play Store and in App Store.
+Breathly is a tiny React-Native app that I developed in my free time to refine my React-Native knowledge and test new shiny things.
 
 I hope the source code will be useful to someone.
 
 👉 **Check the [DEVLOG](./DEVLOG.md) for more informations and details about the app architecture and a few development highlights.**
 
-### Features / Stack
+## Resources and acknowledgements
 
-- React-Native and TypeScript
-- React hooks
-- All the `Animated` animations are using the native driver
-- Type-safe `Context` + `useReducer` usage (pretty similar to Redux)
-
-### Resources and acknowledgements
-
-Most of the stuff you see in the app is just a derivation of other people's work.  
-I tried to keep track of them during the development process:
-
-- The "play" button animation is based on a Switft custom modal transition called [BubbleTransition](https://github.com/andreamazz/BubbleTransition)
-- For the Breathly logo I used [Hatchful](https://hatchful.shopify.com) to get a few proposed logos and I used [this one](./.github/breathly-hatchful-logo.png) as the foundation for the current one (build with PhotoShop)
-- The technique picker View Pager animations are inspired by the InVision Android app onboarding screen
-- I used [this mockup](https://gumroad.com/l/edFPQ) from [Lstore design goodies](https://gumroad.com/lstore) to create the iPhone X preview that you can see at the top of the README.
+- I created the app icon using [SVGWave](https://svgwave.in/) and edited using [Affinity Photo](https://svgwave.in/).
+- I created and edited the App Store screenshots using [Screenshots.pro](https://screenshots.pro/).
+- I created the Play Store screenshots by grabbing a few device mockups from [Mockuuups Studio](https://mockuuups.studio/) and editing them using [Affinity Photo](https://svgwave.in/).
+- The breathing animation is a copy/paste of different breathing animation styles I've found online. Nothing fancy.
 - The breathing techniques are the same ones used in a bunch of other iOS apps and their description were obtained with a Google search. A few of the apps used as inspirations are:
   - [Breathe+ Simple Breath Trainer](https://itunes.apple.com/us/app/breathe-simple-breath-trainer/id1106998959?mt=8)
   - [iBreathe – Relax and Breathe](https://itunes.apple.com/us/app/ibreathe-relax-and-breathe/id1296605806)

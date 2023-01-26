@@ -1,5 +1,3 @@
-import { App } from "./src/components/app/app";
+import { EntryPoint } from "./src/core/entry-point";
 
-export default App;
-
-console.log("HELLO");
+export default EntryPoint;

@@ -1,3 +1,4 @@
+# Node & Expo defaults
 node_modules/
 .expo/
 dist/
@@ -13,5 +14,11 @@ web-build/
 # macOS
 .DS_Store
 
+# Secrets
 android/keystores
 credentials.json
+
+# Build output
+*.ipa
+*.apk
+*.aab

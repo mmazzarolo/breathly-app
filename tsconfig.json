@@ -1,4 +1,9 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@breathly/*": ["./*"]
+    }
+  },
   "extends": "expo/tsconfig.base"
 }

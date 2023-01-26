@@ -1,12 +1,12 @@
 import { Audio } from "expo-av";
-import { sounds } from "../assets/sounds";
-import { GuidedBreathingMode } from "../types/guided-breathing-mode";
+import { sounds } from "@breathly/assets/sounds";
+import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 
 (async function () {
   Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
 })();
 
-type GuidedBreathingStep = "breatheIn" | "breatheOut" | "hold";
+export type GuidedBreathingStep = "breatheIn" | "breatheOut" | "hold";
 
 type GuidedBreathingAudioSounds = {
   [key in GuidedBreathingMode]: {
@@ -67,6 +67,7 @@ export const releaseGuidedBreathingAudio = async () => {
     currentGuidedBreathingSounds?.breatheOut.unloadAsync(),
     currentGuidedBreathingSounds?.hold.unloadAsync(),
   ]);
+  endingBellSound = undefined;
   currentGuidedBreathingSounds = undefined;
 };
 
