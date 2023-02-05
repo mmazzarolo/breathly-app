@@ -1,29 +1,25 @@
-import { Animated } from "react-native";
+import { Animated, ScaleTransform, TranslateYTransform } from "react-native";
 
-export const interpolate = (
-  field: "scale" | "translateY",
+export const interpolateScale = (
   value: Animated.Value,
   config: Animated.InterpolationConfigType
-) => {
+): Animated.WithAnimatedObject<ScaleTransform> => {
   return {
-    [field]: value.interpolate({
-      // @ts-ignore
+    scale: value.interpolate({
       inputRange: [0, 1],
       ...config,
     }),
   };
 };
 
-export const interpolateScale = (
-  value: Animated.Value,
-  config: Animated.InterpolationConfigType
-) => {
-  return interpolate("scale", value, config);
-};
-
 export const interpolateTranslateY = (
   value: Animated.Value,
   config: Animated.InterpolationConfigType
-) => {
-  return interpolate("translateY", value, config);
+): Animated.WithAnimatedObject<TranslateYTransform> => {
+  return {
+    translateY: value.interpolate({
+      inputRange: [0, 1],
+      ...config,
+    }),
+  };
 };

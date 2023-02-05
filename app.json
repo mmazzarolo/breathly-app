@@ -1,4 +1,64 @@
 {
-  "name": "Breathly",
-  "displayName": "Breathly"
+  "expo": {
+    "name": "Breathly",
+    "slug": "breathly",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/ios-icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#F2F2F1"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/ios-icon.png",
+      "buildNumber": "15",
+      "bundleIdentifier": "com.mmazzarolo.breathly"
+    },
+    "android": {
+      "blockedPermissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-adaptive-icon-foreground.png",
+        "backgroundColor": "#ffffff"
+      },
+      "icon": "./assets/android-icon.png",
+      "package": "com.mmazzarolo.breathly",
+      "versionCode": 3145745
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#F2F2F1"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8a2dbb83-3bcc-4d88-9d99-5fd3220273ea"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true
+          }
+        }
+      ]
+    ]
+  }
 }

@@ -1,5 +1,30 @@
 # DEVLOG
 
+## 2023-02-04
+
+I'm back! With a huge update.
+
+I'll try to keep it short this time: I redesigned Breathly's UI and architecture from the ground up to make it easy to implement many of the requests I got in the past. I'm talking about things like pure OLED theme, being able to use decimals in the exercise step lengths, adding white noise, and so on.
+
+From a technical standpoint, I moved Breathly to Expo. This change should make it easier to update to major versions of React Native.
+
+Check out updated README.md for more info!
+
+### New stack
+
+- Expo, expo, expo. And several expo-related-libraries like `expo-haptics`, `expo-keep-awake`, etc. I'm so happy I can finally use these kind of things without wasting hours tuning them on the native side (check the previous DEVLOG entries for examples of what I mean).
+- I ditched my custom routing solution for React Navigation (which is pretty good nowadays!).
+- I'm using [NativeWind](https://www.nativewind.dev/) to style the app. I love Tailwind and NativeWind worked really well for me so far.
+- I replaced the messy React Context with [Zustand](https://github.com/pmndrs/zustand). I'm mainly using it to store and persist the user customizations.
+
+### Quirks and issues
+
+1. [This ancient React Native bug is still alive](https://github.com/facebook/react-native/issues/28517): in release mode on iOS the starry background was mistakenly defaulting to `resizeMode=”cover”` even if I explicitly set it to `resizeMode=“repeat”`. Had to edit the image to solve it.
+2. Talking about ancient issues, [I still couldn’t get `Animated.sequence` + `Animated.loop` to work correctly together with animation using the native driver](https://github.com/facebook/react-native/issues/28670). I’m still using my own little util as a workaround (`src/utils/loop-animations.ts`).
+3. On Android, animating the opacity of images with the native driver sometimes causes a flash of the image even when completely transparent. This is also an old issue that I’ve been solving for ages [with this ugly workaround](https://github.com/mmazzarolo/ordinary-puzzles-app/blob/b31ca3cc0e4cc66b7b9e39ecc3449b828c5f09e5/src/op-board/Board.tsx#L102-L111).
+4. Transparent Android navbars are cool but are wonky on Expo/RN. To make them work [you must set their background to a dumb value like `"rgba(0, 0, 0, 0.002)"` (`"transparent"` or hex vals don’t work)](https://github.com/expo/expo/issues/16036). Also, the transparency breaks when the app transitions from the background to the foreground. I'm manually forcing the transparency back by checking the `appState` and avoiding race conditions with ugly timers/next-ticks but it's inconsistent and you can still see it flash a bit. And it also makes the splash screen jump a bit because the navigation bar is hidden **while** the splash screen is being shown 🙄.
+5. I enjoyed using NativeWind on this project. I only had a couple of issues with `useColorScheme` returning stale data but I patched it manually (see `patches/nativewind+2.0.11.patch`). I noticed it’s being solved in the next version (v3) anyway.
+
 ## 2020-05-17
 
 It has been a long time since my last update to the codebase.
@@ -25,7 +50,7 @@ Updating Breathly to `react-native@0.62.2` was... well, definitely **not** painl
 5. Next, it was the turn of the _"Undefined symbol: \_swift_getFunctionReplacement"_, fixed following https://github.com/react-native-community/upgrade-support/issues/25.
 6. At this point I was finally able to build the project and create a debug build.
 7. I immediately tried building production one, and it "worked"... with a minor, problem: the IPA size is now double the size it was before (https://github.com/facebook/react-native/issues/28890). Everything seems to be working fine though 🤷‍♂️  
-Update: also notice building on a real device is not working for me. Had to completely disable Flipper to make it work https://github.com/invertase/react-native-firebase/issues/3384
+   Update: also notice building on a real device is not working for me. Had to completely disable Flipper to make it work https://github.com/invertase/react-native-firebase/issues/3384
 
 #### Building Android
 
