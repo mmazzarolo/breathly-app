@@ -15,6 +15,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const splashImageAsset = require("../../assets/splash.png");
 
+// Force the splash-screen to stay visible for a bit to avoid jarring visuals
 const waitBeforeHide = ms("1.5 sec");
 
 export const SplashScreenManager: React.FC<PropsWithChildren> = ({ children }) => {

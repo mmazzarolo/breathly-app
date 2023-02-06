@@ -55,7 +55,6 @@ export const SettingsRootScreen: FC<
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
             paddingHorizontal: Platform.OS === "android" ? undefined : 18,
-            paddingBottom: Platform.OS === "android" ? 62 : undefined, // Account for the transparent Navigation Bar
           }}
         >
           <SettingsUI.Section label="Breathing pattern">
@@ -156,7 +155,6 @@ export const SettingsPatternPickerScreen: FC<
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
             paddingHorizontal: Platform.OS === "android" ? undefined : 18,
-            paddingBottom: Platform.OS === "android" ? 62 : undefined, // Account for the transparent Navigation Bar
           }}
         >
           <SettingsUI.Section label="Custom pattern">

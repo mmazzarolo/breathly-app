@@ -4,7 +4,7 @@ import React, { FC, useEffect } from "react";
 import { Animated, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { create } from "zustand";
-import { Touchable } from "@breathly/common/touchable";
+import { Pressable } from "@breathly/common/pressable";
 import { RootStackParamList } from "@breathly/core/navigator";
 import { colors } from "@breathly/design/colors";
 import { PlanetsBackground } from "@breathly/screens/home-screen/planets-background";
@@ -71,23 +71,23 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
           Relax, focus on your breath, and find your inner peace.
         </Animated.Text>
       </View>
-      <Touchable
+      <Pressable
         className="w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
         style={{ backgroundColor: colors.pastel["orange-light"] }}
         onPress={handleStartButtonPress}
       >
         <Text className="py-1 text-lg text-slate-800">Start a new session</Text>
-      </Touchable>
+      </Pressable>
       <Animated.Text className="bg-red my-2 text-center font-breathly-regular text-lg font-light text-slate-500">
         or
       </Animated.Text>
-      <Touchable
+      <Pressable
         className="mb-20 w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
         style={{ backgroundColor: colors.pastel["gray-light"] }}
         onPress={handleCustomizeButtonPress}
       >
         <Text className="py-1 text-lg text-slate-800">Customize the experience</Text>
-      </Touchable>
+      </Pressable>
     </Animated.View>
   );
 };

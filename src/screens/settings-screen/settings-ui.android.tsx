@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import setColor from "color";
 import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
 import { Animated, Switch, Text, TouchableOpacity, View, ViewStyle } from "react-native";
-import { Touchable } from "@breathly/common/touchable";
+import { Pressable } from "@breathly/common/pressable";
 import { colors } from "@breathly/design/colors";
 import { animate } from "@breathly/utils/animate";
 import {
@@ -174,27 +174,27 @@ const StepperItem: FC<StepperItemProps> = ({
   return (
     <BaseItem {...baseProps}>
       <View className="flex-row items-center">
-        <Touchable
+        <Pressable
           className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: decreaseDisabled ? 0.4 : 1 }}
           onPress={onDecrease}
           disabled={decreaseDisabled}
         >
           <MaterialCommunityIcons name="minus" size={16} color="white" />
-        </Touchable>
+        </Pressable>
         <View className="w-8 self-center px-2">
           <Text className="text-center font-breathly-mono font-semibold dark:text-white">
             {value}
           </Text>
         </View>
-        <Touchable
+        <Pressable
           className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: increaseDisabled ? 0.4 : 1 }}
           onPress={onIncrease}
           disabled={increaseDisabled}
         >
           <MaterialCommunityIcons name="plus" size={16} color="white" />
-        </Touchable>
+        </Pressable>
       </View>
     </BaseItem>
   );

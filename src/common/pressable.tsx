@@ -7,9 +7,9 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-export type TouchableProps = TouchableOpacityProps;
+export type PressableProps = TouchableOpacityProps;
 
-export const Touchable: FC<TouchableProps> = ({ children, onPress, ...otherProps }) => {
+export const Pressable: FC<PressableProps> = ({ children, onPress, ...otherProps }) => {
   // Increase the hitslop a bit for accessibility purposes.
   const hitSlop = {
     top: 4,
