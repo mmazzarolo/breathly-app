@@ -66,7 +66,7 @@ export const SettingsRootScreen: FC<
               value={`${selectedPatternName} (${selectedPatternDurations
                 .map((duration) => duration / ms("1 sec"))
                 .join("-")})`}
-              onPress={() => navigation.push("SettingsPatternPicker")}
+              onPress={() => navigation.navigate("SettingsPatternPicker")}
             />
           </SettingsUI.Section>
           <SettingsUI.Section label="Guided breathing">

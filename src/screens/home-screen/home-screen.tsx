@@ -25,10 +25,10 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
   const { isHomeScreenReady, markHomeScreenAsReady } = useHomeScreenStatusStore();
   const insets = useSafeAreaInsets();
   const handleStartButtonPress = () => {
-    navigation.push("Exercise");
+    navigation.navigate("Exercise");
   };
   const handleCustomizeButtonPress = () => {
-    navigation.push("Settings");
+    navigation.navigate("Settings");
   };
 
   // To avoid weird flashes we store a flag to track if the home screen has been fully rendered.
