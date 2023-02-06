@@ -40,11 +40,9 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
   return (
     <View className="flex-row justify-between py-2 pr-2" style={style}>
       {label && (
-        <View className="shrink grow-0 flex-row items-center pr-4">
-          <View>
-            <Text className="text-slate-800 dark:text-white">{label}</Text>
-            {secondaryLabel && <Text className="text-sm text-slate-500">{secondaryLabel}</Text>}
-          </View>
+        <View className="grow-1 flex-1 shrink flex-col justify-center pr-4">
+          <Text className="text-slate-800 dark:text-white">{label}</Text>
+          {secondaryLabel && <Text className="text-sm text-slate-500">{secondaryLabel}</Text>}
         </View>
       )}
       {children}
