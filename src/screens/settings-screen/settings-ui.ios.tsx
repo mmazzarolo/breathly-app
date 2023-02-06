@@ -182,8 +182,8 @@ export const StepperItem: FC<StepperItemProps> = ({
 };
 
 export const RadioButtonItem: FC<RadioButtonItemProps> = ({
-  text,
-  secondaryText,
+  label,
+  secondaryLabel,
   selected,
   onPress,
   disabled,
@@ -198,8 +198,8 @@ export const RadioButtonItem: FC<RadioButtonItemProps> = ({
         disabled={disabled}
       >
         <View className="flex-shrink">
-          <Text className="dark:text-white">{text}</Text>
-          <Text className="text-slate-500">{secondaryText}</Text>
+          <Text className="dark:text-white">{label}</Text>
+          <Text className="text-slate-500">{secondaryLabel}</Text>
         </View>
         <View className="w-6 grow items-end">
           {selected && (
