@@ -1,5 +1,8 @@
 import tailwindColors from "tailwindcss/colors";
 
+// ⚠️⚠️⚠️ REMINDER ⚠️⚠️⚠️
+// Whenever you use a Tailwind default color in the app, add it here to facilitate future
+// find & replace.
 export const colors = {
   "stone-200": tailwindColors.stone[200], // Borders in settings
   "slate-500": tailwindColors.slate[500], // Secondary text in light mode, settings borders
