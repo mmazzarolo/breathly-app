@@ -54,7 +54,7 @@ export const SettingsRootScreen: FC<
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
-            paddingHorizontal: 18,
+            paddingHorizontal: Platform.OS === "android" ? undefined : 18,
             paddingBottom: Platform.OS === "android" ? 62 : undefined, // Account for the transparent Navigation Bar
           }}
         >
@@ -119,7 +119,7 @@ export const SettingsRootScreen: FC<
               onValueChange={setVibrationEnabled}
             />
           </SettingsUI.Section>
-          <SettingsUI.Section label="Timer">
+          <SettingsUI.Section label="Timer" hideBottomBorderAndroid>
             <SettingsUI.StepperItem
               label="Exercise timer"
               secondaryLabel="Time limit in minutes"
@@ -155,7 +155,7 @@ export const SettingsPatternPickerScreen: FC<
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
-            paddingHorizontal: 18,
+            paddingHorizontal: Platform.OS === "android" ? undefined : 18,
             paddingBottom: Platform.OS === "android" ? 62 : undefined, // Account for the transparent Navigation Bar
           }}
         >
@@ -192,7 +192,7 @@ export const SettingsPatternPickerScreen: FC<
                 );
               })}
           </SettingsUI.Section>
-          <SettingsUI.Section label="Pattern presets">
+          <SettingsUI.Section label="Pattern presets" hideBottomBorderAndroid>
             {patternPresets.map((patternPreset) => {
               return (
                 <SettingsUI.RadioButtonItem
@@ -200,10 +200,10 @@ export const SettingsPatternPickerScreen: FC<
                   disabled={customPatternEnabled}
                   selected={!customPatternEnabled && selectedPatternPresetId === patternPreset.id}
                   onPress={() => setSelectedPatternPresetId(patternPreset.id)}
-                  text={`${patternPreset.name} (${patternPreset.steps
+                  label={`${patternPreset.name} (${patternPreset.steps
                     .map((duration) => duration / ms("1 sec"))
                     .join("-")})`}
-                  secondaryText={patternPreset.description}
+                  secondaryLabel={patternPreset.description}
                 />
               );
             })}

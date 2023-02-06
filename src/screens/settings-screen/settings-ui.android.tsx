@@ -14,12 +14,17 @@ import {
   SectionProps,
 } from "./settings-ui";
 
-const Section: React.FC<PropsWithChildren<SectionProps>> = ({ label, children }) => {
+const Section: React.FC<PropsWithChildren<SectionProps>> = ({
+  label,
+  children,
+  hideBottomBorderAndroid,
+}) => {
+  const bottomBorderClassName = "border-b-hairline border-b-slate-300 dark:border-b-slate-500";
   return (
-    <View className="border-b-hairline border-b-slate-300 pb-2 dark:border-b-slate-500">
+    <View className={`pb-2 ${!hideBottomBorderAndroid && bottomBorderClassName}`}>
       <View className="pt-4">
-        <Text className="pl-4 pb-2 font-breathly-medium text-xs text-blue-400">{label}</Text>
-        <View className="px-4">{children}</View>
+        <Text className="pl-[72px] pb-2 text-xs text-blue-400">{label}</Text>
+        {children}
       </View>
     </View>
   );
@@ -29,16 +34,28 @@ export interface BaseItemProps {
   label?: string;
   secondaryLabel?: string;
   style?: ViewStyle;
+  leftItem?: React.ReactNode;
+  onPress?: () => void;
+  disabled?: boolean;
 }
 
 const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
   label,
   secondaryLabel,
+  onPress,
   style,
+  leftItem,
+  disabled,
   children,
 }) => {
   return (
-    <View className="flex-row justify-between py-2 pr-2" style={style}>
+    <TouchableOpacity
+      className="flex-row justify-between py-2 pr-8"
+      style={{ paddingLeft: leftItem ? 0 : 72, ...style }}
+      onPress={onPress}
+      disabled={disabled || !onPress}
+    >
+      {leftItem && <View className="w-[72px] items-center justify-center">{leftItem}</View>}
       {label && (
         <View className="grow-1 flex-1 shrink flex-col justify-center pr-4">
           <Text className="text-slate-800 dark:text-white">{label}</Text>
@@ -46,22 +63,19 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
         </View>
       )}
       {children}
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const LinkItem: FC<LinkItemProps> = ({ value, onPress, ...baseProps }) => {
-  return (
-    <Touchable onPress={onPress}>
-      <BaseItem {...baseProps} secondaryLabel={value}></BaseItem>
-    </Touchable>
-  );
+  return <BaseItem {...baseProps} secondaryLabel={value} onPress={onPress} />;
 };
 
 interface RadioButtonProps {
   checked?: boolean;
   onPress?: () => unknown;
   disabled?: boolean;
+  style?: ViewStyle;
 }
 
 const RadioButton: FC<RadioButtonProps> = ({
@@ -78,7 +92,7 @@ const RadioButton: FC<RadioButtonProps> = ({
   }, [checked]);
   return (
     <TouchableOpacity
-      className="items-center justify-center rounded-full"
+      className="my-1 items-center justify-center rounded-full"
       style={{
         borderColor: disabled ? colors["stone-200"] : colors["blue-400"],
         width: 20,
@@ -100,18 +114,33 @@ const RadioButton: FC<RadioButtonProps> = ({
   );
 };
 
+const RadioButtonItem: FC<RadioButtonItemProps> = ({
+  selected,
+  disabled,
+  onPress,
+  ...baseProps
+}) => {
+  return (
+    <BaseItem
+      {...baseProps}
+      onPress={onPress}
+      disabled={disabled}
+      leftItem={<RadioButton checked={selected} disabled={disabled} onPress={onPress} />}
+    />
+  );
+};
+
 const PickerItem: FC<PickerItemProps> = ({ value, options, onValueChange, ...baseProps }) => {
   return (
     <>
       {options.map((option) => (
-        <TouchableOpacity onPress={() => onValueChange(option.value)} key={option.value}>
-          <BaseItem {...baseProps} label={option.label}>
-            <RadioButton
-              checked={option.value === value}
-              onPress={() => onValueChange(option.value)}
-            />
-          </BaseItem>
-        </TouchableOpacity>
+        <RadioButtonItem
+          {...baseProps}
+          onPress={() => onValueChange(option.value)}
+          key={option.value}
+          label={option.label}
+          selected={option.value === value}
+        />
       ))}
     </>
   );
@@ -127,7 +156,7 @@ const SwitchItem: FC<SwitchItemProps> = ({ value, onValueChange, ...baseProps })
         thumbColor={value ? colors["blue-400"] : colors["stone-200"]}
         trackColor={{
           true: setColor(colors["blue-400"]).alpha(0.5).rgb().string(),
-          false: colors["slate-500"],
+          false: colors["stone-300"],
         }}
       />
     </BaseItem>
@@ -144,9 +173,9 @@ const StepperItem: FC<StepperItemProps> = ({
 }) => {
   return (
     <BaseItem {...baseProps}>
-      <View className="flex-row items-center rounded-md">
+      <View className="flex-row items-center">
         <Touchable
-          className="items-center justify-center rounded-md bg-blue-400 px-2 py-1 shadow-sm"
+          className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: decreaseDisabled ? 0.4 : 1 }}
           onPress={onDecrease}
           disabled={decreaseDisabled}
@@ -159,7 +188,7 @@ const StepperItem: FC<StepperItemProps> = ({
           </Text>
         </View>
         <Touchable
-          className="items-center justify-center rounded-md bg-blue-400 px-2 py-1 shadow-sm"
+          className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: increaseDisabled ? 0.4 : 1 }}
           onPress={onIncrease}
           disabled={increaseDisabled}
@@ -168,30 +197,6 @@ const StepperItem: FC<StepperItemProps> = ({
         </Touchable>
       </View>
     </BaseItem>
-  );
-};
-
-const RadioButtonItem: FC<RadioButtonItemProps> = ({
-  text,
-  secondaryText,
-  selected,
-  onPress,
-  disabled,
-  ...baseProps
-}) => {
-  return (
-    <Touchable
-      className="flex-col py-2"
-      onPress={onPress}
-      style={{ opacity: disabled ? 0.5 : 1 }}
-      disabled={disabled}
-    >
-      <BaseItem {...baseProps} label={text} secondaryLabel={secondaryText}>
-        <View className="items-center justify-center">
-          <RadioButton checked={selected} disabled={disabled} onPress={onPress} />
-        </View>
-      </BaseItem>
-    </Touchable>
   );
 };
 
