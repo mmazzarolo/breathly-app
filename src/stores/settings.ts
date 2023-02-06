@@ -3,6 +3,7 @@ import ms from "ms";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist, subscribeWithSelector } from "zustand/middleware";
+import { shallow } from "zustand/shallow";
 import { patternPresets } from "@breathly/assets/pattern-presets";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 
@@ -34,7 +35,12 @@ export const useSettingsStore = create<SettingsStore>()(
         setCustomPatternEnabled: (enabled) => set({ customPatternEnabled: enabled }),
         customPatternSteps: [ms("4 sec"), ms("2 sec"), ms("4 sec"), ms("2 sec")],
         setCustomPatternStep: (stepIndex, stepValue) => {
-          const customPatternSteps = get().customPatternSteps;
+          const customPatternSteps = Array.from(get().customPatternSteps) as [
+            number,
+            number,
+            number,
+            number
+          ];
           customPatternSteps[stepIndex] = stepValue;
           set({ customPatternSteps });
         },
