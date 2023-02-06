@@ -4,9 +4,7 @@ import React, { FC, useEffect } from "react";
 import { Platform, UIManager, View, LayoutAnimation } from "react-native";
 import { fonts as fontAssets } from "@breathly/assets/fonts";
 import { Navigator } from "@breathly/core/navigator";
-import { colors } from "@breathly/design/colors";
 import { useHydration, useSettingsStore } from "@breathly/stores/settings";
-import { useThemedNavigationBar } from "@breathly/utils/use-themed-navigation-bar";
 import { useThemedStatusBar } from "@breathly/utils/use-themed-status-bar";
 import { SplashScreenManager } from "./splash-screen-manager";
 
@@ -35,11 +33,6 @@ const Main: FC = () => {
   const theme = useSettingsStore((state) => state.theme);
   const shouldFollowSystemDarkMode = useSettingsStore((state) => state.shouldFollowSystemDarkMode);
   const hydrated = useHydration();
-
-  const { updateNavigationBarTheme } = useThemedNavigationBar({
-    lightBackgroundColor: colors["stone-100"],
-    darkBackgroundColor: colors["slate-900"],
-  });
   useThemedStatusBar();
 
   useEffect(() => {
@@ -63,16 +56,5 @@ const Main: FC = () => {
     return <View />;
   }
 
-  return (
-    <Navigator
-      onStateChange={(state) => {
-        // In the settings screen we want to show a solid navigation bar
-        if (state.routes[state.index].name === "Settings") {
-          updateNavigationBarTheme(null, false);
-        } else {
-          updateNavigationBarTheme(null, true);
-        }
-      }}
-    />
-  );
+  return <Navigator />;
 };

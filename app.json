@@ -42,8 +42,8 @@
       "favicon": "./assets/favicon.png"
     },
     "androidNavigationBar": {
-      "barStyle": "dark-content",
-      "backgroundColor": "#F2F2F1"
+      "barStyle": "light-content",
+      "visible": "sticky-immersive"
     },
     "extra": {
       "eas": {

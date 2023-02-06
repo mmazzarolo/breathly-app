@@ -1,10 +1,4 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-  NavigationState,
-  createNavigationContainerRef,
-} from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
 import React, { FC } from "react";
@@ -32,13 +26,7 @@ export type SettingsStackParamList = {
 
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 
-interface Props {
-  onStateChange: (state: NavigationState | undefined) => void;
-}
-
-export const navigationContainerRef = createNavigationContainerRef();
-
-export const Navigator: FC<Props> = ({ onStateChange }) => {
+export const Navigator: FC = () => {
   const { colorScheme } = useNativeWindColorScheme();
   const baseTheme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
   const backgroundColor = colorScheme === "dark" ? colors["slate-900"] : colors["stone-100"];
@@ -52,7 +40,7 @@ export const Navigator: FC<Props> = ({ onStateChange }) => {
   };
   return (
     <SafeAreaProvider style={{ backgroundColor }}>
-      <NavigationContainer theme={theme} onStateChange={onStateChange} ref={navigationContainerRef}>
+      <NavigationContainer theme={theme}>
         <RootStack.Navigator
           initialRouteName="Home"
           screenOptions={{
