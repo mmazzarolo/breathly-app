@@ -5,6 +5,10 @@ import { Platform, UIManager, View, LayoutAnimation } from "react-native";
 import { fonts as fontAssets } from "@breathly/assets/fonts";
 import { Navigator } from "@breathly/core/navigator";
 import { useHydration, useSettingsStore } from "@breathly/stores/settings";
+import {
+  initializeImmersiveMode,
+  useStickyImmersiveReset,
+} from "@breathly/utils/use-sticky-immersive-reset";
 import { useThemedStatusBar } from "@breathly/utils/use-themed-status-bar";
 import { SplashScreenManager } from "./splash-screen-manager";
 
@@ -15,6 +19,8 @@ if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
+
+initializeImmersiveMode();
 
 // App entry point used to wrap the core logic of the app with context providers
 export const EntryPoint: FC = () => {
@@ -33,6 +39,7 @@ const Main: FC = () => {
   const theme = useSettingsStore((state) => state.theme);
   const shouldFollowSystemDarkMode = useSettingsStore((state) => state.shouldFollowSystemDarkMode);
   const hydrated = useHydration();
+  useStickyImmersiveReset();
   useThemedStatusBar();
 
   useEffect(() => {
