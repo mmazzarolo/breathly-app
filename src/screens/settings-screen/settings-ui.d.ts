@@ -3,26 +3,31 @@ import { PropsWithChildren } from "react";
 
 export interface SectionProps {
   label: string;
+  hideBottomBorderAndroid?: boolean;
 }
 
-export interface LinkItemProps extends BaseItemProps {
+interface CommonItemProps {
+  label?: string;
+  secondaryLabel?: string;
+}
+
+export interface LinkItemProps extends CommonItemProps {
   value: string;
   onPress: () => unknown;
 }
 
-export interface PickerItemProps extends BaseItemProps {
+export interface PickerItemProps extends CommonItemProps {
   value: string;
   options: { label: string; value: string }[];
   onValueChange: (value: string) => unknown;
 }
 
-export interface SwitchItemProps extends BaseItemProps {
+export interface SwitchItemProps extends CommonItemProps {
   value: boolean;
   onValueChange?: (newValue: boolean) => void;
 }
 
-export interface StepperItemProps extends BaseItemProps {
-  label?: string;
+export interface StepperItemProps extends CommonItemProps {
   value?: number | string;
   increaseDisabled?: boolean;
   decreaseDisabled?: boolean;
@@ -30,9 +35,7 @@ export interface StepperItemProps extends BaseItemProps {
   onDecrease?: () => unknown;
 }
 
-export interface RadioButtonItemProps extends BaseItemProps {
-  text: string;
-  secondaryText?: string;
+export interface RadioButtonItemProps extends CommonItemProps {
   selected?: boolean;
   onPress?: () => void;
   disabled?: boolean;

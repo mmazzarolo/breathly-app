@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import ms from "ms";
 import { styled } from "nativewind";
 import React, { FC, useEffect, useRef } from "react";
-import { Animated, Easing, Image, View } from "react-native";
+import { Animated, Easing, Image } from "react-native";
 import { images } from "@breathly/assets/images";
 import { widestDeviceDimension } from "@breathly/design/metrics";
 import { animate } from "@breathly/utils/animate";

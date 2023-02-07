@@ -5,7 +5,7 @@ import { useColorScheme } from "nativewind";
 import React, { FC, useState } from "react";
 import { Animated, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Touchable } from "@breathly/common/touchable";
+import { Pressable } from "@breathly/common/pressable";
 import { RootStackParamList } from "@breathly/core/navigator";
 import { widestDeviceDimension } from "@breathly/design/metrics";
 import { AnimatedDots } from "@breathly/screens/exercise-screen/animated-dots";
@@ -77,12 +77,12 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
       )}
       {status === "completed" && <ExerciseComplete />}
       <View className="items-center justify-center pb-10 pt-6">
-        <Touchable
+        <Pressable
           className="h-16 w-16 items-center justify-center rounded-full border-2 border-gray-300 text-center"
           onPress={navigation.goBack}
         >
           <Ionicons name="ios-close" size={22} color="lightgray" />
-        </Touchable>
+        </Pressable>
       </View>
     </View>
   );

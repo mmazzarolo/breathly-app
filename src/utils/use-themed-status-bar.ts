@@ -4,9 +4,7 @@ import { Platform, StatusBar } from "react-native";
 export const useThemedStatusBar = () => {
   const { colorScheme } = useColorScheme();
 
-  if (Platform.OS === "android") {
-    StatusBar.setBackgroundColor("transparent");
-    StatusBar.setTranslucent(true);
+  if (Platform.OS === "ios") {
+    StatusBar.setBarStyle(colorScheme === "dark" ? "light-content" : "dark-content", true);
   }
-  StatusBar.setBarStyle(colorScheme === "dark" ? "light-content" : "dark-content", true);
 };

@@ -3,7 +3,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
 import React, { FC, PropsWithChildren, useState } from "react";
 import { LayoutAnimation, Switch, Text, View, ViewStyle } from "react-native";
-import { Touchable } from "@breathly/common/touchable";
+import { Pressable } from "@breathly/common/pressable";
 import { colors } from "@breathly/design/colors";
 import {
   LinkItemProps,
@@ -71,7 +71,7 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
 
 export const LinkItem: FC<LinkItemProps> = ({ value, onPress, ...baseProps }) => {
   return (
-    <Touchable onPress={onPress}>
+    <Pressable onPress={onPress}>
       <BaseItem {...baseProps}>
         <View className="flex-row items-center">
           <Text className="text-slate-500">{value}</Text>
@@ -83,7 +83,7 @@ export const LinkItem: FC<LinkItemProps> = ({ value, onPress, ...baseProps }) =>
           />
         </View>
       </BaseItem>
-    </Touchable>
+    </Pressable>
   );
 };
 
@@ -101,13 +101,13 @@ export const PickerItem: FC<PickerItemProps> = ({
   };
   return (
     <>
-      <Touchable onPress={toggleExpanded}>
+      <Pressable onPress={toggleExpanded}>
         <BaseItem {...baseProps}>
           <Text className="text-blue-500">
             {options.find((option) => option.value === value).label}
           </Text>
         </BaseItem>
-      </Touchable>
+      </Pressable>
       {expanded && (
         <Picker selectedValue={value} onValueChange={onValueChange}>
           {options.map(({ label, value }) => (
@@ -144,7 +144,7 @@ export const StepperItem: FC<StepperItemProps> = ({
   return (
     <BaseItem {...baseProps}>
       <View className="flex-row rounded-md border-hairline border-stone-200 dark:border-slate-600">
-        <Touchable
+        <Pressable
           className="items-center justify-center  rounded-l-md bg-gray-100 px-3  py-1 dark:bg-slate-700"
           style={{ opacity: decreaseDisabled ? 0.2 : 1 }}
           onPress={onDecrease}
@@ -155,7 +155,7 @@ export const StepperItem: FC<StepperItemProps> = ({
             size={18}
             color={colorScheme === "dark" ? "white" : colors["slate-500"]}
           />
-        </Touchable>
+        </Pressable>
         <View className="w-9 self-center px-2">
           <Text
             className="text-center font-breathly-mono dark:text-white"
@@ -164,7 +164,7 @@ export const StepperItem: FC<StepperItemProps> = ({
             {value}
           </Text>
         </View>
-        <Touchable
+        <Pressable
           className="items-center justify-center  rounded-r-md bg-gray-100 px-3 py-1 dark:bg-slate-700"
           style={{ opacity: increaseDisabled ? 0.2 : 1 }}
           onPress={onIncrease}
@@ -175,15 +175,15 @@ export const StepperItem: FC<StepperItemProps> = ({
             size={18}
             color={colorScheme === "dark" ? "white" : colors["slate-500"]}
           />
-        </Touchable>
+        </Pressable>
       </View>
     </BaseItem>
   );
 };
 
 export const RadioButtonItem: FC<RadioButtonItemProps> = ({
-  text,
-  secondaryText,
+  label,
+  secondaryLabel,
   selected,
   onPress,
   disabled,
@@ -191,22 +191,22 @@ export const RadioButtonItem: FC<RadioButtonItemProps> = ({
 }) => {
   return (
     <BaseItem {...baseProps}>
-      <Touchable
+      <Pressable
         onPress={onPress}
         className="flex-shrink flex-row items-center py-2"
         style={{ opacity: disabled ? 0.5 : 1 }}
         disabled={disabled}
       >
         <View className="flex-shrink">
-          <Text className="dark:text-white">{text}</Text>
-          <Text className="text-slate-500">{secondaryText}</Text>
+          <Text className="dark:text-white">{label}</Text>
+          <Text className="text-slate-500">{secondaryLabel}</Text>
         </View>
         <View className="w-6 grow items-end">
           {selected && (
             <Ionicons name={"ios-checkmark-sharp"} size={18} color={colors["blue-500"]} />
           )}
         </View>
-      </Touchable>
+      </Pressable>
     </BaseItem>
   );
 };

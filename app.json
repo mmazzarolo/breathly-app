@@ -41,14 +41,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "androidNavigationBar": {
-      "barStyle": "dark-content",
-      "backgroundColor": "#F2F2F1"
-    },
     "extra": {
       "eas": {
         "projectId": "8a2dbb83-3bcc-4d88-9d99-5fd3220273ea"
       }
+    },
+    "androidStatusBar": {
+      "hidden": true
     },
     "plugins": [
       [
@@ -57,6 +56,15 @@
           "android": {
             "enableProguardInReleaseBuilds": true
           }
+        }
+      ],
+      [
+        "expo-navigation-bar",
+        {
+          "position": "absolute",
+          "visibility": "hidden",
+          "behavior": "overlay-swipe",
+          "backgroundColor": "#00000080"
         }
       ]
     ]

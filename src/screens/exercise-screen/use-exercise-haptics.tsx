@@ -14,6 +14,8 @@ export const useExerciseHaptics = (
           if (Platform.OS === "ios") {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
           } else if (Platform.OS === "android") {
+            // `expo-haptics` doesn't provide a vibration pattern "soft" enough for my tastes on
+            // Android so I fallback to the Vibration API.
             Vibration.vibrate(20);
           }
         }
