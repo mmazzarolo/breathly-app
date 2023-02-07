@@ -51,7 +51,7 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
   return (
     <TouchableOpacity
       className="flex-row justify-between py-2 pr-8"
-      style={{ paddingLeft: leftItem ? 0 : 72, ...style }}
+      style={{ paddingLeft: leftItem ? 0 : 72, opacity: disabled ? 0.5 : 1, ...style }}
       onPress={onPress}
       disabled={disabled || !onPress}
     >
@@ -72,24 +72,24 @@ const LinkItem: FC<LinkItemProps> = ({ value, onPress, ...baseProps }) => {
 };
 
 interface RadioButtonProps {
-  checked?: boolean;
+  selected?: boolean;
   onPress?: () => unknown;
   disabled?: boolean;
   style?: ViewStyle;
 }
 
 const RadioButton: FC<RadioButtonProps> = ({
-  checked = false,
+  selected = false,
   onPress = () => null,
   disabled = false,
 }) => {
-  const animatedValue = useRef(new Animated.Value(checked ? 1 : 0)).current;
+  const animatedValue = useRef(new Animated.Value(selected ? 1 : 0)).current;
   useEffect(() => {
     animate(animatedValue, {
-      toValue: checked ? 1 : 0,
+      toValue: selected ? 1 : 0,
       duration: 200,
     }).start();
-  }, [checked]);
+  }, [selected]);
   return (
     <TouchableOpacity
       className="my-1 items-center justify-center rounded-full"
@@ -125,7 +125,7 @@ const RadioButtonItem: FC<RadioButtonItemProps> = ({
       {...baseProps}
       onPress={onPress}
       disabled={disabled}
-      leftItem={<RadioButton checked={selected} disabled={disabled} onPress={onPress} />}
+      leftItem={<RadioButton selected={selected} disabled={disabled} onPress={onPress} />}
     />
   );
 };
