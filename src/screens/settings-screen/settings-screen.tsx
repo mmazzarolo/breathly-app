@@ -13,10 +13,10 @@ import {
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 
 const customDurationLimits = [
-  [ms("1 sec"), ms("60 sec")],
-  [0, ms("60 sec")],
-  [ms("1 sec"), ms("60 sec")],
-  [0, ms("60 sec")],
+  [ms("1 sec"), ms("99 sec")],
+  [0, ms("99 sec")],
+  [ms("1 sec"), ms("99 sec")],
+  [0, ms("99 sec")],
 ];
 
 export const SettingsRootScreen: FC<
