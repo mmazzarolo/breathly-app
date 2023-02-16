@@ -29,21 +29,23 @@ export const Pressable: FC<PressableProps> = ({
   };
   // On iOS, I feel most "touch" events in the app work better with a light haptic feedback.
   const handlePressIn = (event: GestureResponderEvent) => {
-    if (Platform.OS === "ios") {
+    if (Platform.OS === "ios" && !otherProps.disabled) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
     otherProps.onPressIn?.(event);
   };
-
-  //
+  // Invoke a callback every n ms while the button is being long pressed
   useInterval(
     () => {
+      if (otherProps.disabled) return;
       if (Platform.OS === "ios") {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       }
       onLongPressInterval?.();
     },
-    currentlyLongPressed && onLongPressInterval ? longPressIntervalDelay : null
+    currentlyLongPressed && onLongPressInterval && !otherProps.disabled
+      ? longPressIntervalDelay
+      : null
   );
   const handleLongPress = (event: GestureResponderEvent) => {
     otherProps.onLongPress?.(event);
