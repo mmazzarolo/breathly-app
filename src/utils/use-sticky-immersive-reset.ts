@@ -9,8 +9,10 @@ import * as NavigationBar from "expo-navigation-bar";
 import { setStatusBarHidden, setStatusBarTranslucent } from "expo-status-bar";
 import ms from "ms";
 import { useEffect } from "react";
+import { Platform } from "react-native";
 
 export function initializeImmersiveMode() {
+  if (Platform.OS === "ios") return;
   NavigationBar.setPositionAsync("absolute");
   NavigationBar.setVisibilityAsync("hidden");
   NavigationBar.setBehaviorAsync("overlay-swipe");
@@ -26,6 +28,7 @@ export function useStickyImmersiveReset() {
   const visibility = NavigationBar.useVisibility();
 
   useEffect(() => {
+    if (Platform.OS === "ios") return;
     if (visibility === "visible") {
       const interval = setTimeout(() => {
         NavigationBar.setVisibilityAsync("hidden");
