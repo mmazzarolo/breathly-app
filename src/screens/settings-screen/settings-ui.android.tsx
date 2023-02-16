@@ -178,6 +178,7 @@ const StepperItem: FC<StepperItemProps> = ({
           className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: decreaseDisabled ? 0.4 : 1 }}
           onPress={onDecrease}
+          onLongPressInterval={onDecrease}
           disabled={decreaseDisabled}
         >
           <MaterialCommunityIcons name="minus" size={16} color="white" />
@@ -191,6 +192,7 @@ const StepperItem: FC<StepperItemProps> = ({
           className="items-center justify-center rounded-md bg-blue-400 px-2 py-1"
           style={{ opacity: increaseDisabled ? 0.4 : 1 }}
           onPress={onIncrease}
+          onLongPressInterval={onIncrease}
           disabled={increaseDisabled}
         >
           <MaterialCommunityIcons name="plus" size={16} color="white" />
