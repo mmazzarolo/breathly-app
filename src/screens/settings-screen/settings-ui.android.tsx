@@ -169,6 +169,7 @@ const StepperItem: FC<StepperItemProps> = ({
   decreaseDisabled,
   onIncrease,
   onDecrease,
+  fractionDigits,
   ...baseProps
 }) => {
   return (
@@ -183,9 +184,14 @@ const StepperItem: FC<StepperItemProps> = ({
         >
           <MaterialCommunityIcons name="minus" size={16} color="white" />
         </Pressable>
-        <View className="w-8 self-center px-2">
-          <Text className="text-center font-breathly-mono font-semibold dark:text-white">
-            {value}
+        <View className={`${fractionDigits > 0 ? "w-14" : "w-8"} self-center px-2`}>
+          <Text
+            className="text-center font-breathly-mono font-semibold dark:text-white"
+            numberOfLines={1}
+          >
+            {typeof value === "number" && fractionDigits > 0
+              ? value.toFixed(fractionDigits)
+              : value}
           </Text>
         </View>
         <Pressable

@@ -179,14 +179,15 @@ export const SettingsPatternPickerScreen: FC<
                     key={stepIndex}
                     label={stepLabel}
                     value={stepValue / ms("1 sec")}
+                    fractionDigits={1}
                     secondaryLabel={"Time in seconds"}
                     decreaseDisabled={stepValue <= lowerLimit}
                     increaseDisabled={stepValue >= upperLimit}
                     onIncrease={() =>
-                      setCustomPatternDurationsStep(stepIndex, stepValue + ms("1 sec"))
+                      setCustomPatternDurationsStep(stepIndex, stepValue + ms("0.5 sec"))
                     }
                     onDecrease={() =>
-                      setCustomPatternDurationsStep(stepIndex, stepValue + -ms("1 sec"))
+                      setCustomPatternDurationsStep(stepIndex, stepValue + -ms("0.5 sec"))
                     }
                   />
                 );
