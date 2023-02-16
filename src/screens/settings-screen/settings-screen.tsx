@@ -19,6 +19,8 @@ const customDurationLimits = [
   [0, ms("99 sec")],
 ];
 
+const maxTimeLimit = ms("60 min");
+
 export const SettingsRootScreen: FC<
   NativeStackScreenProps<SettingsStackParamList, "SettingsRoot">
 > = ({ navigation }) => {
@@ -128,7 +130,7 @@ export const SettingsRootScreen: FC<
               onIncrease={increaseTimeLimit}
               onDecrease={decreaseTimeLimit}
               decreaseDisabled={timeLimit <= 0}
-              increaseDisabled={timeLimit >= ms("30 min")}
+              increaseDisabled={timeLimit >= maxTimeLimit}
             />
           </SettingsUI.Section>
         </ScrollView>
