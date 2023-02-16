@@ -33,6 +33,7 @@ export interface StepperItemProps extends CommonItemProps {
   decreaseDisabled?: boolean;
   onIncrease?: () => unknown;
   onDecrease?: () => unknown;
+  fractionDigits?: number;
 }
 
 export interface RadioButtonItemProps extends CommonItemProps {

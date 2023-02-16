@@ -138,6 +138,7 @@ export const StepperItem: FC<StepperItemProps> = ({
   decreaseDisabled,
   onIncrease,
   onDecrease,
+  fractionDigits,
   ...baseProps
 }) => {
   const { colorScheme } = useColorScheme();
@@ -145,7 +146,7 @@ export const StepperItem: FC<StepperItemProps> = ({
     <BaseItem {...baseProps}>
       <View className="flex-row rounded-md border-hairline border-stone-200 dark:border-slate-600">
         <Pressable
-          className="items-center justify-center  rounded-l-md bg-gray-100 px-3  py-1 dark:bg-slate-700"
+          className="items-center justify-center  rounded-l-md bg-gray-100 px-3 py-1 dark:bg-slate-700"
           style={{ opacity: decreaseDisabled ? 0.2 : 1 }}
           onPress={onDecrease}
           onLongPressInterval={onDecrease}
@@ -157,12 +158,15 @@ export const StepperItem: FC<StepperItemProps> = ({
             color={colorScheme === "dark" ? "white" : colors["slate-500"]}
           />
         </Pressable>
-        <View className="w-9 self-center px-2">
+        <View className={`${fractionDigits > 0 ? "w-14" : "w-8"} self-center px-2`}>
           <Text
             className="text-center font-breathly-mono dark:text-white"
             style={{ fontVariant: ["tabular-nums"] }}
+            numberOfLines={1}
           >
-            {value}
+            {typeof value === "number" && fractionDigits > 0
+              ? value.toFixed(fractionDigits)
+              : value}
           </Text>
         </View>
         <Pressable
