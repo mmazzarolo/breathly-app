@@ -148,6 +148,7 @@ export const StepperItem: FC<StepperItemProps> = ({
           className="items-center justify-center  rounded-l-md bg-gray-100 px-3  py-1 dark:bg-slate-700"
           style={{ opacity: decreaseDisabled ? 0.2 : 1 }}
           onPress={onDecrease}
+          onLongPressInterval={onDecrease}
           disabled={decreaseDisabled}
         >
           <Ionicons
@@ -168,6 +169,7 @@ export const StepperItem: FC<StepperItemProps> = ({
           className="items-center justify-center  rounded-r-md bg-gray-100 px-3 py-1 dark:bg-slate-700"
           style={{ opacity: increaseDisabled ? 0.2 : 1 }}
           onPress={onIncrease}
+          onLongPressInterval={onIncrease}
           disabled={increaseDisabled}
         >
           <Ionicons
