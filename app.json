@@ -2,7 +2,7 @@
   "expo": {
     "name": "Breathly",
     "slug": "breathly",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./assets/ios-icon.png",
     "userInterfaceStyle": "automatic",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/ios-icon.png",
-      "buildNumber": "16",
+      "buildNumber": "17",
       "bundleIdentifier": "com.mmazzarolo.breathly"
     },
     "android": {
@@ -36,7 +36,7 @@
       },
       "icon": "./assets/android-icon.png",
       "package": "com.mmazzarolo.breathly",
-      "versionCode": 3145746
+      "versionCode": 3145747
     },
     "web": {
       "favicon": "./assets/favicon.png"
