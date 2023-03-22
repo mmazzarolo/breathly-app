@@ -64,4 +64,5 @@ I hope the source code will be useful to someone.
 
 ## Contributing
 
-Pull requests are welcome. File an issue for ideas, conversation or feedback.
+Pull requests are welcome. File an issue for ideas, conversation or feedback.  
+Please notice that, currently, I'm not keeping the F-Droid version up-to-date myself (nor I was the one who created it). That said, feel free to update it as needed and let me know if you need any help 👍  
