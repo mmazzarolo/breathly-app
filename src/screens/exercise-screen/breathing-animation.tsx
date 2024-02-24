@@ -18,9 +18,9 @@ interface Props {
 
 export const BreathingAnimation: FC<Props> = ({ animationValue, color }) => {
   const { colorScheme } = useColorScheme();
-  const { customBreathingShapeColor } = useSettingsStore();
-  const { breathingShapeColor } = useSettingsStore();
-  color = customBreathingShapeColor ? colors.pastel[breathingShapeColor] : colors.pastel.orange;
+  const { customRotatingCircleColor } = useSettingsStore();
+  const { rotatingCircleColor } = useSettingsStore();
+  color = customRotatingCircleColor ? colors.pastel[rotatingCircleColor] : colors.pastel.orange;
   const mountAnimationValue = useRef(new Animated.Value(0)).current;
   const innerOpacity = animationValue.interpolate({
     inputRange: [0, 0.1, 1],

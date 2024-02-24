@@ -39,12 +39,12 @@ export const SettingsRootScreen: FC<
   const setTheme = useSettingsStore((state) => state.setTheme);
   const vibrationEnabled = useSettingsStore((state) => state.vibrationEnabled);
   const setVibrationEnabled = useSettingsStore((state) => state.setVibrationEnabled);
-  const customBreathingShapeColor = useSettingsStore((state) => state.customBreathingShapeColor);
-  const setCustomBreathingShapeColor = useSettingsStore(
-    (state) => state.setCustomBreathingShapeColor
+  const customRotatingCircleColor = useSettingsStore((state) => state.customRotatingCircleColor);
+  const setCustomRotatingCircleColor = useSettingsStore(
+    (state) => state.setCustomRotatingCircleColor
   );
-  const breathingShapeColor = useSettingsStore((state) => state.breathingShapeColor);
-  const setBreathingShapeColor = useSettingsStore((state) => state.setBreathingShapeColor);
+  const rotatingCircleColor = useSettingsStore((state) => state.rotatingCircleColor);
+  const setRotatingCircleColor = useSettingsStore((state) => state.setRotatingCircleColor);
 
   React.useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
@@ -116,16 +116,16 @@ export const SettingsRootScreen: FC<
               />
             )}
             <SettingsUI.SwitchItem
-              label="Custom breathing shape color"
-              secondaryLabel="Change breathing shape color"
+              label="Custom rotating circle color"
+              secondaryLabel="Change rotating circle color"
               iconName="ios-moon"
               iconBackgroundColor="#a5b4fc"
-              value={customBreathingShapeColor}
-              onValueChange={setCustomBreathingShapeColor}
+              value={customRotatingCircleColor}
+              onValueChange={setCustomRotatingCircleColor}
             />
-            {customBreathingShapeColor && (
+            {customRotatingCircleColor && (
               <SettingsUI.PickerItem
-                label="Breathing shape color"
+                label="Rotating circle color"
                 iconName="ios-color-palette"
                 iconBackgroundColor="#d8b4fe"
                 options={[
@@ -134,8 +134,8 @@ export const SettingsRootScreen: FC<
                   { value: "pink", label: "Pink" },
                   { value: "blue-dark", label: "Dark blue" },
                 ]}
-                value={breathingShapeColor}
-                onValueChange={setBreathingShapeColor}
+                value={rotatingCircleColor}
+                onValueChange={setRotatingCircleColor}
               />
             )}
           </SettingsUI.Section>
