@@ -24,6 +24,12 @@ interface SettingsStore {
   setTheme: (theme: "dark" | "light") => unknown;
   vibrationEnabled: boolean;
   setVibrationEnabled: (vibrationEnabled: boolean) => unknown;
+  customBreathingShapeColor: boolean;
+  setCustomBreathingShapeColor: (darkerCircle: boolean) => unknown;
+  breathingShapeColor: "blue-light" | "lilac" | "pink" | "blue-dark";
+  setBreathingShapeColor: (
+    breathingShapeColor: "blue-light" | "lilac" | "pink" | "blue-dark"
+  ) => unknown;
 }
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -57,6 +63,11 @@ export const useSettingsStore = create<SettingsStore>()(
         setTheme: (theme) => set({ theme }),
         vibrationEnabled: true,
         setVibrationEnabled: (vibrationEnabled) => set({ vibrationEnabled }),
+        customBreathingShapeColor: false,
+        setCustomBreathingShapeColor: (customBreathingShapeColor) =>
+          set({ customBreathingShapeColor }),
+        breathingShapeColor: "blue-light",
+        setBreathingShapeColor: (breathingShapeColor) => set({ breathingShapeColor }),
       }),
       {
         name: "settings-storage",
