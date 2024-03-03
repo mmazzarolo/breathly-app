@@ -7,6 +7,7 @@ import { Animated, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Pressable } from "@breathly/common/pressable";
 import { RootStackParamList } from "@breathly/core/navigator";
+import { colors } from "@breathly/design/colors";
 import { widestDeviceDimension } from "@breathly/design/metrics";
 import { AnimatedDots } from "@breathly/screens/exercise-screen/animated-dots";
 import { StepDescription } from "@breathly/screens/exercise-screen/step-description";
@@ -103,6 +104,11 @@ const ExerciseRunningFragment: FC<ExerciseRunningFragmentProps> = ({
   const selectedPatternSteps = useSelectedPatternSteps();
   const [unmountContentAnimVal] = useState(new Animated.Value(1));
   const stepsMetadata = buildStepsMetadata(selectedPatternSteps);
+  const { rotatingCircleColorEnabled } = useSettingsStore();
+  const { rotatingCircleColor } = useSettingsStore();
+  const color = rotatingCircleColorEnabled
+    ? colors.pastel[rotatingCircleColor]
+    : colors.pastel.orange;
 
   const { currentStep, exerciseAnimVal, textAnimVal } = useExerciseLoop(stepsMetadata);
 
@@ -140,7 +146,7 @@ const ExerciseRunningFragment: FC<ExerciseRunningFragmentProps> = ({
       <Timer limit={timeLimit} onLimitReached={handleTimeLimitReached} />
       {currentStep && (
         <View className="flex-1 items-center justify-center">
-          <BreathingAnimation animationValue={exerciseAnimVal} />
+          <BreathingAnimation animationValue={exerciseAnimVal} color={color} />
           <StepDescription label={currentStep.label} animationValue={textAnimVal} />
           <AnimatedDots
             numberOfDots={3}

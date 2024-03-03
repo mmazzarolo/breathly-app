@@ -2,7 +2,6 @@ import setColor from "color";
 import { useColorScheme } from "nativewind";
 import React, { FC, useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
-import { colors } from "@breathly/design/colors";
 import { shortestDeviceDimension } from "@breathly/design/metrics";
 import { useSettingsStore } from "@breathly/stores/settings";
 import { animate } from "@breathly/utils/animate";
@@ -13,14 +12,11 @@ const MOUNT_ANIMATION_DURATION = 300;
 
 interface Props {
   animationValue: Animated.Value;
-  color?: string;
+  color: string;
 }
 
 export const BreathingAnimation: FC<Props> = ({ animationValue, color }) => {
   const { colorScheme } = useColorScheme();
-  const { customRotatingCircleColor } = useSettingsStore();
-  const { rotatingCircleColor } = useSettingsStore();
-  color = customRotatingCircleColor ? colors.pastel[rotatingCircleColor] : colors.pastel.orange;
   const mountAnimationValue = useRef(new Animated.Value(0)).current;
   const innerOpacity = animationValue.interpolate({
     inputRange: [0, 0.1, 1],
