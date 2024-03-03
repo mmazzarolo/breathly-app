@@ -25,7 +25,7 @@ interface SettingsStore {
   vibrationEnabled: boolean;
   setVibrationEnabled: (vibrationEnabled: boolean) => unknown;
   rotatingCircleColorEnabled: boolean;
-  setrotatingCircleColorEnabled: (rotatingCircleColorEnabled: boolean) => unknown;
+  setRotatingCircleColorEnabled: (rotatingCircleColorEnabled: boolean) => unknown;
   rotatingCircleColor: "blue-light" | "lilac" | "pink" | "blue-dark";
   setRotatingCircleColor: (
     rotatingCircleColor: "blue-light" | "lilac" | "pink" | "blue-dark"
@@ -64,7 +64,7 @@ export const useSettingsStore = create<SettingsStore>()(
         vibrationEnabled: true,
         setVibrationEnabled: (vibrationEnabled) => set({ vibrationEnabled }),
         rotatingCircleColorEnabled: false,
-        setrotatingCircleColorEnabled: (rotatingCircleColorEnabled) =>
+        setRotatingCircleColorEnabled: (rotatingCircleColorEnabled) =>
           set({ rotatingCircleColorEnabled }),
         rotatingCircleColor: "blue-light",
         setRotatingCircleColor: (rotatingCircleColor) => set({ rotatingCircleColor }),

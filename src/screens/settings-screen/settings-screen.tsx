@@ -49,8 +49,8 @@ export const SettingsRootScreen: FC<
   const vibrationEnabled = useSettingsStore((state) => state.vibrationEnabled);
   const setVibrationEnabled = useSettingsStore((state) => state.setVibrationEnabled);
   const rotatingCircleColorEnabled = useSettingsStore((state) => state.rotatingCircleColorEnabled);
-  const setrotatingCircleColorEnabled = useSettingsStore(
-    (state) => state.setrotatingCircleColorEnabled
+  const setRotatingCircleColorEnabled = useSettingsStore(
+    (state) => state.setRotatingCircleColorEnabled
   );
   const rotatingCircleColor = useSettingsStore((state) => state.rotatingCircleColor);
   const setRotatingCircleColor = useSettingsStore((state) => state.setRotatingCircleColor);
@@ -130,7 +130,7 @@ export const SettingsRootScreen: FC<
               iconName="ios-moon"
               iconBackgroundColor="#a5b4fc"
               value={rotatingCircleColorEnabled}
-              onValueChange={setrotatingCircleColorEnabled}
+              onValueChange={setRotatingCircleColorEnabled}
             />
             {rotatingCircleColorEnabled && (
               <View style={{ flexDirection: "column" }}>
