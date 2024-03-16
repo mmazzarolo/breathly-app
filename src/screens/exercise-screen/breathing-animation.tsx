@@ -2,8 +2,8 @@ import setColor from "color";
 import { useColorScheme } from "nativewind";
 import React, { FC, useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
-import { colors } from "@breathly/design/colors";
 import { shortestDeviceDimension } from "@breathly/design/metrics";
+import { useSettingsStore } from "@breathly/stores/settings";
 import { animate } from "@breathly/utils/animate";
 import { times } from "@breathly/utils/times";
 
@@ -12,10 +12,10 @@ const MOUNT_ANIMATION_DURATION = 300;
 
 interface Props {
   animationValue: Animated.Value;
-  color?: string;
+  color: string;
 }
 
-export const BreathingAnimation: FC<Props> = ({ animationValue, color = colors.pastel.orange }) => {
+export const BreathingAnimation: FC<Props> = ({ animationValue, color }) => {
   const { colorScheme } = useColorScheme();
   const mountAnimationValue = useRef(new Animated.Value(0)).current;
   const innerOpacity = animationValue.interpolate({

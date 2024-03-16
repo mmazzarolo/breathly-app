@@ -39,6 +39,12 @@ export const SettingsRootScreen: FC<
   const setTheme = useSettingsStore((state) => state.setTheme);
   const vibrationEnabled = useSettingsStore((state) => state.vibrationEnabled);
   const setVibrationEnabled = useSettingsStore((state) => state.setVibrationEnabled);
+  const rotatingCircleColorEnabled = useSettingsStore((state) => state.rotatingCircleColorEnabled);
+  const setRotatingCircleColorEnabled = useSettingsStore(
+    (state) => state.setRotatingCircleColorEnabled
+  );
+  const rotatingCircleColor = useSettingsStore((state) => state.rotatingCircleColor);
+  const setRotatingCircleColor = useSettingsStore((state) => state.setRotatingCircleColor);
 
   React.useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
@@ -107,6 +113,29 @@ export const SettingsRootScreen: FC<
                 ]}
                 value={theme}
                 onValueChange={setTheme}
+              />
+            )}
+            <SettingsUI.SwitchItem
+              label="Custom rotating circle color"
+              secondaryLabel="Change rotating circle color"
+              iconName="ios-color-filter"
+              iconBackgroundColor="#f2cddc"
+              value={rotatingCircleColorEnabled}
+              onValueChange={setRotatingCircleColorEnabled}
+            />
+            {rotatingCircleColorEnabled && (
+              <SettingsUI.PickerItem
+                label="Rotating circle color"
+                iconName="ios-color-palette-outline"
+                iconBackgroundColor="#03a5fc"
+                options={[
+                  { value: "blue-light", label: "Light blue" },
+                  { value: "lilac", label: "Lilac" },
+                  { value: "pink", label: "Pink" },
+                  { value: "blue-dark", label: "Dark blue" },
+                ]}
+                value={rotatingCircleColor}
+                onValueChange={setRotatingCircleColor}
               />
             )}
           </SettingsUI.Section>
