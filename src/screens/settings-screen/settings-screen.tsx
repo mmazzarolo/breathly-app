@@ -129,10 +129,10 @@ export const SettingsRootScreen: FC<
                 iconName="ios-color-palette-outline"
                 iconBackgroundColor="#03a5fc"
                 options={[
-                  { value: "blue-light", label: "Light Blue" },
+                  { value: "blue-light", label: "Light blue" },
                   { value: "lilac", label: "Lilac" },
                   { value: "pink", label: "Pink" },
-                  { value: "blue-dark", label: "Dark Blue" },
+                  { value: "blue-dark", label: "Dark blue" },
                 ]}
                 value={rotatingCircleColor}
                 onValueChange={setRotatingCircleColor}
