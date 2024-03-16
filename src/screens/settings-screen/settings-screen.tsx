@@ -1,18 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import ms from "ms";
 import React, { FC } from "react";
-import {
-  Animated,
-  ScrollView,
-  LayoutAnimation,
-  Button,
-  Platform,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Animated, ScrollView, LayoutAnimation, Button, Platform } from "react-native";
 import { patternPresets } from "@breathly/assets/pattern-presets";
 import { SettingsStackParamList } from "@breathly/core/navigator";
-import { colors } from "@breathly/design/colors";
 import { SettingsUI } from "@breathly/screens/settings-screen/settings-ui";
 import {
   useSelectedPatternSteps,
@@ -133,29 +124,19 @@ export const SettingsRootScreen: FC<
               onValueChange={setRotatingCircleColorEnabled}
             />
             {rotatingCircleColorEnabled && (
-              <View style={{ flexDirection: "column" }}>
-                <View
-                  style={{
-                    width: 25,
-                    height: 25,
-                    backgroundColor: colors.pastel[rotatingCircleColor],
-                    marginLeft: 23,
-                  }}
-                />
-                <SettingsUI.PickerItem
-                  label="Rotating circle color"
-                  iconName="ios-color-palette"
-                  iconBackgroundColor="#d8b4fe"
-                  options={[
-                    { value: "blue-light", label: "Light blue" },
-                    { value: "lilac", label: "Lilac" },
-                    { value: "pink", label: "Pink" },
-                    { value: "blue-dark", label: "Dark blue" },
-                  ]}
-                  value={rotatingCircleColor}
-                  onValueChange={setRotatingCircleColor}
-                />
-              </View>
+              <SettingsUI.PickerItem
+                label="Rotating circle color"
+                iconName="ios-color-palette"
+                iconBackgroundColor="#d8b4fe"
+                options={[
+                  { value: "blue-light", label: "Light blue" },
+                  { value: "lilac", label: "Lilac" },
+                  { value: "pink", label: "Pink" },
+                  { value: "blue-dark", label: "Dark blue" },
+                ]}
+                value={rotatingCircleColor}
+                onValueChange={setRotatingCircleColor}
+              />
             )}
           </SettingsUI.Section>
           <SettingsUI.Section label="Haptics">
