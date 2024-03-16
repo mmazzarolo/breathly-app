@@ -118,21 +118,21 @@ export const SettingsRootScreen: FC<
             <SettingsUI.SwitchItem
               label="Custom rotating circle color"
               secondaryLabel="Change rotating circle color"
-              iconName="ios-moon"
-              iconBackgroundColor="#a5b4fc"
+              iconName="ios-color-filter"
+              iconBackgroundColor="#f2cddc"
               value={rotatingCircleColorEnabled}
               onValueChange={setRotatingCircleColorEnabled}
             />
             {rotatingCircleColorEnabled && (
               <SettingsUI.PickerItem
                 label="Rotating circle color"
-                iconName="ios-color-palette"
-                iconBackgroundColor="#d8b4fe"
+                iconName="ios-color-palette-outline"
+                iconBackgroundColor="#03a5fc"
                 options={[
-                  { value: "blue-light", label: "Light blue" },
+                  { value: "blue-light", label: "Light Blue" },
                   { value: "lilac", label: "Lilac" },
                   { value: "pink", label: "Pink" },
-                  { value: "blue-dark", label: "Dark blue" },
+                  { value: "blue-dark", label: "Dark Blue" },
                 ]}
                 value={rotatingCircleColor}
                 onValueChange={setRotatingCircleColor}
