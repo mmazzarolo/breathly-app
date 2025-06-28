@@ -18,6 +18,13 @@ interface SettingsStore {
   timeLimit: number;
   increaseTimeLimit: () => unknown;
   decreaseTimeLimit: () => unknown;
+  setTimeLimit: (timeLimit: number) => unknown;
+  repetitions: number;
+  increaseRepetitions: () => unknown;
+  decreaseRepetitions: () => unknown;
+  setRepetitions: (repetitions: number) => unknown;
+  timeStep: number;
+  setTimeStep: (stepValue: number) => unknown;
   shouldFollowSystemDarkMode: boolean;
   setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode: boolean) => unknown;
   theme: "dark" | "light";
@@ -42,14 +49,47 @@ export const useSettingsStore = create<SettingsStore>()(
           ];
           customPatternSteps[stepIndex] = stepValue;
           set({ customPatternSteps });
+          get().setTimeStep(get().timeStep)
         },
         selectedPatternPresetId: "square",
-        setSelectedPatternPresetId: (selectedPatternPresetId) => set({ selectedPatternPresetId }),
+        setSelectedPatternPresetId: (selectedPatternPresetId) => {
+          set({ selectedPatternPresetId })
+          get().setTimeStep(get().timeStep)
+        },
         guidedBreathingVoice: "paul",
         setGuidedBreathingVoice: (guidedBreathingVoice) => set({ guidedBreathingVoice }),
         timeLimit: ms("2 min"),
-        increaseTimeLimit: () => set({ timeLimit: get().timeLimit + ms("1 min") }),
-        decreaseTimeLimit: () => set({ timeLimit: get().timeLimit - ms("1 min") }),
+        increaseTimeLimit: () => {
+          set({ timeLimit: Math.floor(get().timeLimit / ms("1 min"))*ms("1 min") + ms("1 min") })
+          get().setRepetitions(get().timeLimit / get().timeStep)
+        },
+        decreaseTimeLimit: () => {
+          set({ timeLimit: Math.ceil(get().timeLimit / ms("1 min"))*ms("1 min") - ms("1 min") })
+          get().setRepetitions(get().timeLimit / get().timeStep)
+        },
+        setTimeLimit: (timeLimit) => set({ timeLimit }),
+        repetitions: 15,
+        increaseRepetitions: () => {
+          set({ repetitions: Math.floor(get().repetitions) + 1 })
+          get().setTimeLimit(get().repetitions * get().timeStep)
+        },
+        decreaseRepetitions: () => {
+          set({ repetitions: Math.ceil(get().repetitions) - 1 })
+          get().setTimeLimit(get().repetitions * get().timeStep)
+        },
+        setRepetitions: (repetitions) => set({ repetitions }),
+        timeStep: ms("16 sec"),
+        setTimeStep: (timeStep) => {
+          const steps = get().customPatternEnabled 
+            ? get().customPatternSteps
+            : patternPresets.find((patternPreset) => patternPreset.id === get().selectedPatternPresetId).steps
+          const arrSum = steps.reduce((accum, curVal) => {
+              return accum + curVal;
+          }, 0);
+          timeStep = arrSum;
+          set({ timeStep })
+          get().setRepetitions(get().timeLimit / get().timeStep)
+        },
         shouldFollowSystemDarkMode: true,
         setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode) =>
           set({ shouldFollowSystemDarkMode }),
