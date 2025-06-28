@@ -60,10 +60,14 @@ export const useSettingsStore = create<SettingsStore>()(
         setGuidedBreathingVoice: (guidedBreathingVoice) => set({ guidedBreathingVoice }),
         timeLimit: ms("2 min"),
         increaseTimeLimit: () => {
+          // If seconds, goes to next minute, otherwise adds 1 minute
+          // e.g. 4:56 --> 5:00 --> 6:00
           set({ timeLimit: Math.floor(get().timeLimit / ms("1 min"))*ms("1 min") + ms("1 min") })
           get().setRepetitions(get().timeLimit / get().timeStep)
         },
         decreaseTimeLimit: () => {
+          // If seconds, goes to prev minute, otherwise subtracts 1 minute
+          // e.g. 4:56 --> 4:00 --> 3:00
           set({ timeLimit: Math.ceil(get().timeLimit / ms("1 min"))*ms("1 min") - ms("1 min") })
           get().setRepetitions(get().timeLimit / get().timeStep)
         },

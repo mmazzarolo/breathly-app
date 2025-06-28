@@ -1,7 +1,8 @@
 import { formatTimer } from "@breathly/utils/format-timer"
 
-// Given a number of seconds returns them in a "timer" format (mm:ss).
-// E.g.: 120 -> 02:00
+// If number is time, uses '1h' if it's 1:00:00 otherwise formatTime
+// If number is non-time nuemric value, rounds it to fractionDigits
+// Otherwise, return value itself (infinity)
 export const formatValue = (value: unknown, formatAsTime: boolean, fractionDigits: number) => {
     if (typeof value === "number") {
         if (formatAsTime) {

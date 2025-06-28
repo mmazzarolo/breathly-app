@@ -143,7 +143,12 @@ export const SettingsRootScreen: FC<
               label="Exercise repetitions"
               secondaryLabel="# of repetitions"
               value={repetitions > 0 ? repetitions : "∞"}
-              fractionDigits={Math.min(2, 3-Math.floor(Math.log10(repetitions)))}
+              fractionDigits={
+                // 0-100: 2 decimal points
+                // 100-1000: 1 decimal point
+                // 1000+: no decimal
+                Math.min(2, 3-Math.floor(Math.log10(repetitions)))
+              }
               iconName="ios-timer"
               iconBackgroundColor="#7195fa"
               onIncrease={increaseRepetitions}
