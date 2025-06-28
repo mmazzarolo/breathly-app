@@ -13,6 +13,7 @@ import {
   SwitchItemProps,
   SectionProps,
 } from "./settings-ui";
+import { formatValue } from "@breathly/utils/format-stepper-value"
 
 const Section: React.FC<PropsWithChildren<SectionProps>> = ({
   label,
@@ -169,6 +170,7 @@ const StepperItem: FC<StepperItemProps> = ({
   decreaseDisabled,
   onIncrease,
   onDecrease,
+  formatAsTime,
   fractionDigits,
   ...baseProps
 }) => {
@@ -184,14 +186,12 @@ const StepperItem: FC<StepperItemProps> = ({
         >
           <MaterialCommunityIcons name="minus" size={16} color="white" />
         </Pressable>
-        <View className={`${fractionDigits > 0 ? "w-14" : "w-8"} self-center px-2`}>
+        <View className={`w-14 self-center px-2`}>
           <Text
             className="text-center font-breathly-mono font-semibold dark:text-white"
             numberOfLines={1}
           >
-            {typeof value === "number" && fractionDigits > 0
-              ? value.toFixed(fractionDigits)
-              : value}
+            {formatValue(value, formatAsTime, fractionDigits)}
           </Text>
         </View>
         <Pressable

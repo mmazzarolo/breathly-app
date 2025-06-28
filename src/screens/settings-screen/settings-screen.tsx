@@ -31,6 +31,10 @@ export const SettingsRootScreen: FC<
   const timeLimit = useSettingsStore((state) => state.timeLimit);
   const increaseTimeLimit = useSettingsStore((state) => state.increaseTimeLimit);
   const decreaseTimeLimit = useSettingsStore((state) => state.decreaseTimeLimit);
+  const repetitions = useSettingsStore((state) => state.repetitions);
+  const timeStep = useSettingsStore((state) => state.timeStep);
+  const increaseRepetitions = useSettingsStore((state) => state.increaseRepetitions);
+  const decreaseRepetitions = useSettingsStore((state) => state.decreaseRepetitions);
   const shouldFollowSystemDarkMode = useSettingsStore((state) => state.shouldFollowSystemDarkMode);
   const setShouldFollowSystemDarkMode = useSettingsStore(
     (state) => state.setShouldFollowSystemDarkMode
@@ -123,7 +127,7 @@ export const SettingsRootScreen: FC<
           <SettingsUI.Section label="Timer" hideBottomBorderAndroid>
             <SettingsUI.StepperItem
               label="Exercise timer"
-              secondaryLabel="Time limit in minutes"
+              secondaryLabel="Time limit"
               value={timeLimit > 0 ? timeLimit / ms("1 min") : "∞"}
               iconName="ios-timer"
               iconBackgroundColor="#fb7185"
@@ -131,6 +135,27 @@ export const SettingsRootScreen: FC<
               onDecrease={decreaseTimeLimit}
               decreaseDisabled={timeLimit <= 0}
               increaseDisabled={timeLimit >= maxTimeLimit}
+              formatAsTime={true}
+            />
+          </SettingsUI.Section>
+          <SettingsUI.Section label="Repetitions" hideBottomBorderAndroid>
+            <SettingsUI.StepperItem
+              label="Exercise repetitions"
+              secondaryLabel="# of repetitions"
+              value={repetitions > 0 ? repetitions : "∞"}
+              fractionDigits={
+                // 0-100: 2 decimal points
+                // 100-1000: 1 decimal point
+                // 1000+: no decimal
+                Math.min(2, 3-Math.floor(Math.log10(repetitions)))
+              }
+              iconName="ios-timer"
+              iconBackgroundColor="#7195fa"
+              onIncrease={increaseRepetitions}
+              onDecrease={decreaseRepetitions}
+              decreaseDisabled={repetitions <= 0}
+              increaseDisabled={repetitions >= Math.floor(maxTimeLimit / timeStep)}
+              formatAsTime={false}
             />
           </SettingsUI.Section>
         </ScrollView>
