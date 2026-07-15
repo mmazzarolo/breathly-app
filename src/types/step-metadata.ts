@@ -1,4 +1,4 @@
-import { GuidedBreathingStep } from "@breathly/services/audio";
+import type { GuidedBreathingStep } from "@breathly/types/guided-breathing-step";
 
 export interface StepMetadata {
   id: string;

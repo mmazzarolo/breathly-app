@@ -30,7 +30,7 @@ export const Pressable: FC<PressableProps> = ({
   // On iOS, I feel most "touch" events in the app work better with a light haptic feedback.
   const handlePressIn = (event: GestureResponderEvent) => {
     if (Platform.OS === "ios" && !otherProps.disabled) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => undefined);
     }
     otherProps.onPressIn?.(event);
   };
@@ -39,7 +39,7 @@ export const Pressable: FC<PressableProps> = ({
     () => {
       if (otherProps.disabled) return;
       if (Platform.OS === "ios") {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => undefined);
       }
       onLongPressInterval?.();
     },

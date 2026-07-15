@@ -11,6 +11,12 @@ interface Props {
 
 const interludeInitialDelay = 600;
 const interludeAnimDuration = 400;
+const displayTitleTextStyle = {
+  includeFontPadding: true,
+  lineHeight: 80,
+  paddingBottom: 8,
+  textAlignVertical: "center" as const,
+};
 
 export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
   const isMountedRef = useRef(true);
@@ -79,8 +85,15 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
   };
 
   return (
-    <Animated.View className="flex-1 items-center justify-center" style={containerAnimatedStyle}>
-      <Text className="mb-4 text-center font-breathly-serif-medium text-5xl text-slate-800 dark:text-white">
+    <Animated.View
+      className="flex-1 items-center justify-center"
+      style={containerAnimatedStyle}
+      testID="exercise.interlude"
+    >
+      <Text
+        className="mb-4 text-center font-breathly-serif-medium text-5xl text-slate-800 dark:text-white"
+        style={displayTitleTextStyle}
+      >
         Relax
       </Text>
       <Animated.View style={subtitleAnimatedStyle}>

@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import { Animated } from "react-native";
 import { animate } from "@breathly/utils/animate";
 import { interpolateScale } from "@breathly/utils/interpolate";
 import { times } from "@breathly/utils/times";
-import { useOnUpdate } from "@breathly/utils/use-on-update";
 
 const dotSize = Math.floor(4);
 const fadeInAnimDuration = 400;
@@ -15,38 +14,35 @@ interface Props {
 }
 
 export const AnimatedDots: FC<Props> = ({ visible = false, numberOfDots, totalDuration }) => {
-  const dotAnimVals = useRef(times(numberOfDots).map(() => new Animated.Value(0))).current;
+  const dotAnimVals = useMemo(
+    () => times(numberOfDots).map(() => new Animated.Value(0)),
+    [numberOfDots]
+  );
 
-  const delayDuration = Math.floor(totalDuration / numberOfDots - fadeInAnimDuration);
-
-  const createDotAnimation = (index: number) => {
-    return animate(dotAnimVals[index], {
-      toValue: 1,
-      duration: fadeInAnimDuration,
-    });
-  };
-  const sequenceAnimations: Animated.CompositeAnimation[] = [];
-  times(numberOfDots).forEach((index) => {
-    sequenceAnimations.push(createDotAnimation(index));
-    sequenceAnimations.push(Animated.delay(delayDuration));
-  });
-  const resetDotsAnimVals = () => dotAnimVals.forEach((val) => val.setValue(0));
-  const dotsAnimation = Animated.sequence(sequenceAnimations);
+  const delayDuration = Math.max(
+    0,
+    Math.floor(totalDuration / Math.max(numberOfDots, 1) - fadeInAnimDuration)
+  );
 
   useEffect(() => {
-    if (visible) {
-      dotsAnimation.start(resetDotsAnimVals);
-    }
-    return () => {
-      dotsAnimation.stop();
-    };
-  }, []);
+    const resetDots = () => dotAnimVals.forEach((value) => value.setValue(0));
+    resetDots();
+    if (!visible || dotAnimVals.length === 0) return;
 
-  useOnUpdate((prevVisible) => {
-    if (!prevVisible && visible) {
-      dotsAnimation.start(resetDotsAnimVals);
-    }
-  }, visible);
+    const sequence = Animated.sequence(
+      dotAnimVals.flatMap((value) => [
+        animate(value, {
+          toValue: 1,
+          duration: fadeInAnimDuration,
+        }),
+        Animated.delay(delayDuration),
+      ])
+    );
+    sequence.start(({ finished }) => {
+      if (finished) resetDots();
+    });
+    return () => sequence.stop();
+  }, [delayDuration, dotAnimVals, visible]);
 
   const dotsAnimatedStyles = dotAnimVals.map((val) => ({
     opacity: val.interpolate({

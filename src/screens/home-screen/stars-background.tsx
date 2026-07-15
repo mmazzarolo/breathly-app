@@ -27,7 +27,7 @@ export const StarsBackground: FC<Props> = ({
   const fadeInAnimValue = useRef(new Animated.Value(fadeIn ? 0 : 1)).current;
 
   useEffect(() => {
-    Animated.loop(
+    const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(backgroundAnimValue, {
           toValue: 1,
@@ -42,8 +42,10 @@ export const StarsBackground: FC<Props> = ({
           easing: Easing.linear,
         }),
       ])
-    ).start();
-  });
+    );
+    animation.start();
+    return () => animation.stop();
+  }, [backgroundAnimValue]);
 
   const backgroundTransform = [
     {
@@ -70,7 +72,11 @@ export const StarsBackground: FC<Props> = ({
   };
 
   return (
-    <Animated.View className="absolute w-full" style={{ height: size, opacity: fadeInAnimValue }}>
+    <Animated.View
+      pointerEvents="none"
+      className="absolute w-full"
+      style={{ height: size, opacity: fadeInAnimValue }}
+    >
       <StyledMaskedView
         className="flex-1"
         maskElement={
@@ -90,6 +96,7 @@ export const StarsBackground: FC<Props> = ({
             source={images.starsBackgroundHorizontal}
             resizeMode="cover"
             onLoad={handleLoad}
+            onError={onImageLoaded}
           />
         </Animated.View>
       </StyledMaskedView>

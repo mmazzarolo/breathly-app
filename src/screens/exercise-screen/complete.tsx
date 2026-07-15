@@ -1,31 +1,27 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { Animated, Text } from "react-native";
 import { animate } from "@breathly/utils/animate";
 import { interpolateTranslateY } from "@breathly/utils/interpolate";
 
 const mountAnimDuration = 400;
-const unmountAnimDuration = 400;
+const displayTitleTextStyle = {
+  includeFontPadding: true,
+  lineHeight: 80,
+  paddingBottom: 8,
+  textAlignVertical: "center" as const,
+};
 
 export const ExerciseComplete: FC = () => {
-  const [mountAnimVal] = useState(new Animated.Value(0));
-
-  const mountAnimation = animate(mountAnimVal, {
-    toValue: 1,
-    duration: mountAnimDuration,
-  });
-
-  const unmountAnimation = animate(mountAnimVal, {
-    toValue: 0,
-    duration: unmountAnimDuration,
-  });
+  const mountAnimVal = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    const mountAnimation = animate(mountAnimVal, {
+      toValue: 1,
+      duration: mountAnimDuration,
+    });
     mountAnimation.start();
-    return () => {
-      mountAnimation.stop();
-      unmountAnimation.stop();
-    };
-  }, []);
+    return () => mountAnimation.stop();
+  }, [mountAnimVal]);
 
   const containerAnimatedStyle = {
     opacity: mountAnimVal.interpolate({
@@ -41,8 +37,15 @@ export const ExerciseComplete: FC = () => {
   };
 
   return (
-    <Animated.View className="flex-1 items-center justify-center" style={containerAnimatedStyle}>
-      <Text className="text-center font-breathly-serif-medium text-5xl text-slate-800 dark:text-white">
+    <Animated.View
+      className="flex-1 items-center justify-center"
+      style={containerAnimatedStyle}
+      testID="exercise.complete"
+    >
+      <Text
+        className="text-center font-breathly-serif-medium text-5xl text-slate-800 dark:text-white"
+        style={displayTitleTextStyle}
+      >
         Complete
       </Text>
     </Animated.View>

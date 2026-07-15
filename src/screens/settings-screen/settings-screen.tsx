@@ -10,16 +10,12 @@ import {
   useSelectedPatternName,
   useSettingsStore,
 } from "@breathly/stores/settings";
+import {
+  customPatternDurationLimits,
+  customPatternStepSizeMs,
+  maximumTimeLimitMs,
+} from "@breathly/stores/settings-state";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
-
-const customDurationLimits = [
-  [ms("1 sec"), ms("99 sec")],
-  [0, ms("99 sec")],
-  [ms("1 sec"), ms("99 sec")],
-  [0, ms("99 sec")],
-];
-
-const maxTimeLimit = ms("60 min");
 
 export const SettingsRootScreen: FC<
   NativeStackScreenProps<SettingsStackParamList, "SettingsRoot">
@@ -45,7 +41,9 @@ export const SettingsRootScreen: FC<
     // Now the button includes an `onPress` handler to update the count
     if (Platform.OS === "ios") {
       navigation.setOptions({
-        headerRight: () => <Button onPress={navigation.goBack} title="Done" />,
+        headerRight: () => (
+          <Button onPress={navigation.goBack} title="Done" testID="settings.done" />
+        ),
       });
     }
   }, [navigation]);
@@ -54,6 +52,7 @@ export const SettingsRootScreen: FC<
     <>
       <Animated.View className="h-full w-full">
         <ScrollView
+          testID="settings.screen"
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
             paddingHorizontal: Platform.OS === "android" ? undefined : 18,
@@ -62,18 +61,19 @@ export const SettingsRootScreen: FC<
           <SettingsUI.Section label="Breathing pattern">
             <SettingsUI.LinkItem
               label="Pattern"
-              iconName="ios-body"
+              iconName="body"
               iconBackgroundColor="#bfdbfe"
               value={`${selectedPatternName} (${selectedPatternDurations
                 .map((duration) => duration / ms("1 sec"))
                 .join("-")})`}
               onPress={() => navigation.navigate("SettingsPatternPicker")}
+              testID="settings.pattern"
             />
           </SettingsUI.Section>
           <SettingsUI.Section label="Guided breathing">
             <SettingsUI.PickerItem
               label="Voice"
-              iconName="ios-volume-medium"
+              iconName="volume-medium"
               iconBackgroundColor="#fdba74"
               value={guidedBreathingVoice}
               options={
@@ -85,21 +85,23 @@ export const SettingsRootScreen: FC<
                 ] as { value: GuidedBreathingMode; label: string }[] // TODO:// Move to satisfies once prettier supports it
               }
               onValueChange={setGuidedBreathingVoice}
+              testID="settings.voice"
             />
           </SettingsUI.Section>
           <SettingsUI.Section label="Appearance">
             <SettingsUI.SwitchItem
               label="Use system theme"
               secondaryLabel="Follow system light/dark mode"
-              iconName="ios-moon"
+              iconName="moon"
               iconBackgroundColor="#a5b4fc"
               value={shouldFollowSystemDarkMode}
               onValueChange={setShouldFollowSystemDarkMode}
+              testID="settings.system-theme"
             />
             {!shouldFollowSystemDarkMode && (
               <SettingsUI.PickerItem
                 label="Theme"
-                iconName="ios-color-palette"
+                iconName="color-palette"
                 iconBackgroundColor="#d8b4fe"
                 options={[
                   { value: "light", label: "Light theme" },
@@ -107,6 +109,7 @@ export const SettingsRootScreen: FC<
                 ]}
                 value={theme}
                 onValueChange={setTheme}
+                testID="settings.theme"
               />
             )}
           </SettingsUI.Section>
@@ -114,10 +117,11 @@ export const SettingsRootScreen: FC<
             <SettingsUI.SwitchItem
               label="Vibration"
               secondaryLabel="Vibrate on step change"
-              iconName="ios-ellipse"
+              iconName="ellipse"
               iconBackgroundColor="aquamarine"
               value={vibrationEnabled}
               onValueChange={setVibrationEnabled}
+              testID="settings.vibration"
             />
           </SettingsUI.Section>
           <SettingsUI.Section label="Timer" hideBottomBorderAndroid>
@@ -125,12 +129,13 @@ export const SettingsRootScreen: FC<
               label="Exercise timer"
               secondaryLabel="Time limit in minutes"
               value={timeLimit > 0 ? timeLimit / ms("1 min") : "∞"}
-              iconName="ios-timer"
+              iconName="timer"
               iconBackgroundColor="#fb7185"
               onIncrease={increaseTimeLimit}
               onDecrease={decreaseTimeLimit}
               decreaseDisabled={timeLimit <= 0}
-              increaseDisabled={timeLimit >= maxTimeLimit}
+              increaseDisabled={timeLimit >= maximumTimeLimitMs}
+              testID="settings.timer"
             />
           </SettingsUI.Section>
         </ScrollView>
@@ -154,6 +159,7 @@ export const SettingsPatternPickerScreen: FC<
     <>
       <Animated.View className="h-full w-full">
         <ScrollView
+          testID="settings.patterns.screen"
           contentInsetAdjustmentBehavior="automatic"
           contentContainerStyle={{
             paddingHorizontal: Platform.OS === "android" ? undefined : 18,
@@ -162,17 +168,18 @@ export const SettingsPatternPickerScreen: FC<
           <SettingsUI.Section label="Custom pattern">
             <SettingsUI.SwitchItem
               label="Custom breathing pattern"
-              iconName="ios-person"
+              iconName="person"
               iconBackgroundColor="#60a5fa"
               value={customPatternEnabled}
-              onValueChange={(newValue) => {
+              onValueChange={(newValue: boolean) => {
                 LayoutAnimation.easeInEaseOut();
                 setCustomPatternEnabled(newValue);
               }}
+              testID="settings.custom-pattern"
             />
             {customPatternEnabled &&
               customPatternDurations.map((stepValue, stepIndex) => {
-                const [lowerLimit, upperLimit] = customDurationLimits[stepIndex];
+                const [lowerLimit, upperLimit] = customPatternDurationLimits[stepIndex];
                 const stepLabel = ["Inhale", "Hold", "Exhale", "Hold"][stepIndex];
                 return (
                   <SettingsUI.StepperItem
@@ -184,11 +191,12 @@ export const SettingsPatternPickerScreen: FC<
                     decreaseDisabled={stepValue <= lowerLimit}
                     increaseDisabled={stepValue >= upperLimit}
                     onIncrease={() =>
-                      setCustomPatternDurationsStep(stepIndex, stepValue + ms("0.5 sec"))
+                      setCustomPatternDurationsStep(stepIndex, stepValue + customPatternStepSizeMs)
                     }
                     onDecrease={() =>
-                      setCustomPatternDurationsStep(stepIndex, stepValue + -ms("0.5 sec"))
+                      setCustomPatternDurationsStep(stepIndex, stepValue - customPatternStepSizeMs)
                     }
+                    testID={`settings.custom-pattern.step.${stepIndex}`}
                   />
                 );
               })}
@@ -205,6 +213,7 @@ export const SettingsPatternPickerScreen: FC<
                     .map((duration) => duration / ms("1 sec"))
                     .join("-")})`}
                   secondaryLabel={patternPreset.description}
+                  testID={`settings.pattern.${patternPreset.id}`}
                 />
               );
             })}

@@ -5,6 +5,7 @@ import tailwindColors from "tailwindcss/colors";
 // find & replace.
 export const colors = {
   "stone-200": tailwindColors.stone[200], // Borders in settings
+  "stone-300": tailwindColors.stone[300], // Disabled controls in settings
   "slate-500": tailwindColors.slate[500], // Secondary text in light mode, settings borders
   "slate-600": tailwindColors.slate[600], // Settings stepper border in dark mode
   "slate-700": tailwindColors.slate[700], // Settings bg border in dark mode

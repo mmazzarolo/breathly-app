@@ -5,33 +5,30 @@
 // - sticky-immersive is identical to 'immersive' except that the navigation bar will be
 //   semi-transparent and will be hidden again after a short period of time.
 // Here we'll use the sticky-immersive mode
-import * as NavigationBar from "expo-navigation-bar";
-import { setStatusBarHidden, setStatusBarTranslucent } from "expo-status-bar";
+import { NavigationBar, useVisibility } from "expo-navigation-bar";
+import { setStatusBarHidden } from "expo-status-bar";
 import ms from "ms";
 import { useEffect } from "react";
-import { Platform } from "react-native";
+import { Platform, StatusBar } from "react-native";
 
 export function initializeImmersiveMode() {
-  if (Platform.OS === "ios") return;
-  NavigationBar.setPositionAsync("absolute");
-  NavigationBar.setVisibilityAsync("hidden");
-  NavigationBar.setBehaviorAsync("overlay-swipe");
-  NavigationBar.setBackgroundColorAsync("#ffffff00");
+  if (Platform.OS !== "android") return;
+  NavigationBar.setHidden(true);
   setStatusBarHidden(true, "none");
-  setStatusBarTranslucent(true);
+  StatusBar.setTranslucent(true);
 }
 
 // Hide the navigation bar after a certain duration
 const HIDE_NAVIGATION_BAR_AFTER_MS = ms("3 sec");
 
 export function useStickyImmersiveReset() {
-  const visibility = NavigationBar.useVisibility();
+  const visibility = useVisibility();
 
   useEffect(() => {
-    if (Platform.OS === "ios") return;
+    if (Platform.OS !== "android") return;
     if (visibility === "visible") {
       const interval = setTimeout(() => {
-        NavigationBar.setVisibilityAsync("hidden");
+        NavigationBar.setHidden(true);
         setStatusBarHidden(true, "none");
       }, HIDE_NAVIGATION_BAR_AFTER_MS);
 

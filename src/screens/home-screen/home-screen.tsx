@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useColorScheme } from "nativewind";
-import React, { FC, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { Animated, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { create } from "zustand";
@@ -9,6 +9,13 @@ import { RootStackParamList } from "@breathly/core/navigator";
 import { colors } from "@breathly/design/colors";
 import { PlanetsBackground } from "@breathly/screens/home-screen/planets-background";
 import { StarsBackground } from "@breathly/screens/home-screen/stars-background";
+
+const displayTitleTextStyle = {
+  includeFontPadding: true,
+  lineHeight: 80,
+  paddingBottom: 8,
+  textAlignVertical: "center" as const,
+};
 
 export const useHomeScreenStatusStore = create<{
   isHomeScreenReady: boolean;
@@ -39,17 +46,18 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
     if (colorScheme === "light" && !isHomeScreenReady) {
       markHomeScreenAsReady();
     }
-  }, []);
+  }, [colorScheme, isHomeScreenReady, markHomeScreenAsReady]);
 
-  const handleStarsBackgroundImageLoaded = () => {
+  const handleStarsBackgroundImageLoaded = useCallback(() => {
     if (!isHomeScreenReady) {
       markHomeScreenAsReady();
     }
-  };
+  }, [isHomeScreenReady, markHomeScreenAsReady]);
 
   return (
     <Animated.View
       className="flex-1 items-center justify-between"
+      testID="home.screen"
       style={{
         // Paddings to handle safe area
         paddingTop: insets.top,
@@ -64,7 +72,10 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
       {colorScheme === "light" && <PlanetsBackground />}
 
       <View className="mx-12 flex-1 items-center justify-end">
-        <Animated.Text className="font-breathly-serif-semibold text-5xl text-slate-800 dark:text-white">
+        <Animated.Text
+          className="font-breathly-serif-semibold text-5xl text-slate-800 dark:text-white"
+          style={displayTitleTextStyle}
+        >
           Breathly
         </Animated.Text>
         <Animated.Text className="mb-8 text-center font-breathly-regular text-lg font-light text-slate-500">
@@ -75,6 +86,8 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
         className="w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
         style={{ backgroundColor: colors.pastel["orange-light"] }}
         onPress={handleStartButtonPress}
+        testID="home.start-session"
+        accessibilityRole="button"
       >
         <Text className="py-1 text-lg text-slate-800">Start a new session</Text>
       </Pressable>
@@ -85,6 +98,8 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
         className="mb-20 w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
         style={{ backgroundColor: colors.pastel["gray-light"] }}
         onPress={handleCustomizeButtonPress}
+        testID="home.customize"
+        accessibilityRole="button"
       >
         <Text className="py-1 text-lg text-slate-800">Customize the experience</Text>
       </Pressable>

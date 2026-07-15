@@ -1,0 +1,35 @@
+appId: com.mmazzarolo.breathly
+name: Pause exercise while backgrounded
+---
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 10000
+- tapOn:
+    id: "home.start-session"
+- extendedWaitUntil:
+    visible:
+      id: "exercise.running"
+    timeout: 8000
+- pressKey: home
+- launchApp:
+    stopApp: false
+- extendedWaitUntil:
+    visible:
+      id: "exercise.paused"
+    timeout: 5000
+- assertVisible: "Paused"
+- tapOn:
+    id: "exercise.resume"
+- extendedWaitUntil:
+    visible:
+      id: "exercise.running"
+    timeout: 5000
+- tapOn:
+    id: "exercise.close"
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 5000

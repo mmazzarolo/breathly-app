@@ -1,4 +1,13 @@
 {
+  "root": true,
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
@@ -20,7 +29,8 @@
       },
       "plugins": ["react", "react-hooks", "@typescript-eslint"],
       "rules": {
-        "@typescript-eslint/ban-ts-comment": "warn"
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/no-require-imports": "off"
       },
       "settings": {
         "react": {

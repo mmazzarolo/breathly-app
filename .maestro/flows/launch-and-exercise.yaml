@@ -1,0 +1,29 @@
+appId: com.mmazzarolo.breathly
+name: Launch and exercise smoke test
+---
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 10000
+- assertVisible:
+    id: "home.start-session"
+- tapOn:
+    id: "home.start-session"
+- assertVisible:
+    id: "exercise.interlude"
+- extendedWaitUntil:
+    visible:
+      id: "exercise.running"
+    timeout: 8000
+- assertVisible:
+    id: "exercise.timer"
+- assertVisible:
+    id: "exercise.step"
+- tapOn:
+    id: "exercise.close"
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 5000

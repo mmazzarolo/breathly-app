@@ -27,8 +27,13 @@ export const BreathingAnimation: FC<Props> = ({ animationValue, color = colors.p
     outputRange: [1.02, 0.9, 0.9],
   });
   useEffect(() => {
-    animate(mountAnimationValue, { toValue: 1, duration: MOUNT_ANIMATION_DURATION }).start();
-  }, []);
+    const animation = animate(mountAnimationValue, {
+      toValue: 1,
+      duration: MOUNT_ANIMATION_DURATION,
+    });
+    animation.start();
+    return () => animation.stop();
+  }, [mountAnimationValue]);
 
   return (
     <Animated.View

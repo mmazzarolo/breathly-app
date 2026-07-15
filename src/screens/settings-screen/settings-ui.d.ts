@@ -9,6 +9,7 @@ export interface SectionProps {
 interface CommonItemProps {
   label?: string;
   secondaryLabel?: string;
+  testID?: string;
 }
 
 export interface LinkItemProps extends CommonItemProps {

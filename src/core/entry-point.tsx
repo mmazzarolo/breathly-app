@@ -1,5 +1,5 @@
 import * as Font from "expo-font";
-import { useColorScheme as useNativeWindColorScheme } from "nativewind";
+import { NativeWindStyleSheet, useColorScheme as useNativeWindColorScheme } from "nativewind";
 import React, { FC, useEffect } from "react";
 import { Platform, UIManager, View, LayoutAnimation } from "react-native";
 import { fonts as fontAssets } from "@breathly/assets/fonts";
@@ -11,6 +11,12 @@ import {
 } from "@breathly/utils/use-sticky-immersive-reset";
 import { useThemedStatusBar } from "@breathly/utils/use-themed-status-bar";
 import { SplashScreenManager } from "./splash-screen-manager";
+
+if (Platform.OS === "web") {
+  NativeWindStyleSheet.setOutput({
+    default: "native",
+  });
+}
 
 // Enable layout animations on Android so that we can animate views to their new
 // positions when a layout change happens
@@ -43,7 +49,6 @@ const Main: FC = () => {
   useThemedStatusBar();
 
   useEffect(() => {
-    let unsubscribe;
     if (hydrated) {
       LayoutAnimation.easeInEaseOut();
       if (shouldFollowSystemDarkMode) {
@@ -54,10 +59,7 @@ const Main: FC = () => {
         setColorScheme("light");
       }
     }
-    return () => {
-      unsubscribe?.();
-    };
-  }, [theme, shouldFollowSystemDarkMode, hydrated]);
+  }, [hydrated, setColorScheme, shouldFollowSystemDarkMode, theme]);
 
   if (!hydrated || !areFontsLoaded) {
     return <View />;

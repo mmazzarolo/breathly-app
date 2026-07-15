@@ -4,10 +4,11 @@ export const interpolateScale = (
   value: Animated.Value,
   config: Animated.InterpolationConfigType
 ): Animated.WithAnimatedObject<ScaleTransform> => {
+  const { inputRange = [0, 1], ...interpolationConfig } = config;
   return {
     scale: value.interpolate({
-      inputRange: [0, 1],
-      ...config,
+      ...interpolationConfig,
+      inputRange,
     }),
   };
 };
@@ -16,10 +17,11 @@ export const interpolateTranslateY = (
   value: Animated.Value,
   config: Animated.InterpolationConfigType
 ): Animated.WithAnimatedObject<TranslateYTransform> => {
+  const { inputRange = [0, 1], ...interpolationConfig } = config;
   return {
     translateY: value.interpolate({
-      inputRange: [0, 1],
-      ...config,
+      ...interpolationConfig,
+      inputRange,
     }),
   };
 };

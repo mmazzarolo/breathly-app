@@ -1,0 +1,23 @@
+appId: com.mmazzarolo.breathly
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn:
+          id: "settings.theme.option.dark"
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn:
+          id: "settings.theme"
+      - swipe:
+          from:
+            id: "settings.theme.picker"
+          direction: UP
+      - swipe:
+          from:
+            id: "settings.theme.picker"
+          direction: UP
+- assertVisible: ".*Dark theme.*"

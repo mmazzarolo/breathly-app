@@ -25,6 +25,7 @@ export const StepDescription: FC<Props> = ({ label, animationValue }) => {
     <Animated.Text
       className="mb-4 text-center font-breathly-medium text-2xl text-slate-800 dark:text-white"
       style={textAnimatedStyle}
+      testID="exercise.step"
     >
       {label}
     </Animated.Text>
