@@ -1,0 +1,49 @@
+appId: com.mmazzarolo.breathly
+name: Cross-version static UI parity
+tags:
+  - visual
+---
+- clearState
+- launchApp
+- runFlow:
+    when:
+      visible: "Open in .*Breathly.*"
+    commands:
+      - tapOn: "Cancel"
+- runFlow:
+    when:
+      visible: "Don't Show Again"
+    commands:
+      - tapOn: "Don't Show Again"
+- extendedWaitUntil:
+    visible: "Start a new session"
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 2500
+- takeScreenshot:
+    path: "home-${VISUAL_VARIANT}"
+- tapOn: "Customize the experience"
+- extendedWaitUntil:
+    visible: "Breathing pattern"
+    timeout: 5000
+- waitForAnimationToEnd:
+    timeout: 1000
+- takeScreenshot:
+    path: "settings-${VISUAL_VARIANT}"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn: "Pattern"
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn: ".*Pattern.*Square \\(4-4-4-4\\).*"
+- extendedWaitUntil:
+    visible: "Pattern presets"
+    timeout: 5000
+- waitForAnimationToEnd:
+    timeout: 1000
+- takeScreenshot:
+    path: "patterns-${VISUAL_VARIANT}"

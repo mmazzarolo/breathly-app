@@ -1,28 +1,28 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ms from "ms";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist, subscribeWithSelector } from "zustand/middleware";
 import { patternPresets } from "@breathly/assets/pattern-presets";
+import {
+  adjustTimeLimit,
+  defaultSettingsState,
+  mergePersistedSettingsState,
+  setCustomPatternStepValue,
+  timeLimitStepMs,
+  type PersistedSettingsState,
+  type Theme,
+} from "@breathly/stores/settings-state";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 
-interface SettingsStore {
-  customPatternEnabled: boolean;
+interface SettingsStore extends PersistedSettingsState {
   setCustomPatternEnabled: (enabled: boolean) => unknown;
-  customPatternSteps: [number, number, number, number];
   setCustomPatternStep: (stepIndex: number, stepValue: number) => unknown;
-  selectedPatternPresetId: string;
   setSelectedPatternPresetId: (patternPresetId: string) => unknown;
-  guidedBreathingVoice: GuidedBreathingMode;
   setGuidedBreathingVoice: (guidedBreathingVoice: GuidedBreathingMode) => unknown;
-  timeLimit: number;
   increaseTimeLimit: () => unknown;
   decreaseTimeLimit: () => unknown;
-  shouldFollowSystemDarkMode: boolean;
   setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode: boolean) => unknown;
-  theme: "dark" | "light";
-  setTheme: (theme: "dark" | "light") => unknown;
-  vibrationEnabled: boolean;
+  setTheme: (theme: Theme) => unknown;
   setVibrationEnabled: (vibrationEnabled: boolean) => unknown;
 }
 
@@ -30,37 +30,32 @@ export const useSettingsStore = create<SettingsStore>()(
   subscribeWithSelector(
     persist(
       (set, get) => ({
-        customPatternEnabled: false,
+        ...defaultSettingsState,
         setCustomPatternEnabled: (enabled) => set({ customPatternEnabled: enabled }),
-        customPatternSteps: [ms("4 sec"), ms("2 sec"), ms("4 sec"), ms("2 sec")],
         setCustomPatternStep: (stepIndex, stepValue) => {
-          const customPatternSteps = Array.from(get().customPatternSteps) as [
-            number,
-            number,
-            number,
-            number
-          ];
-          customPatternSteps[stepIndex] = stepValue;
-          set({ customPatternSteps });
+          set({
+            customPatternSteps: setCustomPatternStepValue(
+              get().customPatternSteps,
+              stepIndex,
+              stepValue
+            ),
+          });
         },
-        selectedPatternPresetId: "square",
         setSelectedPatternPresetId: (selectedPatternPresetId) => set({ selectedPatternPresetId }),
-        guidedBreathingVoice: "paul",
         setGuidedBreathingVoice: (guidedBreathingVoice) => set({ guidedBreathingVoice }),
-        timeLimit: ms("2 min"),
-        increaseTimeLimit: () => set({ timeLimit: get().timeLimit + ms("1 min") }),
-        decreaseTimeLimit: () => set({ timeLimit: get().timeLimit - ms("1 min") }),
-        shouldFollowSystemDarkMode: true,
+        increaseTimeLimit: () =>
+          set({ timeLimit: adjustTimeLimit(get().timeLimit, timeLimitStepMs) }),
+        decreaseTimeLimit: () =>
+          set({ timeLimit: adjustTimeLimit(get().timeLimit, -timeLimitStepMs) }),
         setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode) =>
           set({ shouldFollowSystemDarkMode }),
-        theme: "light",
         setTheme: (theme) => set({ theme }),
-        vibrationEnabled: true,
         setVibrationEnabled: (vibrationEnabled) => set({ vibrationEnabled }),
       }),
       {
         name: "settings-storage",
         storage: createJSONStorage(() => AsyncStorage),
+        merge: mergePersistedSettingsState,
       }
     )
   )
@@ -71,7 +66,7 @@ export const useSelectedPatternName = () =>
     state.customPatternEnabled
       ? "Custom"
       : patternPresets.find((patternPreset) => patternPreset.id === state.selectedPatternPresetId)
-          .name
+          ?.name ?? patternPresets[0].name
   );
 
 export const useSelectedPatternSteps = () =>
@@ -79,7 +74,7 @@ export const useSelectedPatternSteps = () =>
     state.customPatternEnabled
       ? state.customPatternSteps
       : patternPresets.find((patternPreset) => patternPreset.id === state.selectedPatternPresetId)
-          .steps
+          ?.steps ?? patternPresets[0].steps
   );
 
 // https://github.com/pmndrs/zustand/blob/725c2c0cc08df936f42a52e3df3dec76780a6e01/docs/integrations/persisting-store-data.md

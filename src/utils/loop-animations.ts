@@ -4,10 +4,13 @@ import { Animated } from "react-native";
 // we handle them within a plain loop.
 export const loopAnimations = (
   createAnimations: () => Animated.CompositeAnimation[],
-  onStepStart: (stepIndex: number) => void
+  onStepStart: (stepIndex: number) => void,
+  initialStepIndex = 0
 ) => {
   let animations = createAnimations();
-  let currentAnimationIndex = 0;
+  if (animations.length === 0) return () => undefined;
+
+  let currentAnimationIndex = Math.min(Math.max(initialStepIndex, 0), animations.length - 1);
   const animateStep = () => {
     animations[currentAnimationIndex].start(({ finished }) => {
       if (!finished) return;

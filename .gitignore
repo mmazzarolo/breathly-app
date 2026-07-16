@@ -2,6 +2,8 @@
 node_modules/
 .expo/
 dist/
+/android/
+/ios/
 npm-debug.*
 *.jks
 *.p8
@@ -10,6 +12,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+coverage/
+/artifacts/
 
 # macOS
 .DS_Store
@@ -17,6 +21,10 @@ web-build/
 # Secrets
 android/keystores
 credentials.json
+.env
+.env.*
+!.env.example
+!.env.*.example
 
 # Build output
 *.ipa

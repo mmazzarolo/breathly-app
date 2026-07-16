@@ -1,7 +1,15 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import setColor from "color";
 import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
-import { Animated, Switch, Text, TouchableOpacity, View, ViewStyle } from "react-native";
+import {
+  Animated,
+  Switch,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+  ViewStyle,
+} from "react-native";
 import { Pressable } from "@breathly/common/pressable";
 import { colors } from "@breathly/design/colors";
 import { animate } from "@breathly/utils/animate";
@@ -37,6 +45,9 @@ export interface BaseItemProps {
   leftItem?: React.ReactNode;
   onPress?: () => void;
   disabled?: boolean;
+  testID?: string;
+  accessibilityRole?: TouchableOpacityProps["accessibilityRole"];
+  accessibilityState?: TouchableOpacityProps["accessibilityState"];
 }
 
 const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
@@ -46,6 +57,9 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
   style,
   leftItem,
   disabled,
+  testID,
+  accessibilityRole,
+  accessibilityState,
   children,
 }) => {
   return (
@@ -54,6 +68,9 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
       style={{ paddingLeft: leftItem ? 0 : 72, opacity: disabled ? 0.5 : 1, ...style }}
       onPress={onPress}
       disabled={disabled || !onPress}
+      testID={testID}
+      accessibilityRole={accessibilityRole}
+      accessibilityState={accessibilityState}
     >
       {leftItem && <View className="w-[72px] items-center justify-center">{leftItem}</View>}
       {label && (
@@ -85,11 +102,13 @@ const RadioButton: FC<RadioButtonProps> = ({
 }) => {
   const animatedValue = useRef(new Animated.Value(selected ? 1 : 0)).current;
   useEffect(() => {
-    animate(animatedValue, {
+    const animation = animate(animatedValue, {
       toValue: selected ? 1 : 0,
       duration: 200,
-    }).start();
-  }, [selected]);
+    });
+    animation.start();
+    return () => animation.stop();
+  }, [animatedValue, selected]);
   return (
     <TouchableOpacity
       className="my-1 items-center justify-center rounded-full"
@@ -126,6 +145,8 @@ const RadioButtonItem: FC<RadioButtonItemProps> = ({
       onPress={onPress}
       disabled={disabled}
       leftItem={<RadioButton selected={selected} disabled={disabled} onPress={onPress} />}
+      accessibilityRole="radio"
+      accessibilityState={{ checked: selected, disabled }}
     />
   );
 };
@@ -138,6 +159,7 @@ const PickerItem: FC<PickerItemProps> = ({ value, options, onValueChange, ...bas
           {...baseProps}
           onPress={() => onValueChange(option.value)}
           key={option.value}
+          testID={baseProps.testID ? `${baseProps.testID}.option.${option.value}` : undefined}
           label={option.label}
           selected={option.value === value}
         />
@@ -146,11 +168,13 @@ const PickerItem: FC<PickerItemProps> = ({ value, options, onValueChange, ...bas
   );
 };
 
-const SwitchItem: FC<SwitchItemProps> = ({ value, onValueChange, ...baseProps }) => {
+const SwitchItem: FC<SwitchItemProps> = ({ value, onValueChange, testID, ...baseProps }) => {
   return (
     <BaseItem {...baseProps}>
       <Switch
         value={value}
+        testID={testID}
+        accessibilityLabel={baseProps.label}
         style={{ marginRight: -12 }}
         onValueChange={onValueChange}
         thumbColor={value ? colors["blue-400"] : colors["stone-200"]}
@@ -169,7 +193,7 @@ const StepperItem: FC<StepperItemProps> = ({
   decreaseDisabled,
   onIncrease,
   onDecrease,
-  fractionDigits,
+  fractionDigits = 0,
   ...baseProps
 }) => {
   return (
@@ -181,6 +205,8 @@ const StepperItem: FC<StepperItemProps> = ({
           onPress={onDecrease}
           onLongPressInterval={onDecrease}
           disabled={decreaseDisabled}
+          testID={baseProps.testID ? `${baseProps.testID}.decrease` : undefined}
+          accessibilityLabel={`Decrease ${baseProps.label ?? "value"}`}
         >
           <MaterialCommunityIcons name="minus" size={16} color="white" />
         </Pressable>
@@ -188,6 +214,7 @@ const StepperItem: FC<StepperItemProps> = ({
           <Text
             className="text-center font-breathly-mono font-semibold dark:text-white"
             numberOfLines={1}
+            testID={baseProps.testID ? `${baseProps.testID}.value` : undefined}
           >
             {typeof value === "number" && fractionDigits > 0
               ? value.toFixed(fractionDigits)
@@ -200,6 +227,8 @@ const StepperItem: FC<StepperItemProps> = ({
           onPress={onIncrease}
           onLongPressInterval={onIncrease}
           disabled={increaseDisabled}
+          testID={baseProps.testID ? `${baseProps.testID}.increase` : undefined}
+          accessibilityLabel={`Increase ${baseProps.label ?? "value"}`}
         >
           <MaterialCommunityIcons name="plus" size={16} color="white" />
         </Pressable>

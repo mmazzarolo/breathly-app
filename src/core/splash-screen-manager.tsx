@@ -1,104 +1,94 @@
-import { Asset } from "expo-asset";
-import Constants from "expo-constants";
 import * as SplashScreen from "expo-splash-screen";
-import ms from "ms";
 import React, { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, View } from "react-native";
+import { Animated, Easing, Platform, StyleSheet, View } from "react-native";
+import {
+  getRemainingSplashDurationMs,
+  maximumSplashWaitMs,
+} from "@breathly/core/splash-screen-timing";
 import { useHomeScreenStatusStore } from "@breathly/screens/home-screen/home-screen";
-import { delay } from "@breathly/utils/delay";
 
-// Instruct SplashScreen not to hide yet, we want to do this manually
-SplashScreen.preventAutoHideAsync().catch(() => {
-  /* reloading the app might trigger some race conditions, ignore them */
-});
+if (Platform.OS !== "web") {
+  // This must run before React mounts so native startup remains covered while JS initializes.
+  void SplashScreen.preventAutoHideAsync().catch(() => undefined);
+}
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const splashImageAsset = require("../../assets/splash.png");
 
-// Force the splash-screen to stay visible for a bit to avoid jarring visuals
-const waitBeforeHide = ms("1.5 sec");
+const splashBackgroundColor = "#F2F2F1";
 
 export const SplashScreenManager: React.FC<PropsWithChildren> = ({ children }) => {
-  const [isSplashReady, setSplashReady] = useState(false);
-
-  useEffect(() => {
-    async function prepare() {
-      await Asset.fromModule(splashImageAsset).downloadAsync();
-      setSplashReady(true);
-    }
-
-    prepare();
-  }, []);
-
-  if (!isSplashReady) {
-    return null;
-  }
-
-  return <AnimatedSplashScreen>{children}</AnimatedSplashScreen>;
+  if (Platform.OS === "web") return <>{children}</>;
+  return <NativeSplashScreenManager>{children}</NativeSplashScreenManager>;
 };
 
-const AnimatedSplashScreen: React.FC<PropsWithChildren> = ({ children }) => {
-  const mountTime = useRef(Date.now()).current;
-  const animation = useMemo(() => new Animated.Value(1), []);
-  const [isAppReady, setAppReady] = useState(false);
-  const { isHomeScreenReady } = useHomeScreenStatusStore();
-  const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
+const NativeSplashScreenManager: React.FC<PropsWithChildren> = ({ children }) => {
+  const mountedAtMs = useRef(Date.now()).current;
+  const opacity = useMemo(() => new Animated.Value(1), []);
+  const isHomeScreenReady = useHomeScreenStatusStore((state) => state.isHomeScreenReady);
+  const [isOverlayReady, setOverlayReady] = useState(false);
+  const [isSplashComplete, setSplashComplete] = useState(false);
+  const nativeHideRequested = useRef(false);
+  const revealRequested = useRef(false);
+  const revealTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  const showApp = async () => {
-    const currentTime = Date.now();
-    const elapsedTime = currentTime - mountTime;
-    const remainingTime = elapsedTime > waitBeforeHide ? 0 : waitBeforeHide - elapsedTime;
-    if (remainingTime > 0) {
-      await delay(remainingTime);
-    }
-    Animated.timing(animation, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: true,
-      easing: Easing.inOut(Easing.quad),
-    }).start(() => setAnimationComplete(true));
-  };
-
-  useEffect(() => {
-    if (isAppReady && isHomeScreenReady) {
-      showApp();
-    }
-  }, [isAppReady, isHomeScreenReady]);
-
-  const onImageLoaded = useCallback(async () => {
-    try {
-      await SplashScreen.hideAsync();
-      // Load stuff
-      await Promise.all([]);
-    } catch (e) {
-      // handle errors
-    } finally {
-      setAppReady(true);
-    }
+  const hideNativeSplash = useCallback(() => {
+    if (nativeHideRequested.current) return;
+    nativeHideRequested.current = true;
+    void SplashScreen.hideAsync().catch(() => undefined);
   }, []);
 
+  const revealApp = useCallback(() => {
+    if (revealRequested.current) return;
+    revealRequested.current = true;
+    hideNativeSplash();
+
+    const remainingDurationMs = getRemainingSplashDurationMs(mountedAtMs, Date.now());
+    revealTimeout.current = setTimeout(() => {
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+        easing: Easing.inOut(Easing.quad),
+      }).start(({ finished }) => {
+        if (finished) setSplashComplete(true);
+      });
+    }, remainingDurationMs);
+  }, [hideNativeSplash, mountedAtMs, opacity]);
+
+  const handleOverlaySettled = useCallback(() => {
+    setOverlayReady(true);
+    hideNativeSplash();
+  }, [hideNativeSplash]);
+
+  useEffect(() => {
+    if (isOverlayReady && isHomeScreenReady) revealApp();
+  }, [isHomeScreenReady, isOverlayReady, revealApp]);
+
+  useEffect(() => {
+    const watchdog = setTimeout(revealApp, maximumSplashWaitMs);
+    return () => {
+      clearTimeout(watchdog);
+      if (revealTimeout.current) clearTimeout(revealTimeout.current);
+      opacity.stopAnimation();
+    };
+  }, [opacity, revealApp]);
+
   return (
-    <View style={{ flex: 1 }}>
-      {isAppReady && children}
-      {!isSplashAnimationComplete && (
+    <View style={styles.container}>
+      {children}
+      {!isSplashComplete && (
         <Animated.View
           pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: Constants.manifest.splash.backgroundColor,
-              opacity: animation,
-            },
-          ]}
+          style={[styles.overlay, { opacity }]}
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
         >
           <Animated.Image
-            style={{
-              width: "100%",
-              height: "100%",
-              resizeMode: Constants.manifest.splash.resizeMode || "contain",
-            }}
+            style={styles.image}
             source={splashImageAsset}
-            onLoadEnd={onImageLoaded}
+            resizeMode="cover"
+            onLoadEnd={handleOverlaySettled}
             fadeDuration={0}
           />
         </Animated.View>
@@ -106,3 +96,21 @@ const AnimatedSplashScreen: React.FC<PropsWithChildren> = ({ children }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: splashBackgroundColor,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+});

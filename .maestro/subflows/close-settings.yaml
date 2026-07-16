@@ -1,0 +1,17 @@
+appId: com.mmazzarolo.breathly
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - back
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn:
+          id: "settings.done"
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 5000

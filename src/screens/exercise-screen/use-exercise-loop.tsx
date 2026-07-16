@@ -1,78 +1,68 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Animated } from "react-native";
-import { animate } from "utils/animate";
 import { StepMetadata } from "@breathly/types/step-metadata";
-
-// Since loops using the native driver cannot contain Animated.sequence
-// we create a custom function that goes trough them
-export const loopAnimations = (
-  createAnimations: () => Animated.CompositeAnimation[],
-  onStepStart: (stepIndex: number) => void
-) => {
-  let animations = createAnimations();
-  let currentAnimationIndex = 0;
-  const animateStep = () => {
-    animations[currentAnimationIndex].start(({ finished }) => {
-      if (!finished) return;
-      currentAnimationIndex++;
-      if (currentAnimationIndex >= animations.length) {
-        currentAnimationIndex = 0;
-        animations = createAnimations();
-      }
-      onStepStart(currentAnimationIndex);
-      animateStep();
-    });
-  };
-  onStepStart(currentAnimationIndex);
-  animateStep();
-  const stopLoop = () => {
-    animations.forEach((animation) => animation.stop());
-  };
-  return stopLoop;
-};
+import { animate } from "@breathly/utils/animate";
+import { loopAnimations } from "@breathly/utils/loop-animations";
 
 const textAnimDuration = 400;
 
 export const useExerciseLoop = (
-  stepsMetadata: [StepMetadata, StepMetadata, StepMetadata, StepMetadata]
+  stepsMetadata: [StepMetadata, StepMetadata, StepMetadata, StepMetadata],
+  initialStepIndex: number,
+  onStepStart: (stepIndex: number) => void
 ) => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const activeSteps = useMemo(() => stepsMetadata.filter((step) => !step.skipped), [stepsMetadata]);
+  const safeInitialStepIndex = Math.min(
+    Math.max(initialStepIndex, 0),
+    Math.max(activeSteps.length - 1, 0)
+  );
+  const initialStep = activeSteps[safeInitialStepIndex];
+  const initialExerciseAnimationValue =
+    initialStep?.id === "afterInhale" || initialStep?.id === "exhale" ? 1 : 0;
+  const [currentStepIndex, setCurrentStepIndex] = useState(safeInitialStepIndex);
   const textAnimVal = useRef(new Animated.Value(0)).current;
-  const exerciseAnimVal = useRef(new Animated.Value(0)).current;
-  const activeSteps = stepsMetadata.filter((step) => !step.skipped);
+  const exerciseAnimVal = useRef(new Animated.Value(initialExerciseAnimationValue)).current;
   const currentStep: StepMetadata | undefined = activeSteps[currentStepIndex];
 
-  const animateStep = (toValue: number, duration: number) => {
-    return Animated.stagger(duration - textAnimDuration, [
-      Animated.parallel([
-        animate(exerciseAnimVal, {
-          toValue: toValue,
-          duration: duration,
-        }),
+  const animateStep = useCallback(
+    (toValue: number, duration: number) => {
+      return Animated.stagger(duration - textAnimDuration, [
+        Animated.parallel([
+          animate(exerciseAnimVal, {
+            toValue: toValue,
+            duration: duration,
+          }),
+          animate(textAnimVal, {
+            toValue: 1,
+            duration: textAnimDuration,
+          }),
+        ]),
         animate(textAnimVal, {
-          toValue: 1,
+          toValue: 0,
           duration: textAnimDuration,
         }),
-      ]),
-      animate(textAnimVal, {
-        toValue: 0,
-        duration: textAnimDuration,
-      }),
-    ]);
-  };
+      ]);
+    },
+    [exerciseAnimVal, textAnimVal]
+  );
 
   useEffect(() => {
     const createStepAnimations = () =>
       activeSteps.map((x) =>
         animateStep(x.id === "inhale" || x.id === "afterInhale" ? 1 : 0, x.duration)
       );
-    const cleanupExerciseLoop = loopAnimations(createStepAnimations, (stepIndex: number) => {
-      setCurrentStepIndex(stepIndex);
-    });
+    const cleanupExerciseLoop = loopAnimations(
+      createStepAnimations,
+      (stepIndex: number) => {
+        setCurrentStepIndex(stepIndex);
+        onStepStart(stepIndex);
+      },
+      safeInitialStepIndex
+    );
     return () => {
       cleanupExerciseLoop();
     };
-  }, []);
+  }, [activeSteps, animateStep, onStepStart, safeInitialStepIndex]);
 
   return { currentStep, exerciseAnimVal, textAnimVal };
 };

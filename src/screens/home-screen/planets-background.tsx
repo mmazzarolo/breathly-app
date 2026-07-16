@@ -3,7 +3,7 @@ import { LinearGradient, LinearGradientPoint } from "expo-linear-gradient";
 import ms from "ms";
 import { styled } from "nativewind";
 import React, { FC, useEffect, useRef } from "react";
-import { Animated, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 import { colors } from "@breathly/design/colors";
 
 const PLANET_ANIM_DURATION = ms("8 sec");
@@ -12,7 +12,7 @@ const StyledMaskedView = styled(MaskedView);
 
 export const PlanetsBackground: FC = () => {
   return (
-    <>
+    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       <Planet
         size={200}
         color={colors.pastel.orange}
@@ -37,7 +37,7 @@ export const PlanetsBackground: FC = () => {
         gradientStart={{ x: 0, y: 1 }}
         gradientEnd={{ x: 1, y: 1 }}
       />
-    </>
+    </View>
   );
 };
 
@@ -70,7 +70,7 @@ export const Planet: FC<PlanetProps> = ({
 }) => {
   const animationValue = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    Animated.loop(
+    const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(animationValue, {
           toValue: 1,
@@ -83,8 +83,10 @@ export const Planet: FC<PlanetProps> = ({
           useNativeDriver: true,
         }),
       ])
-    ).start();
-  });
+    );
+    animation.start();
+    return () => animation.stop();
+  }, [animationValue]);
   return (
     <Animated.View
       className="absolute"

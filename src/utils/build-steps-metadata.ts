@@ -1,4 +1,4 @@
-import { StepMetadata } from "../types/step-metadata";
+import type { StepMetadata } from "../types/step-metadata";
 
 // Given an array of durations (e.g.: [4, 4, 4, 4]) maps it to an array of
 // objects with the steps informations

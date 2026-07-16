@@ -1,0 +1,27 @@
+appId: com.mmazzarolo.breathly
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn:
+          id: "settings.voice.option.disabled"
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn:
+          id: "settings.voice"
+      - swipe:
+          from:
+            id: "settings.voice.picker"
+          direction: UP
+      - swipe:
+          from:
+            id: "settings.voice.picker"
+          direction: UP
+      - swipe:
+          from:
+            id: "settings.voice.picker"
+          direction: UP
+- assertVisible: ".*Disabled.*"

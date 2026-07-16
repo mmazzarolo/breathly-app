@@ -14,6 +14,8 @@ import {
   SectionProps,
 } from "./settings-ui";
 
+type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
+
 const Section: React.FC<PropsWithChildren<SectionProps>> = ({ label, children }) => {
   return (
     <View className="pt-4">
@@ -37,9 +39,10 @@ const Section: React.FC<PropsWithChildren<SectionProps>> = ({ label, children })
 export interface BaseItemProps {
   label?: string;
   secondaryLabel?: string;
-  iconName?: any;
+  iconName?: IoniconName;
   iconBackgroundColor?: string;
   style?: ViewStyle;
+  testID?: string;
 }
 
 const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
@@ -71,13 +74,13 @@ const BaseItem: FC<PropsWithChildren<BaseItemProps>> = ({
 
 export const LinkItem: FC<LinkItemProps> = ({ value, onPress, ...baseProps }) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} testID={baseProps.testID} accessibilityRole="button">
       <BaseItem {...baseProps}>
         <View className="flex-row items-center">
           <Text className="text-slate-500">{value}</Text>
           <Ionicons
             style={{ padding: 4 }}
-            name={"ios-chevron-forward"}
+            name={"chevron-forward"}
             size={18}
             color={colors["slate-500"]}
           />
@@ -101,15 +104,19 @@ export const PickerItem: FC<PickerItemProps> = ({
   };
   return (
     <>
-      <Pressable onPress={toggleExpanded}>
+      <Pressable onPress={toggleExpanded} testID={baseProps.testID} accessibilityRole="button">
         <BaseItem {...baseProps}>
           <Text className="text-blue-500">
-            {options.find((option) => option.value === value).label}
+            {options.find((option) => option.value === value)?.label ?? value}
           </Text>
         </BaseItem>
       </Pressable>
       {expanded && (
-        <Picker selectedValue={value} onValueChange={onValueChange}>
+        <Picker
+          selectedValue={value}
+          onValueChange={onValueChange}
+          testID={baseProps.testID ? `${baseProps.testID}.picker` : undefined}
+        >
           {options.map(({ label, value }) => (
             <Picker.Item
               key={value}
@@ -127,7 +134,12 @@ export const PickerItem: FC<PickerItemProps> = ({
 export const SwitchItem: FC<SwitchItemProps> = ({ value, onValueChange, ...baseProps }) => {
   return (
     <BaseItem {...baseProps}>
-      <Switch value={value} onValueChange={onValueChange} />
+      <Switch
+        value={value}
+        onValueChange={onValueChange}
+        testID={baseProps.testID}
+        accessibilityLabel={baseProps.label}
+      />
     </BaseItem>
   );
 };
@@ -138,7 +150,7 @@ export const StepperItem: FC<StepperItemProps> = ({
   decreaseDisabled,
   onIncrease,
   onDecrease,
-  fractionDigits,
+  fractionDigits = 0,
   ...baseProps
 }) => {
   const { colorScheme } = useColorScheme();
@@ -151,9 +163,11 @@ export const StepperItem: FC<StepperItemProps> = ({
           onPress={onDecrease}
           onLongPressInterval={onDecrease}
           disabled={decreaseDisabled}
+          testID={baseProps.testID ? `${baseProps.testID}.decrease` : undefined}
+          accessibilityLabel={`Decrease ${baseProps.label ?? "value"}`}
         >
           <Ionicons
-            name={"ios-remove"}
+            name={"remove"}
             size={18}
             color={colorScheme === "dark" ? "white" : colors["slate-500"]}
           />
@@ -163,6 +177,7 @@ export const StepperItem: FC<StepperItemProps> = ({
             className="text-center font-breathly-mono dark:text-white"
             style={{ fontVariant: ["tabular-nums"] }}
             numberOfLines={1}
+            testID={baseProps.testID ? `${baseProps.testID}.value` : undefined}
           >
             {typeof value === "number" && fractionDigits > 0
               ? value.toFixed(fractionDigits)
@@ -175,9 +190,11 @@ export const StepperItem: FC<StepperItemProps> = ({
           onPress={onIncrease}
           onLongPressInterval={onIncrease}
           disabled={increaseDisabled}
+          testID={baseProps.testID ? `${baseProps.testID}.increase` : undefined}
+          accessibilityLabel={`Increase ${baseProps.label ?? "value"}`}
         >
           <Ionicons
-            name={"ios-add"}
+            name={"add"}
             size={18}
             color={colorScheme === "dark" ? "white" : colors["slate-500"]}
           />
@@ -202,15 +219,16 @@ export const RadioButtonItem: FC<RadioButtonItemProps> = ({
         className="flex-shrink flex-row items-center py-2"
         style={{ opacity: disabled ? 0.5 : 1 }}
         disabled={disabled}
+        testID={baseProps.testID}
+        accessibilityRole="radio"
+        accessibilityState={{ checked: selected, disabled }}
       >
         <View className="flex-shrink">
           <Text className="dark:text-white">{label}</Text>
           <Text className="text-slate-500">{secondaryLabel}</Text>
         </View>
         <View className="w-6 grow items-end">
-          {selected && (
-            <Ionicons name={"ios-checkmark-sharp"} size={18} color={colors["blue-500"]} />
-          )}
+          {selected && <Ionicons name={"checkmark-sharp"} size={18} color={colors["blue-500"]} />}
         </View>
       </Pressable>
     </BaseItem>

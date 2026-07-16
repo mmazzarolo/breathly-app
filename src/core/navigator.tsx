@@ -2,7 +2,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
 import React, { FC } from "react";
-import { Platform, Button } from "react-native";
+import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { colors } from "@breathly/design/colors";
 import { ExerciseScreen } from "@breathly/screens/exercise-screen/exercise-screen";
@@ -88,7 +88,6 @@ export const Navigator: FC = () => {
                       headerLargeTitle: true,
                       headerTitle: "Customizations",
                       headerLargeTitleShadowVisible: true,
-                      headerRight: () => (Platform.OS === "ios" ? <Button title="Done" /> : null),
                     }}
                   />
                   <SettingsStack.Screen
