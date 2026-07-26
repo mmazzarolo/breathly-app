@@ -1,20 +1,21 @@
 import {
-  clearPreloadedSource,
   createAudioPlayer,
-  preload,
   setAudioModeAsync,
   type AudioPlayer,
   type AudioSource,
 } from "expo-audio";
+import { Asset } from "expo-asset";
+import { Platform } from "react-native";
 import { sounds } from "@breathly/assets/sounds";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 import { GuidedBreathingStep } from "@breathly/types/guided-breathing-step";
 
-void setAudioModeAsync({
-  playsInSilentMode: true,
-  shouldPlayInBackground: false,
-  interruptionMode: "mixWithOthers",
-}).catch(() => undefined);
+const configureAudioMode = () =>
+  setAudioModeAsync({
+    playsInSilentMode: true,
+    shouldPlayInBackground: false,
+    interruptionMode: Platform.OS === "android" ? "duckOthers" : "mixWithOthers",
+  });
 
 type GuidedBreathingAudioSounds = {
   [key in GuidedBreathingMode]: {
@@ -51,7 +52,6 @@ type CurrentGuidedBreathingSounds = {
 
 let currentGuidedBreathingSounds: CurrentGuidedBreathingSounds | undefined;
 let endingBellSound: AudioPlayer | undefined;
-let currentPreloadedAudioSources: AudioSource[] = [];
 let audioOperation = Promise.resolve();
 let requestedAudioGeneration = 0;
 
@@ -64,17 +64,28 @@ const enqueueAudioOperation = (operation: () => Promise<void>) => {
 const disposeCurrentAudio = async () => {
   const guidedBreathingSounds = currentGuidedBreathingSounds;
   const bellSound = endingBellSound;
-  const preloadedAudioSources = currentPreloadedAudioSources;
 
   currentGuidedBreathingSounds = undefined;
   endingBellSound = undefined;
-  currentPreloadedAudioSources = [];
 
   bellSound?.remove();
   guidedBreathingSounds?.breatheIn.remove();
   guidedBreathingSounds?.breatheOut.remove();
   guidedBreathingSounds?.hold.remove();
-  await Promise.all(preloadedAudioSources.map((source) => clearPreloadedSource(source)));
+};
+
+const prepareAudioSource = async (source: AudioSource): Promise<AudioSource> => {
+  if (typeof source !== "number") return source;
+
+  // Materialize bundled audio before creating the native player. This gives setup
+  // an awaitable readiness boundary and avoids Android resource-URI loading races.
+  const asset = Asset.fromModule(source);
+  await asset.downloadAsync();
+
+  return {
+    assetId: source,
+    uri: asset.localUri ?? asset.uri,
+  };
 };
 
 export function setupGuidedBreathingAudio(guidedBreathingMode: GuidedBreathingMode) {
@@ -90,19 +101,16 @@ export function setupGuidedBreathingAudio(guidedBreathingMode: GuidedBreathingMo
     await disposeCurrentAudio();
     if (audioGeneration !== requestedAudioGeneration) return;
 
-    await Promise.all(audioSources.map((source) => preload(source)));
-    if (audioGeneration !== requestedAudioGeneration) {
-      await Promise.all(audioSources.map((source) => clearPreloadedSource(source)));
-      return;
-    }
+    await configureAudioMode();
+    const preparedAudioSources = await Promise.all(audioSources.map(prepareAudioSource));
+    if (audioGeneration !== requestedAudioGeneration) return;
 
-    endingBellSound = createAudioPlayer(audioSources[0]);
+    endingBellSound = createAudioPlayer(preparedAudioSources[0]);
     currentGuidedBreathingSounds = {
-      breatheIn: createAudioPlayer(audioSources[1]),
-      breatheOut: createAudioPlayer(audioSources[2]),
-      hold: createAudioPlayer(audioSources[3]),
+      breatheIn: createAudioPlayer(preparedAudioSources[1]),
+      breatheOut: createAudioPlayer(preparedAudioSources[2]),
+      hold: createAudioPlayer(preparedAudioSources[3]),
     };
-    currentPreloadedAudioSources = audioSources;
   });
 }
 

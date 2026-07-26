@@ -50,7 +50,7 @@
     "color": "^4.2.3",
     "expo": "~56.0.15",
     "expo-asset": "~56.0.19",
-    "expo-audio": "~56.0.12",
+    "expo-audio": "~56.0.13",
     "expo-build-properties": "~56.0.22",
     "expo-dev-client": "~56.0.22",
     "expo-font": "~56.0.7",
@@ -67,7 +67,7 @@
     "react-dom": "19.2.3",
     "react-native": "0.85.3",
     "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "4.25.2",
+    "react-native-screens": "~4.26.0",
     "react-native-web": "^0.21.2",
     "zustand": "^5.0.14"
   },

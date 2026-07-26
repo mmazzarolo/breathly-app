@@ -34,7 +34,7 @@
       },
       "icon": "./assets/android-icon.png",
       "package": "com.mmazzarolo.breathly",
-      "versionCode": 3145748
+      "versionCode": 3145749
     },
     "web": {
       "favicon": "./assets/favicon.png"
