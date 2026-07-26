@@ -83,25 +83,41 @@ export const HomeScreen: FC<NativeStackScreenProps<RootStackParamList, "Home">> 
         </Animated.Text>
       </View>
       <Pressable
-        className="w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
+        className="w-72 max-w-xs items-center rounded-lg px-4 py-2"
         style={{ backgroundColor: colors.pastel["orange-light"] }}
         onPress={handleStartButtonPress}
         testID="home.start-session"
         accessibilityRole="button"
       >
-        <Text className="py-1 text-lg text-slate-800">Start a new session</Text>
+        <Text
+          adjustsFontSizeToFit
+          className="w-full py-1 text-center font-breathly-regular text-lg text-slate-800"
+          maxFontSizeMultiplier={1.2}
+          minimumFontScale={0.85}
+          numberOfLines={1}
+        >
+          Start a new session
+        </Text>
       </Pressable>
       <Animated.Text className="bg-red my-2 text-center font-breathly-regular text-lg font-light text-slate-500">
         or
       </Animated.Text>
       <Pressable
-        className="mb-20 w-72 max-w-xs items-center rounded-lg px-8 py-2 text-center"
+        className="mb-20 w-72 max-w-xs items-center rounded-lg px-4 py-2"
         style={{ backgroundColor: colors.pastel["gray-light"] }}
         onPress={handleCustomizeButtonPress}
         testID="home.customize"
         accessibilityRole="button"
       >
-        <Text className="py-1 text-lg text-slate-800">Customize the experience</Text>
+        <Text
+          adjustsFontSizeToFit
+          className="w-full py-1 text-center font-breathly-regular text-lg text-slate-800"
+          maxFontSizeMultiplier={1.2}
+          minimumFontScale={0.85}
+          numberOfLines={1}
+        >
+          Customize the experience
+        </Text>
       </Pressable>
     </Animated.View>
   );

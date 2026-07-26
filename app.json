@@ -34,7 +34,7 @@
       },
       "icon": "./assets/android-icon.png",
       "package": "com.mmazzarolo.breathly",
-      "versionCode": 3145749
+      "versionCode": 3145750
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -71,7 +71,12 @@
         {
           "image": "./assets/splash.png",
           "resizeMode": "cover",
-          "backgroundColor": "#F2F2F1"
+          "backgroundColor": "#F2F2F1",
+          "android": {
+            "drawable": {
+              "icon": "./assets/android-splash-screen-icon.xml"
+            }
+          }
         }
       ],
       "expo-asset"
