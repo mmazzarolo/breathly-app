@@ -14,7 +14,9 @@ import {
 import {
   customPatternDurationLimits,
   customPatternStepSizeMs,
+  maximumPreparationTimeMs,
   maximumTimeLimitMs,
+  minimumPreparationTimeMs,
   type Theme,
 } from "@breathly/stores/settings-state";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
@@ -29,6 +31,9 @@ export const SettingsRootScreen: FC<
   const timeLimit = useSettingsStore((state) => state.timeLimit);
   const increaseTimeLimit = useSettingsStore((state) => state.increaseTimeLimit);
   const decreaseTimeLimit = useSettingsStore((state) => state.decreaseTimeLimit);
+  const preparationTime = useSettingsStore((state) => state.preparationTime);
+  const increasePreparationTime = useSettingsStore((state) => state.increasePreparationTime);
+  const decreasePreparationTime = useSettingsStore((state) => state.decreasePreparationTime);
   const shouldFollowSystemDarkMode = useSettingsStore((state) => state.shouldFollowSystemDarkMode);
   const setShouldFollowSystemDarkMode = useSettingsStore(
     (state) => state.setShouldFollowSystemDarkMode,
@@ -135,6 +140,18 @@ export const SettingsRootScreen: FC<
             />
           </SettingsUI.Section>
           <SettingsUI.Section label="Timer" hideBottomBorderWeb>
+            <SettingsUI.StepperItem
+              label="Preparation time"
+              secondaryLabel="Time before the exercise starts, in seconds"
+              value={preparationTime / ms("1 sec")}
+              iconName="hourglass"
+              iconBackgroundColor="#fdba74"
+              onIncrease={increasePreparationTime}
+              onDecrease={decreasePreparationTime}
+              decreaseDisabled={preparationTime <= minimumPreparationTimeMs}
+              increaseDisabled={preparationTime >= maximumPreparationTimeMs}
+              testID="settings.preparation-time"
+            />
             <SettingsUI.StepperItem
               label="Exercise timer"
               secondaryLabel="Time limit in minutes"

@@ -21,6 +21,7 @@ describe("exercise accessibility labels", () => {
   });
 
   it("reads the countdown of the interlude", () => {
-    expect(getInterludeAccessibilityLabel(3)).toBe("Starting session in 3");
+    expect(getInterludeAccessibilityLabel(3)).toBe("Starting session in 3 seconds");
+    expect(getInterludeAccessibilityLabel(1)).toBe("Starting session in 1 second");
   });
 });

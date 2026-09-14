@@ -47,7 +47,7 @@ const screenReaderFallbackVoice: GuidedBreathingMode = "paul";
 export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exercise">> = ({
   navigation,
 }) => {
-  const { guidedBreathingVoice } = useSettingsStore();
+  const { guidedBreathingVoice, preparationTime } = useSettingsStore();
   const screenReaderEnabled = useScreenReaderEnabled();
   // A user of a screen reader who disabled the voice has no channel that works
   // without sight, because the visuals carry the whole exercise. The voice
@@ -135,7 +135,9 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
         },
       ]}
     >
-      {session.status === "interlude" && <ExerciseInterlude onComplete={handleInterludeComplete} />}
+      {session.status === "interlude" && (
+        <ExerciseInterlude preparationTime={preparationTime} onComplete={handleInterludeComplete} />
+      )}
       {session.status === "running" && (
         <>
           {colorScheme === "dark" && (

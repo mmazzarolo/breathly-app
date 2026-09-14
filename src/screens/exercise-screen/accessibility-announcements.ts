@@ -27,7 +27,7 @@ export const getStepAccessibilityLabel = (label: string, durationMs: number) =>
   `${label}, ${formatStepDuration(durationMs)}`;
 
 export const getInterludeAccessibilityLabel = (secondsLeft: number) =>
-  `Starting session in ${secondsLeft}`;
+  `Starting session in ${secondsLeft} ${secondsLeft === 1 ? "second" : "seconds"}`;
 
 export const sessionCompleteAnnouncement = "Session complete";
 

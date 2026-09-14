@@ -10,6 +10,7 @@ export interface PersistedSettingsState {
   customPatternEnabled: boolean;
   customPatternSteps: CustomPatternSteps;
   selectedPatternPresetId: string;
+  preparationTime: number;
   guidedBreathingVoice: GuidedBreathingMode;
   timeLimit: number;
   shouldFollowSystemDarkMode: boolean;
@@ -31,6 +32,9 @@ export const customPatternDurationLimits: [
   [0, ms("99 sec")],
 ];
 export const customPatternStepSizeMs = ms("0.5 sec");
+export const minimumPreparationTimeMs = ms("3 sec");
+export const maximumPreparationTimeMs = ms("60 sec");
+export const preparationTimeStepMs = ms("1 sec");
 export const timeLimitStepMs = ms("1 min");
 export const maximumTimeLimitMs = ms("60 min");
 
@@ -38,6 +42,7 @@ export const defaultSettingsState: PersistedSettingsState = {
   customPatternEnabled: false,
   customPatternSteps: [ms("4 sec"), ms("2 sec"), ms("4 sec"), ms("2 sec")],
   selectedPatternPresetId: "square",
+  preparationTime: minimumPreparationTimeMs,
   guidedBreathingVoice: "paul",
   timeLimit: ms("2 min"),
   shouldFollowSystemDarkMode: true,
@@ -54,6 +59,16 @@ const clampFiniteNumber = (value: unknown, minimum: number, maximum: number, fal
   typeof value === "number" && Number.isFinite(value)
     ? Math.min(maximum, Math.max(minimum, value))
     : fallback;
+
+const normalizePreparationTime = (value: unknown) =>
+  Math.round(
+    clampFiniteNumber(
+      value,
+      minimumPreparationTimeMs,
+      maximumPreparationTimeMs,
+      defaultSettingsState.preparationTime,
+    ) / preparationTimeStepMs,
+  ) * preparationTimeStepMs;
 
 export const setCustomPatternStepValue = (
   steps: CustomPatternSteps,
@@ -75,6 +90,9 @@ export const setCustomPatternStepValue = (
 
 export const adjustTimeLimit = (timeLimit: number, deltaMs: number) =>
   clampFiniteNumber(timeLimit + deltaMs, 0, maximumTimeLimitMs, defaultSettingsState.timeLimit);
+
+export const adjustPreparationTime = (preparationTime: number, deltaMs: number) =>
+  normalizePreparationTime(preparationTime + deltaMs);
 
 export const normalizePersistedSettingsState = (value: unknown): PersistedSettingsState => {
   const candidate = isRecord(value) ? value : {};
@@ -109,6 +127,7 @@ export const normalizePersistedSettingsState = (value: unknown): PersistedSettin
         : defaultSettingsState.customPatternEnabled,
     customPatternSteps,
     selectedPatternPresetId,
+    preparationTime: normalizePreparationTime(candidate.preparationTime),
     guidedBreathingVoice,
     timeLimit: clampFiniteNumber(
       candidate.timeLimit,

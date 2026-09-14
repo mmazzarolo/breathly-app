@@ -62,14 +62,28 @@ describe("settings persistence", () => {
   });
 
   it("restores stored settings and keeps the store actions", async () => {
-    mockGetItem.mockResolvedValue(storedSettings({ theme: "dark", vibrationEnabled: false }));
+    mockGetItem.mockResolvedValue(
+      storedSettings({ theme: "dark", vibrationEnabled: false, preparationTime: 30_000 }),
+    );
 
     const useSettingsStore = await loadSettingsStore();
 
     expect(useSettingsStore.persist.hasHydrated()).toBe(true);
     expect(useSettingsStore.getState().theme).toBe("dark");
     expect(useSettingsStore.getState().vibrationEnabled).toBe(false);
+    expect(useSettingsStore.getState().preparationTime).toBe(30_000);
     expect(typeof useSettingsStore.getState().setTheme).toBe("function");
+  });
+
+  it("adjusts the preparation time through the store actions", async () => {
+    mockGetItem.mockResolvedValue(null);
+    const useSettingsStore = await loadSettingsStore();
+
+    useSettingsStore.getState().increasePreparationTime();
+    expect(useSettingsStore.getState().preparationTime).toBe(4_000);
+
+    useSettingsStore.getState().decreasePreparationTime();
+    expect(useSettingsStore.getState().preparationTime).toBe(3_000);
   });
 
   it("retries a read that failed before it falls back to the defaults", async () => {

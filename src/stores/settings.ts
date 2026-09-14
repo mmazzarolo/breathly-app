@@ -9,9 +9,11 @@ import {
 } from "zustand/middleware";
 import { patternPresets } from "@breathly/assets/pattern-presets";
 import {
+  adjustPreparationTime,
   adjustTimeLimit,
   defaultSettingsState,
   mergePersistedSettingsState,
+  preparationTimeStepMs,
   setCustomPatternStepValue,
   timeLimitStepMs,
   type PersistedSettingsState,
@@ -25,6 +27,8 @@ interface SettingsStore extends PersistedSettingsState {
   setCustomPatternStep: (stepIndex: number, stepValue: number) => unknown;
   setSelectedPatternPresetId: (patternPresetId: string) => unknown;
   setGuidedBreathingVoice: (guidedBreathingVoice: GuidedBreathingMode) => unknown;
+  increasePreparationTime: () => unknown;
+  decreasePreparationTime: () => unknown;
   increaseTimeLimit: () => unknown;
   decreaseTimeLimit: () => unknown;
   setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode: boolean) => unknown;
@@ -101,6 +105,14 @@ export const useSettingsStore = create<SettingsStore>()(
         },
         setSelectedPatternPresetId: (selectedPatternPresetId) => set({ selectedPatternPresetId }),
         setGuidedBreathingVoice: (guidedBreathingVoice) => set({ guidedBreathingVoice }),
+        increasePreparationTime: () =>
+          set({
+            preparationTime: adjustPreparationTime(get().preparationTime, preparationTimeStepMs),
+          }),
+        decreasePreparationTime: () =>
+          set({
+            preparationTime: adjustPreparationTime(get().preparationTime, -preparationTimeStepMs),
+          }),
         increaseTimeLimit: () =>
           set({ timeLimit: adjustTimeLimit(get().timeLimit, timeLimitStepMs) }),
         decreaseTimeLimit: () =>

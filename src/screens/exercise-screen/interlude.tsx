@@ -14,21 +14,26 @@ import { useReduceMotion } from "@breathly/utils/use-accessibility-preferences";
 import { useOnMount } from "@breathly/utils/use-on-mount";
 
 interface Props {
+  preparationTime: number;
   onComplete: () => void;
 }
 
 const interludeInitialDelay = 600;
 const interludeAnimDuration = 400;
-const interludeInitialStep = 3;
+const secondMs = 1_000;
 
-export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
+export const getInterludeInitialStep = (preparationTime: number) =>
+  Math.max(1, Math.round(preparationTime / secondMs));
+
+export const ExerciseInterlude: FC<Props> = ({ preparationTime, onComplete }) => {
   const isDarkMode = useColorScheme() === "dark";
   const theme = useThemeColors();
   const reduceMotionEnabled = useReduceMotion();
   const isMountedRef = useRef(true);
   const containerAnimVal = useRef(new Animated.Value(1)).current;
   const subtitleAnimVal = useRef(new Animated.Value(0)).current;
-  const [step, setStep] = useState(interludeInitialStep);
+  const initialStep = getInterludeInitialStep(preparationTime);
+  const [step, setStep] = useState(initialStep);
 
   const goToStep = (nextStep: number) => {
     setStep(nextStep);
@@ -46,13 +51,12 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
   });
 
   const countDownAndHide = async () => {
-    await delay(1000);
-    if (!isMountedRef.current) return;
-    goToStep(2);
-    await delay(1000);
-    if (!isMountedRef.current) return;
-    goToStep(1);
-    await delay(1000);
+    for (let nextStep = initialStep - 1; nextStep >= 1; nextStep--) {
+      await delay(secondMs);
+      if (!isMountedRef.current) return;
+      goToStep(nextStep);
+    }
+    await delay(secondMs);
     if (!isMountedRef.current) return;
     hideContainerAnimation.start((done) => done && onComplete());
   };
@@ -61,7 +65,7 @@ export const ExerciseInterlude: FC<Props> = ({ onComplete }) => {
     await delay(interludeInitialDelay);
     showSubtitleAnimation.start(({ finished }) => {
       if (!finished) return;
-      announceLiveRegionUpdate(getInterludeAccessibilityLabel(interludeInitialStep));
+      announceLiveRegionUpdate(getInterludeAccessibilityLabel(initialStep));
       void countDownAndHide();
     });
   };
