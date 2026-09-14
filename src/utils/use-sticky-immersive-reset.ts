@@ -21,20 +21,24 @@ export function initializeImmersiveMode() {
 // Hide the navigation bar after a certain duration
 const HIDE_NAVIGATION_BAR_AFTER_MS = ms("3 sec");
 
-export function useStickyImmersiveReset() {
+export function useStickyImmersiveReset(shouldKeepNavigationBarVisible: boolean) {
   const visibility = useVisibility();
 
   useEffect(() => {
     if (Platform.OS !== "android") return;
-    if (visibility === "visible") {
-      const interval = setTimeout(() => {
-        NavigationBar.setHidden(true);
-        setStatusBarHidden(true, "none");
-      }, HIDE_NAVIGATION_BAR_AFTER_MS);
-
-      return () => {
-        clearTimeout(interval);
-      };
+    if (shouldKeepNavigationBarVisible) {
+      NavigationBar.setHidden(false);
+      return;
     }
-  }, [visibility]);
+    if (visibility !== "visible") return;
+
+    const timeout = setTimeout(() => {
+      NavigationBar.setHidden(true);
+      setStatusBarHidden(true, "none");
+    }, HIDE_NAVIGATION_BAR_AFTER_MS);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [shouldKeepNavigationBarVisible, visibility]);
 }

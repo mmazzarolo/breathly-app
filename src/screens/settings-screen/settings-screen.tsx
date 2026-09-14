@@ -38,6 +38,12 @@ export const SettingsRootScreen: FC<
   const setTheme = useSettingsStore((state) => state.setTheme);
   const vibrationEnabled = useSettingsStore((state) => state.vibrationEnabled);
   const setVibrationEnabled = useSettingsStore((state) => state.setVibrationEnabled);
+  const shouldKeepNavigationBarVisible = useSettingsStore(
+    (state) => state.shouldKeepNavigationBarVisible,
+  );
+  const setShouldKeepNavigationBarVisible = useSettingsStore(
+    (state) => state.setShouldKeepNavigationBarVisible,
+  );
 
   React.useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
@@ -134,6 +140,19 @@ export const SettingsRootScreen: FC<
               testID="settings.vibration"
             />
           </SettingsUI.Section>
+          {Platform.OS === "android" && (
+            <SettingsUI.Section label="Navigation">
+              <SettingsUI.SwitchItem
+                label="Show navigation buttons"
+                secondaryLabel="Keep Android navigation buttons visible"
+                iconName="navigate"
+                iconBackgroundColor="#86efac"
+                value={shouldKeepNavigationBarVisible}
+                onValueChange={setShouldKeepNavigationBarVisible}
+                testID="settings.navigation-buttons"
+              />
+            </SettingsUI.Section>
+          )}
           <SettingsUI.Section label="Timer" hideBottomBorderWeb>
             <SettingsUI.StepperItem
               label="Exercise timer"

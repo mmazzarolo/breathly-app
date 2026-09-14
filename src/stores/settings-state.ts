@@ -15,6 +15,7 @@ export interface PersistedSettingsState {
   shouldFollowSystemDarkMode: boolean;
   theme: Theme;
   vibrationEnabled: boolean;
+  shouldKeepNavigationBarVisible: boolean;
 }
 
 // A tuple, not an array: `normalizePersistedSettingsState` maps over this to build the four
@@ -43,6 +44,7 @@ export const defaultSettingsState: PersistedSettingsState = {
   shouldFollowSystemDarkMode: true,
   theme: "light",
   vibrationEnabled: true,
+  shouldKeepNavigationBarVisible: false,
 };
 
 const guidedBreathingModes: GuidedBreathingMode[] = ["laura", "paul", "bell", "disabled"];
@@ -125,6 +127,10 @@ export const normalizePersistedSettingsState = (value: unknown): PersistedSettin
       typeof candidate.vibrationEnabled === "boolean"
         ? candidate.vibrationEnabled
         : defaultSettingsState.vibrationEnabled,
+    shouldKeepNavigationBarVisible:
+      typeof candidate.shouldKeepNavigationBarVisible === "boolean"
+        ? candidate.shouldKeepNavigationBarVisible
+        : defaultSettingsState.shouldKeepNavigationBarVisible,
   };
 };
 

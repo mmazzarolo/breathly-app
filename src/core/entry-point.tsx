@@ -36,8 +36,11 @@ const Main: FC = () => {
   const [areFontsLoaded, fontLoadError] = Font.useFonts(fontAssets);
   const theme = useSettingsStore((state) => state.theme);
   const shouldFollowSystemDarkMode = useSettingsStore((state) => state.shouldFollowSystemDarkMode);
+  const shouldKeepNavigationBarVisible = useSettingsStore(
+    (state) => state.shouldKeepNavigationBarVisible,
+  );
   const hydrated = useHydration();
-  useStickyImmersiveReset();
+  useStickyImmersiveReset(shouldKeepNavigationBarVisible);
   useThemedStatusBar();
 
   // Native views take their colours from the system appearance, not from the app's own
