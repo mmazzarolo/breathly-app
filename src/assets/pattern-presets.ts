@@ -9,10 +9,22 @@ import { PatternPreset } from "@breathly/types/pattern-preset";
 // assertion.
 export const patternPresets: [PatternPreset, ...PatternPreset[]] = [
   {
+    id: "ratio-1-4-2",
+    name: "1-4-2 Ratio",
+    steps: [ms("5s"), ms("20s"), ms("10s"), 0],
+    description: "An advanced breathing ratio with a long hold after the inhale.",
+  },
+  {
     id: "deep-calm",
     name: "4-7-8 Deep Calm",
     steps: [ms("4s"), ms("7s"), ms("8s"), 0],
     description: "A natural tranquilizer for the nervous system. Do it at least twice a day.",
+  },
+  {
+    id: "advanced-5-7-9",
+    name: "Advanced 5-7-9",
+    steps: [ms("5s"), ms("7s"), ms("9s"), 0],
+    description: "A longer cycle with a hold after the inhale and an extended exhale.",
   },
   {
     id: "awake",
@@ -42,6 +54,12 @@ export const patternPresets: [PatternPreset, ...PatternPreset[]] = [
     description: "A main component of yoga, an exercise for physical and mental wellness.",
   },
   {
+    id: "rectangular",
+    name: "Rectangular",
+    steps: [ms("5s"), ms("8s"), ms("5s"), ms("8s")],
+    description: "A slower box-breathing rhythm with longer holds between equal breaths.",
+  },
+  {
     id: "square",
     name: "Square",
     steps: [ms("4s"), ms("4s"), ms("4s"), ms("4s")],
@@ -54,5 +72,12 @@ export const patternPresets: [PatternPreset, ...PatternPreset[]] = [
     steps: [ms("7s"), 0, ms("7s"), 0],
     description:
       "Balance influence on the cardiorespiratory system, release feelings of irritation, and calm the mind and body.",
+  },
+  {
+    id: "wim-hof",
+    name: "Wim Hof Method",
+    steps: [ms("2s"), 0, ms("2s"), 0],
+    description:
+      "A steady rhythm for the active breathing phase. It does not include the method's retention phase.",
   },
 ];
