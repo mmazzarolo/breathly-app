@@ -11,6 +11,7 @@ export interface PersistedSettingsState {
   customPatternSteps: CustomPatternSteps;
   selectedPatternPresetId: string;
   guidedBreathingVoice: GuidedBreathingMode;
+  healthConnectEnabled: boolean;
   timeLimit: number;
   shouldFollowSystemDarkMode: boolean;
   theme: Theme;
@@ -39,6 +40,7 @@ export const defaultSettingsState: PersistedSettingsState = {
   customPatternSteps: [ms("4 sec"), ms("2 sec"), ms("4 sec"), ms("2 sec")],
   selectedPatternPresetId: "square",
   guidedBreathingVoice: "paul",
+  healthConnectEnabled: false,
   timeLimit: ms("2 min"),
   shouldFollowSystemDarkMode: true,
   theme: "light",
@@ -110,6 +112,10 @@ export const normalizePersistedSettingsState = (value: unknown): PersistedSettin
     customPatternSteps,
     selectedPatternPresetId,
     guidedBreathingVoice,
+    healthConnectEnabled:
+      typeof candidate.healthConnectEnabled === "boolean"
+        ? candidate.healthConnectEnabled
+        : defaultSettingsState.healthConnectEnabled,
     timeLimit: clampFiniteNumber(
       candidate.timeLimit,
       0,

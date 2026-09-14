@@ -18,6 +18,7 @@ import {
   type Theme,
 } from "@breathly/stores/settings-state";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
+import { useHealthConnectSetting } from "./use-health-connect-setting";
 
 export const SettingsRootScreen: FC<
   NativeStackScreenProps<SettingsStackParamList, "SettingsRoot">
@@ -38,6 +39,9 @@ export const SettingsRootScreen: FC<
   const setTheme = useSettingsStore((state) => state.setTheme);
   const vibrationEnabled = useSettingsStore((state) => state.vibrationEnabled);
   const setVibrationEnabled = useSettingsStore((state) => state.setVibrationEnabled);
+  const healthConnectEnabled = useSettingsStore((state) => state.healthConnectEnabled);
+  const setHealthConnectEnabled = useSettingsStore((state) => state.setHealthConnectEnabled);
+  const handleHealthConnectChange = useHealthConnectSetting(setHealthConnectEnabled);
 
   React.useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
@@ -134,6 +138,19 @@ export const SettingsRootScreen: FC<
               testID="settings.vibration"
             />
           </SettingsUI.Section>
+          {Platform.OS === "android" && (
+            <SettingsUI.Section label="Health Connect">
+              <SettingsUI.SwitchItem
+                label="Save breathing sessions"
+                secondaryLabel="Record completed exercises as mindfulness"
+                iconName="heart"
+                iconBackgroundColor="#f87171"
+                value={healthConnectEnabled}
+                onValueChange={(enabled) => void handleHealthConnectChange(enabled)}
+                testID="settings.health-connect"
+              />
+            </SettingsUI.Section>
+          )}
           <SettingsUI.Section label="Timer" hideBottomBorderWeb>
             <SettingsUI.StepperItem
               label="Exercise timer"

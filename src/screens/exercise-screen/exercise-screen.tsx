@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useKeepAwake } from "expo-keep-awake";
 import React, { FC, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { Animated, AppState, StyleSheet, Text, View } from "react-native";
+import { Alert, Animated, AppState, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Pressable } from "@breathly/common/pressable";
 import { RootStackParamList } from "@breathly/core/navigator";
@@ -23,11 +23,17 @@ import {
   getExerciseStepTransition,
   type ResumableExerciseStatus,
 } from "@breathly/screens/exercise-screen/exercise-session";
+import { appendCompletedHealthConnectSegment } from "@breathly/screens/exercise-screen/health-connect-session";
 import { StepDescription } from "@breathly/screens/exercise-screen/step-description";
 import { useExerciseAudio } from "@breathly/screens/exercise-screen/use-exercise-audio";
 import { useExerciseHaptics } from "@breathly/screens/exercise-screen/use-exercise-haptics";
 import { useExerciseLoop } from "@breathly/screens/exercise-screen/use-exercise-loop";
 import { StarsBackground } from "@breathly/screens/home-screen/stars-background";
+import {
+  saveCompletedBreathingSession,
+  type CompletedBreathingSession,
+  type HealthConnectWriteResult,
+} from "@breathly/services/health-connect";
 import { useSelectedPatternSteps, useSettingsStore } from "@breathly/stores/settings";
 import { GuidedBreathingMode } from "@breathly/types/guided-breathing-mode";
 import { StepMetadata } from "@breathly/types/step-metadata";
@@ -43,11 +49,29 @@ import { Timer } from "./timer";
 // The voice that the exercise uses for a user of a screen reader who disabled
 // it. It is the default voice of the app.
 const screenReaderFallbackVoice: GuidedBreathingMode = "paul";
+const healthConnectSaveErrorMessage = "Breathly could not save this exercise to Health Connect.";
+
+const healthConnectFailureMessages: Partial<Record<HealthConnectWriteResult, string>> = {
+  unavailable: "Health Connect is not available on this device.",
+  updateRequired: "Install or update Health Connect to save breathing sessions.",
+  unsupported: "This version of Health Connect cannot record mindfulness sessions.",
+  permissionRequired:
+    "Breathly could not save this exercise because Health Connect access was removed.",
+  error: healthConnectSaveErrorMessage,
+};
+
+const healthConnectPermanentFailures = new Set<HealthConnectWriteResult>([
+  "unavailable",
+  "updateRequired",
+  "unsupported",
+  "permissionRequired",
+]);
 
 export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exercise">> = ({
   navigation,
 }) => {
-  const { guidedBreathingVoice } = useSettingsStore();
+  const { guidedBreathingVoice, healthConnectEnabled } = useSettingsStore();
+  const setHealthConnectEnabled = useSettingsStore((state) => state.setHealthConnectEnabled);
   const screenReaderEnabled = useScreenReaderEnabled();
   // A user of a screen reader who disabled the voice has no channel that works
   // without sight, because the visuals carry the whole exercise. The voice
@@ -63,9 +87,16 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
     createExerciseSession,
   );
   const activeElapsedMs = useRef(0);
+  const activeHealthConnectSegmentStartedAtMs = useRef<number | undefined>(undefined);
+  const completedHealthConnectSegments = useRef<CompletedBreathingSession[]>([]);
+  const isMounted = useRef(true);
+  const sessionStatus = useRef(session.status);
+  const healthConnectSessionId = useRef(`breathly-${Date.now()}`).current;
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const theme = useThemeColors();
+
+  sessionStatus.current = session.status;
 
   const { playExerciseStepAudio, playExerciseCompletedAudio, stopExerciseAudio } = useExerciseAudio(
     effectiveGuidedBreathingVoice,
@@ -78,8 +109,21 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
       // the screen and the user comes back to a live session, thus only a real
       // background interrupts the exercise.
       if (nextAppState === "background") {
+        if (sessionStatus.current === "running") {
+          const startedAtMs = activeHealthConnectSegmentStartedAtMs.current;
+          completedHealthConnectSegments.current = appendCompletedHealthConnectSegment(
+            completedHealthConnectSegments.current,
+            startedAtMs,
+            Date.now(),
+            healthConnectSessionId,
+          );
+          activeHealthConnectSegmentStartedAtMs.current = undefined;
+        }
         stopExerciseAudio();
-        dispatchSession({ type: "pause", activeElapsedMs: activeElapsedMs.current });
+        dispatchSession({
+          type: "pause",
+          activeElapsedMs: activeElapsedMs.current,
+        });
         return;
       }
 
@@ -91,9 +135,18 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
     });
 
     return () => subscription.remove();
-  }, [stopExerciseAudio]);
+  }, [healthConnectSessionId, stopExerciseAudio]);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleInterludeComplete = useCallback(() => {
+    activeHealthConnectSegmentStartedAtMs.current = Date.now();
+    completedHealthConnectSegments.current = [];
     dispatchSession({ type: "start" });
   }, []);
 
@@ -104,10 +157,49 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
     [playExerciseStepAudio],
   );
 
-  const handleExerciseComplete = useCallback(() => {
-    playExerciseCompletedAudio();
-    dispatchSession({ type: "complete", activeElapsedMs: activeElapsedMs.current });
-  }, [playExerciseCompletedAudio]);
+  const handleExerciseComplete = useCallback(
+    (completedAtMs: number) => {
+      if (sessionStatus.current !== "running") return;
+
+      playExerciseCompletedAudio();
+      const completedActiveElapsedMs = activeElapsedMs.current;
+      dispatchSession({
+        type: "complete",
+        activeElapsedMs: completedActiveElapsedMs,
+      });
+      const startedAtMs = activeHealthConnectSegmentStartedAtMs.current;
+      const segments = appendCompletedHealthConnectSegment(
+        completedHealthConnectSegments.current,
+        startedAtMs,
+        completedAtMs,
+        healthConnectSessionId,
+      );
+      if (healthConnectEnabled && startedAtMs != null && completedAtMs <= startedAtMs) {
+        if (isMounted.current) {
+          Alert.alert("Health Connect", healthConnectSaveErrorMessage);
+        }
+      }
+      if (healthConnectEnabled && segments.length > 0) {
+        void Promise.all(segments.map(saveCompletedBreathingSession)).then((results) => {
+          const failure = results.find((result) => result !== "saved");
+          if (!failure) return;
+
+          if (healthConnectPermanentFailures.has(failure)) {
+            setHealthConnectEnabled(false);
+          }
+          const message = healthConnectFailureMessages[failure];
+          if (!message || !isMounted.current) return;
+          Alert.alert("Health Connect", message);
+        });
+      }
+    },
+    [
+      healthConnectEnabled,
+      healthConnectSessionId,
+      playExerciseCompletedAudio,
+      setHealthConnectEnabled,
+    ],
+  );
 
   const handleStepIndexChange = useCallback((stepIndex: number) => {
     dispatchSession({ type: "stepChanged", stepIndex });
@@ -118,8 +210,11 @@ export const ExerciseScreen: FC<NativeStackScreenProps<RootStackParamList, "Exer
   }, []);
 
   const handleResume = useCallback(() => {
+    if (session.resumeStatus === "running") {
+      activeHealthConnectSegmentStartedAtMs.current = Date.now();
+    }
     dispatchSession({ type: "resume" });
-  }, []);
+  }, [session.resumeStatus]);
 
   return (
     <View
@@ -182,7 +277,7 @@ const KeepDisplayAwake: FC = () => {
 };
 
 interface ExerciseRunningFragmentProps {
-  onComplete: () => unknown;
+  onComplete: (completedAtMs: number) => unknown;
   onStepChange: (stepMetadata: StepMetadata) => unknown;
   onStepIndexChange: (stepIndex: number) => void;
   initialActiveElapsedMs: number;
@@ -225,12 +320,13 @@ const ExerciseRunningFragment: FC<ExerciseRunningFragmentProps> = ({
   const startCompletion = () => {
     if (completionStartedRef.current) return;
     completionStartedRef.current = true;
+    const completedAtMs = Date.now();
     animate(unmountContentAnimVal, {
       toValue: 0,
       duration: unmountAnimDuration,
     }).start(({ finished }) => {
       if (finished) {
-        onComplete();
+        onComplete(completedAtMs);
       }
     });
   };

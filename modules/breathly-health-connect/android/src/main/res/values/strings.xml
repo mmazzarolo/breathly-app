@@ -1,0 +1,8 @@
+<resources>
+  <string name="health_connect_session_title">Breathing exercise</string>
+  <string name="health_connect_rationale_title">Breathly and Health Connect</string>
+  <string name="health_connect_rationale_message">When you enable Health Connect, Breathly writes the start time, end time, and breathing type of completed exercises. Breathly does not read health data. You can revoke access at any time in Health Connect.</string>
+  <string name="health_connect_privacy_policy_title">Privacy policy</string>
+  <string name="health_connect_privacy_policy">Breathly writes completed breathing-session times and the breathing activity type to Health Connect only when you enable this option. Breathly does not read Health Connect data and does not send this data to a Breathly server. Health Connect controls access to this data. You can revoke Breathly’s access or delete its records at any time in Health Connect.</string>
+  <string name="health_connect_rationale_close">Close</string>
+</resources>

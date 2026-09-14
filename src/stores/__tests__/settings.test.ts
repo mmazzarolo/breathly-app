@@ -62,14 +62,18 @@ describe("settings persistence", () => {
   });
 
   it("restores stored settings and keeps the store actions", async () => {
-    mockGetItem.mockResolvedValue(storedSettings({ theme: "dark", vibrationEnabled: false }));
+    mockGetItem.mockResolvedValue(
+      storedSettings({ theme: "dark", vibrationEnabled: false, healthConnectEnabled: true }),
+    );
 
     const useSettingsStore = await loadSettingsStore();
 
     expect(useSettingsStore.persist.hasHydrated()).toBe(true);
     expect(useSettingsStore.getState().theme).toBe("dark");
     expect(useSettingsStore.getState().vibrationEnabled).toBe(false);
+    expect(useSettingsStore.getState().healthConnectEnabled).toBe(true);
     expect(typeof useSettingsStore.getState().setTheme).toBe("function");
+    expect(typeof useSettingsStore.getState().setHealthConnectEnabled).toBe("function");
   });
 
   it("retries a read that failed before it falls back to the defaults", async () => {

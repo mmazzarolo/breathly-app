@@ -25,6 +25,7 @@ interface SettingsStore extends PersistedSettingsState {
   setCustomPatternStep: (stepIndex: number, stepValue: number) => unknown;
   setSelectedPatternPresetId: (patternPresetId: string) => unknown;
   setGuidedBreathingVoice: (guidedBreathingVoice: GuidedBreathingMode) => unknown;
+  setHealthConnectEnabled: (healthConnectEnabled: boolean) => unknown;
   increaseTimeLimit: () => unknown;
   decreaseTimeLimit: () => unknown;
   setShouldFollowSystemDarkMode: (shouldFollowSystemDarkMode: boolean) => unknown;
@@ -101,6 +102,7 @@ export const useSettingsStore = create<SettingsStore>()(
         },
         setSelectedPatternPresetId: (selectedPatternPresetId) => set({ selectedPatternPresetId }),
         setGuidedBreathingVoice: (guidedBreathingVoice) => set({ guidedBreathingVoice }),
+        setHealthConnectEnabled: (healthConnectEnabled) => set({ healthConnectEnabled }),
         increaseTimeLimit: () =>
           set({ timeLimit: adjustTimeLimit(get().timeLimit, timeLimitStepMs) }),
         decreaseTimeLimit: () =>

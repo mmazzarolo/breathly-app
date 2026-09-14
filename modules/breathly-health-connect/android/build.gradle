@@ -1,0 +1,19 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'com.mmazzarolo.breathly.healthconnect'
+version = '1.0.0'
+
+android {
+  namespace 'com.mmazzarolo.breathly.healthconnect'
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
+
+dependencies {
+  implementation 'androidx.health.connect:connect-client:1.1.0'
+}

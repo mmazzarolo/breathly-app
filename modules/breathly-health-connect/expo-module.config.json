@@ -1,0 +1,6 @@
+{
+  "platforms": ["android"],
+  "android": {
+    "modules": ["com.mmazzarolo.breathly.healthconnect.BreathlyHealthConnectModule"]
+  }
+}

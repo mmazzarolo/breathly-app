@@ -27,6 +27,7 @@ credentials.json
 !.env.*.example
 
 # Build output
+modules/breathly-health-connect/android/build/
 *.ipa
 *.apk
 *.aab
