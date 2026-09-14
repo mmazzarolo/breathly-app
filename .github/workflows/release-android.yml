@@ -1,0 +1,83 @@
+name: Release Android APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-android-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment: release
+
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify trusted release source
+        run: |
+          test "$GITHUB_REF" = "refs/heads/master"
+          git fetch origin master --quiet
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/master
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+
+      - name: Set up Expo and EAS
+        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # v8.2.1
+        with:
+          eas-version: 21.4.0
+          token: ${{ secrets.EXPO_TOKEN }}
+          packager: bun
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build signed Android APK
+        id: build
+        run: |
+          eas build --platform android --profile preview --non-interactive --wait --json > eas-build.json
+          node scripts/create-android-release.mjs eas-build.json app.json >> "$GITHUB_OUTPUT"
+
+      - name: Download APK and checksum
+        id: artifact
+        env:
+          APK_URL: ${{ steps.build.outputs.apk_url }}
+        run: |
+          apk="Breathly.apk"
+          curl --fail --location --retry 3 --retry-all-errors "$APK_URL" --output "$apk"
+          sha256sum "$apk" > "${apk}.sha256"
+          echo "apk=$apk" >> "$GITHUB_OUTPUT"
+          echo "checksum=${apk}.sha256" >> "$GITHUB_OUTPUT"
+
+      - name: Create release tag
+        env:
+          RELEASE_TAG: ${{ steps.build.outputs.release_tag }}
+        run: |
+          git tag "$RELEASE_TAG" "$GITHUB_SHA"
+          git push origin "refs/tags/$RELEASE_TAG"
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        with:
+          tag_name: ${{ steps.build.outputs.release_tag }}
+          name: ${{ steps.build.outputs.release_name }}
+          generate_release_notes: true
+          files: |
+            ${{ steps.artifact.outputs.apk }}
+            ${{ steps.artifact.outputs.checksum }}

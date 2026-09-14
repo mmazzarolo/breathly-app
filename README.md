@@ -47,6 +47,19 @@ Breathly is a tiny React-Native app that I developed in my free time to refine m
 
 I hope the source code will be useful to someone.
 
+## Android APK releases
+
+Run the **Release Android APK** workflow from `master` to build and publish a signed Android APK and its
+SHA-256 checksum in GitHub Releases. The workflow creates the `android-<version>-(<versionCode>)` tag from
+the version code returned by EAS, so the tag always identifies the published APK.
+
+Before the first release, configure a protected GitHub Environment named `release`, add an `EXPO_TOKEN`
+environment secret that can access the configured EAS project, and require a reviewer for deployments.
+Run `eas build:version:set --platform android` to initialize EAS remote version management with a version
+code greater than every already distributed Breathly APK. Keep the EAS CLI version in `eas.json` and the
+workflow in sync when upgrading it. An APK signed with a different key cannot update an installed F-Droid
+version; uninstall that version before installing the GitHub APK.
+
 ## Resources and acknowledgements
 
 - I created the app icon using [SVGWave](https://svgwave.in/) and edited using [Affinity Photo](https://svgwave.in/).

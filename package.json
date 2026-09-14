@@ -14,6 +14,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "test": "jest --runInBand",
+    "test:release-android": "node --test scripts/create-android-release.test.mjs",
     "test:watch": "jest --watch",
     "e2e": "maestro test .maestro/flows",
     "e2e:android": "maestro --platform=android test .maestro/flows",
@@ -22,7 +23,7 @@
     "e2e:build:ios": "expo run:ios --configuration Release --no-bundler",
     "visual:capture": "bash scripts/visual-e2e/capture-installed.sh",
     "visual:compare": "node scripts/visual-e2e/compare.mjs",
-    "validate:static": "bun run typecheck && bun run lint && bun run format:check && bun run test",
+    "validate:static": "bun run typecheck && bun run lint && bun run format:check && bun run test && bun run test:release-android",
     "validate:expo": "expo install --check && expo-doctor",
     "validate:bundles": "expo export --platform all --output-dir dist/validate-export --clear",
     "validate": "bun run validate:static && bun run validate:expo"

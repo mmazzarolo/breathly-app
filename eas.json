@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 2.6.0",
+    "version": "21.4.0",
+    "appVersionSource": "remote",
     "promptToConfigurePushNotifications": false
   },
   "build": {
@@ -9,7 +10,8 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "autoIncrement": true
     },
     "production": {}
   },
