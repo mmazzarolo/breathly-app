@@ -370,6 +370,8 @@ const SwitchItem: FC<SwitchItemProps & GroupPositionProp> = ({
 const formatStepperValue = (value: number | string | undefined, fractionDigits: number) =>
   typeof value === "number" && fractionDigits > 0 ? value.toFixed(fractionDigits) : `${value}`;
 
+export const getStepperValueWidth = (fractionDigits: number) => (fractionDigits > 0 ? 44 : 48);
+
 const StepperItem: FC<StepperItemProps & GroupPositionProp> = ({
   label,
   secondaryLabel,
@@ -406,7 +408,7 @@ const StepperItem: FC<StepperItemProps & GroupPositionProp> = ({
           <Text
             style={{ textAlign: "center" }}
             modifiers={[
-              widthModifier(fractionDigits > 0 ? 44 : 32),
+              widthModifier(getStepperValueWidth(fractionDigits)),
               ...(testID ? [testTagModifier(`${testID}.value`)] : []),
             ]}
           >

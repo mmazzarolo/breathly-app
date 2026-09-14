@@ -1,0 +1,38 @@
+appId: com.mmazzarolo.breathly
+name: Show two-digit exercise time limit
+---
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home.screen"
+    timeout: 10000
+- tapOn:
+    id: "home.customize"
+- extendedWaitUntil:
+    visible:
+      id: "settings.screen"
+    timeout: 5000
+- scrollUntilVisible:
+    element:
+      id: "settings.timer.increase"
+    direction: DOWN
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- tapOn:
+    id: "settings.timer.increase"
+- assertVisible:
+    id: "settings.timer.value"
+    text: "10"
